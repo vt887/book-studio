@@ -28,7 +28,8 @@ source text.
 /apply-as-{role}    — generate role-specific artefacts
 ```
 
-Drop a PDF into the project root and run `/read-book` in Claude.
+Run `/read-book` in Claude and provide either a local file path (PDF/EPUB/TXT),
+pasted text, or a URL.
 
 ---
 
