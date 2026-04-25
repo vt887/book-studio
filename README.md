@@ -101,7 +101,7 @@ obsidian-export/{book_id}/
 | 4 | DevOps | `devops-spec` | Pipelines, deployment configs |
 | 5 | Security | `security-spec` | Threat models, checklists |
 | 6 | Data Engineer | `data-spec` | Schemas, migrations, pipelines |
-| 7 | Performance | `performance-spec` | Benchmarks, optimisation plans |
+| 7 | Performance | `performance-spec` | Benchmarks, optimization plans |
 | 8 | Observability | `observability-spec` | Dashboards, alert rules |
 | 9 | TechLead | `techlead-spec` | Review standards, onboarding docs |
 | 10 | Legacy | `legacy-spec` | Migration plans, compatibility code |
