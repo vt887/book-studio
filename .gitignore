@@ -1,0 +1,47 @@
+# Obsidian export
+obsidian-export/
+.pdf
+
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Logs
+*.log
+session-logs/
+
+# Secrets & credentials
+.env
+.env.*
+!.env.example
+secrets/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~

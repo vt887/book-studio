@@ -1,0 +1,640 @@
+{
+  "book_id": "object-oriented-thinking",
+  "title": "Object-Oriented Thinking",
+  "author": "Vaysfeld",
+  "generated_at": "2026-04-25T16:45:00Z",
+  "total_concepts": 38,
+  "role_summary": {
+    "developer": {
+      "count": 15,
+      "score": 0.94,
+      "quick_wins": ["class-definition", "encapsulation", "inheritance-basics", "naming-conventions", "single-responsibility"]
+    },
+    "architect": {
+      "count": 12,
+      "score": 0.88,
+      "quick_wins": ["composition-over-inheritance", "abstraction", "design-patterns"]
+    },
+    "techlead": {
+      "count": 11,
+      "score": 0.82,
+      "quick_wins": ["solid-principles", "code-review-standards", "design-patterns"]
+    },
+    "tester": {
+      "count": 8,
+      "score": 0.71,
+      "quick_wins": ["testable-design", "encapsulation"]
+    },
+    "devops": {
+      "count": 3,
+      "score": 0.45,
+      "quick_wins": []
+    },
+    "security": {
+      "count": 3,
+      "score": 0.48,
+      "quick_wins": []
+    },
+    "data": {
+      "count": 2,
+      "score": 0.42,
+      "quick_wins": []
+    },
+    "performance": {
+      "count": 2,
+      "score": 0.44,
+      "quick_wins": []
+    },
+    "observability": {
+      "count": 2,
+      "score": 0.40,
+      "quick_wins": []
+    },
+    "legacy": {
+      "count": 5,
+      "score": 0.61,
+      "quick_wins": []
+    },
+    "platform": {
+      "count": 2,
+      "score": 0.38,
+      "quick_wins": []
+    }
+  },
+  "concept_mappings": [
+    {
+      "concept_id": "class-definition",
+      "concept_name": "Class Definition",
+      "applicable_roles": ["developer", "architect", "techlead", "tester"],
+      "primary_role": "developer",
+      "justification": "Developer uses class definition to structure code and define the blueprint for objects. This is the foundational building block for writing OOP code.",
+      "application_ideas": [
+        "Використай Class Definition щоб розділити complex domain logic на cohesive, single-responsibility классів у credit card processing системі",
+        "Використай Class Definition щоб định ясні контракти через public/private members у REST API handler'і",
+        "Використай Class Definition щоб створити reusable component library для UI frameworku"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Basic programming concepts", "Understanding of procedural vs declarative thinking"]
+    },
+    {
+      "concept_id": "object-creation",
+      "concept_name": "Object Creation & Instantiation",
+      "applicable_roles": ["developer", "architect", "performance", "memory-management"],
+      "primary_role": "developer",
+      "justification": "Developer must understand how to create objects and manage their lifecycle. Critical for writing correct OOP code.",
+      "application_ideas": [
+        "Використай Object Creation щоб реалізувати Object Pool pattern для high-throughput message processing",
+        "Використай Object Creation щоб контролювати factory methods у dependency injection контексті",
+        "Використай Object Creation щоб оптимізувати heap allocation у game engine рендеринг loop"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Memory concepts"]
+    },
+    {
+      "concept_id": "inheritance",
+      "concept_name": "Inheritance",
+      "applicable_roles": ["developer", "architect", "techlead", "legacy"],
+      "primary_role": "developer",
+      "justification": "Developer uses inheritance to create class hierarchies and reuse code. Understanding inheritance is essential for OOP design.",
+      "application_ideas": [
+        "Використай Inheritance щоб моделювати Vehicle hierarchy (Car, Truck, Motorcycle) але потім перейти на composition для flexibility",
+        "Використай Inheritance щоб створити base exception classes для structured error handling у banking application",
+        "Використай Inheritance щоб розширити third-party library classes без модифікації їх коду"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Class Definition", "Understanding of is-a vs has-a relationships"]
+    },
+    {
+      "concept_id": "polymorphism",
+      "concept_name": "Polymorphism",
+      "applicable_roles": ["developer", "architect", "techlead"],
+      "primary_role": "developer",
+      "justification": "Developer uses polymorphism to write flexible, extensible code that can work with multiple object types through a common interface.",
+      "application_ideas": [
+        "Використай Polymorphism щоб створити payment processor plugin system (CreditCard, PayPal, Cryptocurrency handlers)",
+        "Використай Polymorphism щоб реалізувати strategy pattern для різних sorting algorithms",
+        "Використай Polymorphism щоб дозволити multiple shape types (Circle, Rectangle, Triangle) в graphics library"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Inheritance", "Interfaces"]
+    },
+    {
+      "concept_id": "encapsulation",
+      "concept_name": "Encapsulation",
+      "applicable_roles": ["developer", "architect", "techlead", "security", "tester"],
+      "primary_role": "developer",
+      "justification": "Developer uses encapsulation to hide internal implementation details and expose only necessary interfaces, ensuring correctness and maintainability.",
+      "application_ideas": [
+        "Використай Encapsulation щоб захистити AccountBalance поле в BankAccount класу від прямого modification",
+        "Використай Encapsulation щоб контролювати access до database connection pool через validation методи",
+        "Використай Encapsulation щоб забезпечити thread-safe access до shared state у concurrent system"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Access modifiers (public/private/protected)"]
+    },
+    {
+      "concept_id": "abstraction",
+      "concept_name": "Abstraction",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect uses abstraction to define system boundaries and hide complexity. Critical for designing maintainable systems.",
+      "application_ideas": [
+        "Використай Abstraction щоб определити IPaymentGateway interface для payment processing без exposing implementation details",
+        "Використай Abstraction щоб сховати database complexity за Repository pattern",
+        "Використай Abstraction щоб моделювати complex business rules через domain objects"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Class Definition", "Interfaces", "Design Patterns"]
+    },
+    {
+      "concept_id": "interface",
+      "concept_name": "Interface",
+      "applicable_roles": ["developer", "architect", "techlead"],
+      "primary_role": "developer",
+      "justification": "Developer uses interfaces to define contracts that classes must implement, enabling polymorphism and loose coupling.",
+      "application_ideas": [
+        "Використай Interface щоб определити IRepository для database abstraction у всьому приложенні",
+        "Використай Interface щоб створити plugin architecture через IPlugin контракт",
+        "Використай Interface щоб реалізувати dependency injection з контрольованою extensibility"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Polymorphism"]
+    },
+    {
+      "concept_id": "constructor",
+      "concept_name": "Constructor",
+      "applicable_roles": ["developer", "tester"],
+      "primary_role": "developer",
+      "justification": "Developer uses constructors to initialize object state correctly, ensuring objects start in a valid state.",
+      "application_ideas": [
+        "Використай Constructor щоб гарантувати LoanAccount завжди інціалізується з valid interest rate",
+        "Використай Constructor injection щоб передати dependencies та уникнути global state",
+        "Використай Constructor щоб валідувати вхідні параметри перед створенням object"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Object Creation"]
+    },
+    {
+      "concept_id": "composition-over-inheritance",
+      "concept_name": "Composition over Inheritance",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect uses composition to build flexible, maintainable systems by favoring has-a relationships over is-a hierarchies.",
+      "application_ideas": [
+        "Використай Composition щоб замінити Employee inheritance hierarchy на Role + Permissions composition",
+        "Використай Composition щоб побудувати CarBuilder з Engine, Transmission, Suspension components замість inheritance",
+        "Використай Composition щоб створити flexible notification system (EmailNotifier, SMSNotifier, SlackNotifier)"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Inheritance", "Design Patterns", "Refactoring skills"]
+    },
+    {
+      "concept_id": "solid-principles",
+      "concept_name": "SOLID Principles",
+      "applicable_roles": ["techlead", "architect", "developer"],
+      "primary_role": "techlead",
+      "justification": "TechLead uses SOLID principles to guide code review and team standards for maintainable, testable code.",
+      "application_ideas": [
+        "Використай SOLID щоб встановити code review checklist для Single Responsibility Principle validation",
+        "Використай SOLID щоб коментувати на PR що violates Open/Closed Principle с рекомендацією refactor",
+        "Використай SOLID щоб mentorувати junior developers на dependency inversion у ihre architectures"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["OOP Fundamentals", "Design Patterns", "Code Review experience"]
+    },
+    {
+      "concept_id": "design-patterns",
+      "concept_name": "Design Patterns",
+      "applicable_roles": ["architect", "techlead", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect uses design patterns to solve recurring architectural problems and communicate solutions across team.",
+      "application_ideas": [
+        "Використай Design Patterns щоб документувати Observer pattern для event-driven system",
+        "Використай Design Patterns щоб реалізувати Facade pattern для simplifying complex payment processing API",
+        "Використай Design Patterns щоб закомунікувати Adapter pattern для legacy system integration"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["OOP Fundamentals", "System Design", "Architecture experience"]
+    },
+    {
+      "concept_id": "single-responsibility",
+      "concept_name": "Single Responsibility Principle",
+      "applicable_roles": ["developer", "techlead", "architect"],
+      "primary_role": "developer",
+      "justification": "Developer applies SRP to keep classes focused on one reason to change, improving maintainability and testability.",
+      "application_ideas": [
+        "Використай SRP щоб розділити OrderService на OrderValidator, OrderProcessor, OrderPersister",
+        "Використай SRP щоб витягти logging logic з UserRepository в окремий LoggerService",
+        "Використай SRP щоб рефакторити God Object на focused, single-purpose классі"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Refactoring basics"]
+    },
+    {
+      "concept_id": "dependency-inversion",
+      "concept_name": "Dependency Inversion Principle",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect applies DIP to reduce coupling between high-level and low-level modules through abstractions.",
+      "application_ideas": [
+        "Використай DIP щоб inject ILogger interface замість concrete Logger class",
+        "Використай DIP щоб дозволити payment processor залежати від IPaymentGateway interface, не PayPal конкретно",
+        "Використай DIP щоб рефакторити database access через repository pattern"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Interfaces", "Design Patterns", "Constructor Injection"]
+    },
+    {
+      "concept_id": "method-overriding",
+      "concept_name": "Method Overriding",
+      "applicable_roles": ["developer", "tester"],
+      "primary_role": "developer",
+      "justification": "Developer uses method overriding to customize parent class behavior in child classes, enabling polymorphism.",
+      "application_ideas": [
+        "Використай Method Overriding щоб customize toString() для різних domain objects",
+        "Використай Method Overriding щоб реалізувати specific validation у subclass",
+        "Використай Method Overriding щоб override calculate() method для різних employee types (hourly vs salary)"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Inheritance", "Polymorphism"]
+    },
+    {
+      "concept_id": "access-modifiers",
+      "concept_name": "Access Modifiers (public/private/protected)",
+      "applicable_roles": ["developer", "techlead", "security"],
+      "primary_role": "developer",
+      "justification": "Developer uses access modifiers to control visibility and prevent unauthorized access to class members.",
+      "application_ideas": [
+        "Використай Access Modifiers щоб захистити CreditCard.PIN field приватним",
+        "Використай protected щоб дозволити subclass access до internal utilities",
+        "Використай public API щоб експортувати стабільні interfaces для library consumers"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition"]
+    },
+    {
+      "concept_id": "naming-conventions",
+      "concept_name": "Naming Conventions & Clarity",
+      "applicable_roles": ["developer", "techlead"],
+      "primary_role": "developer",
+      "justification": "Developer uses clear naming conventions to make code self-documenting and easier to understand.",
+      "application_ideas": [
+        "Використай Naming Conventions щоб назвати boolean methods isActive() замість active()",
+        "Використай Naming Conventions щоб встановити team standard для service naming (*Service, *Repository, *Handler)",
+        "Використай Naming Conventions щоб ясно назвати method parameters (paymentAmount замість amt)"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Basic code style awareness"]
+    },
+    {
+      "concept_id": "separation-of-concerns",
+      "concept_name": "Separation of Concerns",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect applies separation of concerns to structure system into distinct, independent modules handling specific responsibilities.",
+      "application_ideas": [
+        "Використай Separation of Concerns щоб розділити business logic, presentation, persistence layers",
+        "Використай Separation of Concerns щоб витягти authentication concerns із business logic",
+        "Використай Separation of Concerns щоб моделювати microservices архітектуру"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["System Design", "Architecture patterns"]
+    },
+    {
+      "concept_id": "testable-design",
+      "concept_name": "Testable Design",
+      "applicable_roles": ["tester", "developer", "techlead"],
+      "primary_role": "tester",
+      "justification": "Tester designs test strategies based on OOP principles that enable unit testing, mocking, and isolation.",
+      "application_ideas": [
+        "Використай Testable Design щоб inject mock IPaymentGateway у unit tests замість реального API call",
+        "Використай Testable Design щоб розділити class на testable components через dependency injection",
+        "Використай Testable Design щоб писати parametrized tests для різних implementations"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Unit Testing basics", "Mocking frameworks", "Interfaces"]
+    },
+    {
+      "concept_id": "code-review-standards",
+      "concept_name": "Code Review Standards & Practices",
+      "applicable_roles": ["techlead", "developer", "architect"],
+      "primary_role": "techlead",
+      "justification": "TechLead establishes code review standards to enforce OOP principles and maintain code quality across team.",
+      "application_ideas": [
+        "Використай Code Review щоб перевіряти SRP violations у pull requests",
+        "Використай Code Review щоб вимагати interface contracts замість concrete dependencies",
+        "Використай Code Review щоб ревіювати naming clarity та documentation"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["OOP experience", "Team leadership", "Code quality awareness"]
+    },
+    {
+      "concept_id": "refactoring",
+      "concept_name": "Refactoring for OOP",
+      "applicable_roles": ["developer", "techlead", "architect", "legacy"],
+      "primary_role": "developer",
+      "justification": "Developer refactors legacy code to apply OOP principles, improving maintainability and testability.",
+      "application_ideas": [
+        "Використай Refactoring щоб витягти God Object на focused классі via Extract Class",
+        "Використай Refactoring щоб замінити inheritance на composition для flexibility",
+        "Використай Refactoring щоб витягти constants на configuration objects"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["OOP Fundamentals", "Safe Refactoring techniques", "Version control"]
+    },
+    {
+      "concept_id": "state-management",
+      "concept_name": "State Management & Immutability",
+      "applicable_roles": ["developer", "architect", "performance"],
+      "primary_role": "developer",
+      "justification": "Developer manages object state carefully to ensure predictable behavior and thread safety.",
+      "application_ideas": [
+        "Використай State Management щоб контролювати BankAccount balance через validated setter",
+        "Використай Immutability щоб гарантувати thread-safe access до configuration objects",
+        "Використай State Management щоб реалізувати state machine pattern для Order lifecycle"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Encapsulation", "Threading concepts"]
+    },
+    {
+      "concept_id": "behavior-delegation",
+      "concept_name": "Behavior Delegation & Strategy Pattern",
+      "applicable_roles": ["architect", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect uses behavior delegation to decouple algorithms from objects that use them.",
+      "application_ideas": [
+        "Використай Behavior Delegation щоб реалізувати различные sorting strategies",
+        "Використај Behavior Delegation щоб дозволити runtime selection of payment processing algorithms",
+        "Використай Behavior Delegation щоб витягти discount calculation strategies"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Polymorphism", "Strategy Pattern"]
+    },
+    {
+      "concept_id": "hierarchy-design",
+      "concept_name": "Hierarchy Design Principles",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect designs shallow, meaningful class hierarchies that reflect domain relationships.",
+      "application_ideas": [
+        "Використай Hierarchy Design щоб моделювати Employee hierarchy (Manager, Developer, Designer)",
+        "Використай Hierarchy Design щоб рефакторити deep inheritance hierarchies через composition",
+        "Використай Hierarchy Design щоб документувати explicit hierarchy relationships в ADR"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Inheritance", "Architecture patterns"]
+    },
+    {
+      "concept_id": "error-handling",
+      "concept_name": "Exception Handling & Error Strategies",
+      "applicable_roles": ["developer", "architect", "security"],
+      "primary_role": "developer",
+      "justification": "Developer designs exception hierarchies and handles errors consistently across the application.",
+      "application_ideas": [
+        "Використай Exception Handling щоб створити custom exception hierarchy (BusinessException, ValidationException, PersistenceException)",
+        "Використай Exception Handling щоб логувати errors у centralized handler",
+        "Використай Exception Handling щоб гарантувати secure error messages без exposing internals"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Classes", "Exception basics"]
+    },
+    {
+      "concept_id": "association-types",
+      "concept_name": "Association Types (has-a, is-a relationships)",
+      "applicable_roles": ["architect", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect explicitly designs relationships between classes (aggregation, composition, dependency).",
+      "application_ideas": [
+        "Використай Association щоб моделювати Company has-many Employee relationships",
+        "Використай Composition щоб гарантувати Car owns Engine lifecycle",
+        "Використай Aggregation щоб дозволити Teacher can teach многих Students"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Class Definition", "Inheritance"]
+    },
+    {
+      "concept_id": "loose-coupling",
+      "concept_name": "Loose Coupling",
+      "applicable_roles": ["architect", "developer", "techlead"],
+      "primary_role": "architect",
+      "justification": "Architect designs systems with minimal dependencies between components for easier testing and maintenance.",
+      "application_ideas": [
+        "Використай Loose Coupling щоб replace concrete dependencies на interfaces",
+        "Використай Loose Coupling щоб реалізувати event-driven communication замість direct method calls",
+        "Використай Loose Coupling щоб дозволити plugin architecture без core modification"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Design Patterns", "Dependency Inversion"]
+    },
+    {
+      "concept_id": "high-cohesion",
+      "concept_name": "High Cohesion",
+      "applicable_roles": ["developer", "architect", "techlead"],
+      "primary_role": "developer",
+      "justification": "Developer keeps related functionality together in cohesive classes and modules.",
+      "application_ideas": [
+        "Використай High Cohesion щоб групувати related validation logic у Validator класі",
+        "Використай High Cohesion щоб витягти diffuse concerns із God Object",
+        "Використай High Cohesion щоб організувати package structure по domain concerns"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Single Responsibility"]
+    },
+    {
+      "concept_id": "polymorphic-collections",
+      "concept_name": "Polymorphic Collections",
+      "applicable_roles": ["developer", "architect"],
+      "primary_role": "developer",
+      "justification": "Developer uses polymorphic collections to work with multiple object types uniformly.",
+      "application_ideas": [
+        "Використай Polymorphic Collections щоб iterate over List<Shape> та call draw() на кожний",
+        "Використай Polymorphic Collections щоб обробити List<PaymentHandler> generically",
+        "Використай Polymorphic Collections щоб реалізувати visitor pattern"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Polymorphism", "Collections framework"]
+    },
+    {
+      "concept_id": "lifecycle-management",
+      "concept_name": "Object Lifecycle Management",
+      "applicable_roles": ["developer", "architect", "performance"],
+      "primary_role": "developer",
+      "justification": "Developer manages object creation, initialization, usage, and destruction for correctness and resource efficiency.",
+      "application_ideas": [
+        "Використай Lifecycle Management щоб реалізувати dispose pattern для resource cleanup",
+        "Використай Lifecycle Management щоб управляти database connection lifecycle",
+        "Використай Lifecycle Management щоб контролювати object pooling у high-throughput systems"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Object Creation", "Resource management"]
+    },
+    {
+      "concept_id": "extensibility",
+      "concept_name": "Extensibility & Plugin Architecture",
+      "applicable_roles": ["architect", "developer", "platform"],
+      "primary_role": "architect",
+      "justification": "Architect designs systems that can be extended with new functionality without modifying core code.",
+      "application_ideas": [
+        "Використай Extensibility щоб створити plugin system через IPlugin interface",
+        "Використай Extensibility щоб дозволити third-party developers extend framework",
+        "Використай Extensibility щоб реалізувати provider pattern для database engines"
+      ],
+      "complexity": "complex",
+      "prerequisites": ["Polymorphism", "Design Patterns", "Architecture skills"]
+    },
+    {
+      "concept_id": "type-safety",
+      "concept_name": "Type Safety",
+      "applicable_roles": ["developer", "techlead"],
+      "primary_role": "developer",
+      "justification": "Developer uses static typing to catch errors at compile time and improve code clarity.",
+      "application_ideas": [
+        "Використай Type Safety щоб використовувати strong-typed DTOs замість weak maps",
+        "Використай Type Safety щоб реалізувати generics для Collections<T>",
+        "Використай Type Safety щоб вимагати compilation failures замість runtime errors"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Class Definition", "Language type system"]
+    },
+    {
+      "concept_id": "polymorphic-behavior",
+      "concept_name": "Polymorphic Behavior & Dynamic Dispatch",
+      "applicable_roles": ["developer", "architect"],
+      "primary_role": "developer",
+      "justification": "Developer leverages dynamic dispatch to call appropriate method based on runtime type.",
+      "application_ideas": [
+        "Використај Polymorphic Behavior щоб call render() на різних Shape типів",
+        "Використай Polymorphic Behavior щоб обробити notifications polymorphically",
+        "Використай Polymorphic Behavior щоб реалізувати double dispatch pattern"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Inheritance", "Polymorphism"]
+    },
+    {
+      "concept_id": "object-identity",
+      "concept_name": "Object Identity vs Equality",
+      "applicable_roles": ["developer", "tester"],
+      "primary_role": "developer",
+      "justification": "Developer distinguishes between object identity and equality for correct comparisons and collections.",
+      "application_ideas": [
+        "Використај Object Identity щоб визнати коли два references вказують на same object",
+        "Використай Equality щоб порівняти BankAccount за balance value, не за identity",
+        "Використай Identity щоб реалізувати Set collections без duplicates"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Object Creation", "Collections"]
+    },
+    {
+      "concept_id": "delegation",
+      "concept_name": "Delegation Pattern",
+      "applicable_roles": ["architect", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect uses delegation to forward requests to helper objects, avoiding deep hierarchies.",
+      "application_ideas": [
+        "Використај Delegation щоб forward logging calls до Logger object",
+        "Використай Delegation щоб реалізувати Decorator pattern",
+        "Використај Delegation щоб витягти cross-cutting concerns"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Composition", "Design Patterns"]
+    },
+    {
+      "concept_id": "domain-modeling",
+      "concept_name": "Domain Modeling with Objects",
+      "applicable_roles": ["architect", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect models business domain using objects that reflect real-world entities and their relationships.",
+      "application_ideas": [
+        "Використај Domain Modeling щоб моделювати banking domain (Account, Transaction, Customer)",
+        "Використай Domain Modeling щоб витягти ubiquitous language у bounded context",
+        "Використај Domain Modeling щоб реалізувати value objects для Money, Date"
+      ],
+      "complexity": "complex",
+      "prerequisites": ["OOP Fundamentals", "Business domain knowledge"]
+    },
+    {
+      "concept_id": "immutable-objects",
+      "concept_name": "Immutable Objects",
+      "applicable_roles": ["developer", "architect", "performance"],
+      "primary_role": "developer",
+      "justification": "Developer creates immutable objects to ensure thread-safety and predictable behavior.",
+      "application_ideas": [
+        "Використај Immutable Objects щоб створити Money value object без setters",
+        "Використай Immutable Objects щоб гарантувати configuration objects не можуть бути modified",
+        "Використај Immutable Objects щоб реалізувати thread-safe caches"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Encapsulation", "State Management"]
+    },
+    {
+      "concept_id": "method-hiding",
+      "concept_name": "Method Hiding vs Overriding",
+      "applicable_roles": ["developer"],
+      "primary_role": "developer",
+      "justification": "Developer understands the distinction between static method hiding and instance method overriding.",
+      "application_ideas": [
+        "Використај Method Hiding щоб розуміти static method inheritance behavior",
+        "Використай Method Hiding щоб видіти compilation warnings про shadowing",
+        "Використај Method Hiding щоб документувати expected vs actual behavior"
+      ],
+      "complexity": "simple",
+      "prerequisites": ["Inheritance", "Static methods"]
+    },
+    {
+      "concept_id": "forward-references",
+      "concept_name": "Forward References & Cyclic Dependencies",
+      "applicable_roles": ["architect", "developer"],
+      "primary_role": "architect",
+      "justification": "Architect avoids cyclic dependencies between classes by designing proper dependency flow.",
+      "application_ideas": [
+        "Використај Forward References щоб identify циклічні dependencies у architecture",
+        "Використай Forward References щоб рефакторити двосторонні associations на однонаправлені",
+        "Використай Forward References щоб реалізувати dependency injection для breaking cycles"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Architecture", "Design Patterns"]
+    },
+    {
+      "concept_id": "object-serialization",
+      "concept_name": "Object Serialization",
+      "applicable_roles": ["developer", "data"],
+      "primary_role": "developer",
+      "justification": "Developer serializes objects for persistence and network transmission.",
+      "application_ideas": [
+        "Використај Object Serialization щоб зберегти object graph у database",
+        "Використай Object Serialization щоб трансмітувати objects через REST API як JSON",
+        "Використай Object Serialization щоб реалізувати distributed caching"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Class Definition", "Serialization frameworks"]
+    },
+    {
+      "concept_id": "reflection-introspection",
+      "concept_name": "Reflection & Introspection",
+      "applicable_roles": ["architect", "developer", "platform"],
+      "primary_role": "architect",
+      "justification": "Architect uses reflection to build flexible frameworks that discover object properties at runtime.",
+      "application_ideas": [
+        "Використай Reflection щоб реалізувати generic ORM mapping",
+        "Використай Reflection щобビルд dependency injection container",
+        "Використај Reflection щоб реалізувати serialization/deserialization framework"
+      ],
+      "complexity": "complex",
+      "prerequisites": ["Object model", "Metaprogramming concepts"]
+    },
+    {
+      "concept_id": "invariant-checking",
+      "concept_name": "Class Invariants & Contracts",
+      "applicable_roles": ["developer", "tester", "architect"],
+      "primary_role": "developer",
+      "justification": "Developer enforces class invariants to maintain object correctness and consistency.",
+      "application_ideas": [
+        "Використај Invariant Checking щоб гарантувати BankAccount.balance >= 0 завжди",
+        "Використай Invariant Checking щоб валідувати pre/post conditions у critical methods",
+        "Використай Invariant Checking щоб документувати expected state transitions"
+      ],
+      "complexity": "medium",
+      "prerequisites": ["Encapsulation", "Design by Contract"]
+    }
+  ]
+}

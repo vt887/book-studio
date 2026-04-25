@@ -1,0 +1,177 @@
+{
+  "book_id": "design-patterns-test",
+  "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+  "suggested_roles": [
+    {
+      "role": "developer",
+      "relevance_score": 0.98,
+      "mapping_count": 18,
+      "matched_concepts": [
+        "Factory Pattern",
+        "Singleton Pattern",
+        "Builder Pattern",
+        "Adapter Pattern",
+        "Decorator Pattern",
+        "Strategy Pattern",
+        "Observer Pattern",
+        "Command Pattern",
+        "Single Responsibility Principle",
+        "Open/Closed Principle",
+        "Interface Segregation Principle",
+        "Dependency Inversion Principle"
+      ],
+      "justification": "Design patterns are fundamental to daily development work. Developers need to understand pattern structure, implementation details, code examples, and trade-offs. This book directly teaches how to write better code.",
+      "key_applications": [
+        "Implementing patterns in production code",
+        "Recognizing when to apply patterns",
+        "Understanding pattern mechanics and trade-offs",
+        "Code review standards based on patterns",
+        "Refactoring toward patterns when appropriate"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "role": "architect",
+      "relevance_score": 0.96,
+      "mapping_count": 16,
+      "matched_concepts": [
+        "Pattern Categories Framework",
+        "SOLID Principles",
+        "Dependency Inversion Principle",
+        "Open/Closed Principle",
+        "Liskov Substitution Principle",
+        "Trade-offs Analysis",
+        "Structural Patterns Group",
+        "System Design Trade-offs"
+      ],
+      "justification": "Architects use design patterns to make high-level decisions about system structure, component relationships, and extensibility. SOLID principles are the foundation for architectural decisions.",
+      "key_applications": [
+        "Architectural Decision Records (ADRs) using patterns",
+        "System design trade-off analysis",
+        "Component interface design",
+        "Extensibility and maintainability planning",
+        "Setting team coding standards"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "role": "tester",
+      "relevance_score": 0.85,
+      "mapping_count": 11,
+      "matched_concepts": [
+        "Dependency Inversion Principle",
+        "Interface Segregation Principle",
+        "Strategy Pattern",
+        "Adapter Pattern",
+        "Command Pattern",
+        "Single Responsibility Principle",
+        "Observer Pattern"
+      ],
+      "justification": "Well-designed patterns (especially those following SOLID) make code more testable. Testers need to understand patterns to design better test cases and mock strategies.",
+      "key_applications": [
+        "Test case design based on pattern structure",
+        "Mock and stub strategy selection",
+        "Edge case identification through pattern analysis",
+        "Dependency injection testing",
+        "Test coverage planning"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "role": "techlead",
+      "relevance_score": 0.92,
+      "mapping_count": 14,
+      "matched_concepts": [
+        "SOLID Principles",
+        "Pattern Trade-offs",
+        "Pattern as Terminology",
+        "When NOT to Use Patterns",
+        "Code Review Standards",
+        "Team Communication"
+      ],
+      "justification": "Tech leads use design patterns to establish team standards, communicate architecture, review code, and make trade-off decisions. Patterns provide vocabulary for team alignment.",
+      "key_applications": [
+        "Code review standards and guidelines",
+        "Architecture documentation",
+        "Team onboarding and knowledge transfer",
+        "Technical decision making",
+        "Mentoring team members on design"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "role": "devops",
+      "relevance_score": 0.65,
+      "mapping_count": 6,
+      "matched_concepts": [
+        "Facade Pattern",
+        "Adapter Pattern",
+        "Observer Pattern",
+        "Single Responsibility Principle",
+        "Dependency Inversion Principle"
+      ],
+      "justification": "DevOps engineers benefit from understanding patterns at deployment level: facades for service abstraction, observers for monitoring/alerting, and design principles for infrastructure code.",
+      "key_applications": [
+        "Infrastructure abstraction patterns",
+        "Deployment pipeline design",
+        "Monitoring and alerting architecture",
+        "Configuration management",
+        "Service mesh patterns"
+      ],
+      "priority": "MEDIUM"
+    },
+    {
+      "role": "security",
+      "relevance_score": 0.72,
+      "mapping_count": 8,
+      "matched_concepts": [
+        "Adapter Pattern",
+        "Facade Pattern",
+        "Single Responsibility Principle",
+        "Interface Segregation Principle",
+        "Dependency Inversion Principle",
+        "Command Pattern"
+      ],
+      "justification": "Security engineers use patterns for secure API design, access control abstractions, and designing systems that are easier to audit. SOLID principles support security-focused code review.",
+      "key_applications": [
+        "Secure interface design",
+        "Access control abstractions",
+        "Audit trail implementation (Command pattern)",
+        "Security review standards",
+        "Secure system architecture"
+      ],
+      "priority": "MEDIUM"
+    },
+    {
+      "role": "legacy",
+      "relevance_score": 0.88,
+      "mapping_count": 12,
+      "matched_concepts": [
+        "Adapter Pattern",
+        "Facade Pattern",
+        "Decorator Pattern",
+        "Strategy Pattern",
+        "Over-Engineering Anti-Pattern",
+        "Refactoring Strategy"
+      ],
+      "justification": "Legacy system maintainers use adapter, facade, and decorator patterns to integrate new code with old systems. Patterns guide incremental refactoring.",
+      "key_applications": [
+        "Legacy system integration",
+        "Incremental refactoring strategy",
+        "Gradual modernization",
+        "Interface bridging between old and new code",
+        "Behavior preservation during refactoring"
+      ],
+      "priority": "HIGH"
+    }
+  ],
+  "role_recommendations": {
+    "recommended_count": 7,
+    "critical_roles": ["developer", "architect", "techlead"],
+    "high_priority_roles": ["tester", "legacy"],
+    "medium_priority_roles": ["devops", "security"],
+    "optional_roles": []
+  },
+  "quality_score": 0.91,
+  "generated_at": "2026-04-25T00:00:00Z"
+}

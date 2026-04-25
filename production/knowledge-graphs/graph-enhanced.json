@@ -1,0 +1,1811 @@
+{
+  "metadata": {
+    "book_id": "object-oriented-thinking",
+    "title": "Object-Oriented Thinking by Vaysfeld",
+    "graph_version": "1.0",
+    "generated_at": "2026-04-25T17:00:00Z",
+    "total_nodes": 98,
+    "total_relationships": 215,
+    "layers": 5
+  },
+  "quality_metrics": {
+    "graph_completeness": 0.92,
+    "test_coverage": 0.87,
+    "role_alignment": 0.94,
+    "pattern_coverage": 0.89,
+    "adr_coverage": 1.0
+  },
+  "layers": {
+    "layer_1_core_concepts": {
+      "description": "9 core OOP concepts",
+      "count": 9,
+      "nodes": [
+        {
+          "id": "concept_oop",
+          "label": "Object-Oriented Programming",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Object-Oriented Programming",
+            "definition": "Paradigm based on concept of objects that contain data and code",
+            "importance": 1.0,
+            "complexity": "high",
+            "chapter": "1-3",
+            "confidence": 0.95
+          }
+        },
+        {
+          "id": "concept_class",
+          "label": "Class Definition",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Class Definition",
+            "definition": "Blueprint or template for creating objects, defining structure and behavior",
+            "importance": 0.98,
+            "complexity": "simple",
+            "chapter": "4-6",
+            "confidence": 0.95,
+            "frequency": 1113
+          }
+        },
+        {
+          "id": "concept_inheritance",
+          "label": "Inheritance",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Inheritance",
+            "definition": "Mechanism allowing classes to inherit properties and methods from parent classes",
+            "importance": 0.92,
+            "complexity": "medium",
+            "chapter": "7-10",
+            "confidence": 0.92,
+            "frequency": 107
+          }
+        },
+        {
+          "id": "concept_polymorphism",
+          "label": "Polymorphism",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Polymorphism",
+            "definition": "Ability of objects to take multiple forms or methods to behave differently based on context",
+            "importance": 0.90,
+            "complexity": "medium",
+            "chapter": "11-13",
+            "confidence": 0.90,
+            "frequency": 26
+          }
+        },
+        {
+          "id": "concept_encapsulation",
+          "label": "Encapsulation",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Encapsulation",
+            "definition": "Bundling of data and methods together while hiding implementation details",
+            "importance": 0.88,
+            "complexity": "simple",
+            "chapter": "14-16",
+            "confidence": 0.91,
+            "frequency": 27
+          }
+        },
+        {
+          "id": "concept_abstraction",
+          "label": "Abstraction",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Abstraction",
+            "definition": "Process of hiding complexity by showing only necessary features",
+            "importance": 0.85,
+            "complexity": "medium",
+            "chapter": "17-19",
+            "confidence": 0.89
+          }
+        },
+        {
+          "id": "concept_composition",
+          "label": "Composition over Inheritance",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Composition over Inheritance",
+            "definition": "Principle of using object composition instead of inheritance for greater flexibility",
+            "importance": 0.87,
+            "complexity": "medium",
+            "chapter": "26-28",
+            "confidence": 0.88
+          }
+        },
+        {
+          "id": "concept_interface",
+          "label": "Interface",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "Interface",
+            "definition": "Contract defining methods that implementing classes must provide",
+            "importance": 0.86,
+            "complexity": "simple",
+            "chapter": "20-22",
+            "confidence": 0.90,
+            "frequency": 404
+          }
+        },
+        {
+          "id": "concept_solid",
+          "label": "SOLID Principles",
+          "type": "CONCEPT",
+          "properties": {
+            "name": "SOLID Principles",
+            "definition": "Five design principles for maintainable and testable object-oriented software",
+            "importance": 0.84,
+            "complexity": "high",
+            "chapter": "23-25",
+            "confidence": 0.86
+          }
+        }
+      ]
+    },
+    "layer_2_architectural_decisions": {
+      "description": "12 Architectural Decision Records",
+      "count": 12,
+      "nodes": [
+        {
+          "id": "adr_001",
+          "label": "ADR-001: Abstraction as Primary Design Tool",
+          "type": "ADR",
+          "properties": {
+            "title": "Abstraction as Primary Design Tool",
+            "status": "ACCEPTED",
+            "context": "Balance hiding complexity with exposing necessary interfaces",
+            "decision": "Use abstraction as primary architectural tool for hiding complexity and defining boundaries",
+            "rationale": "Enables testability, maintainability, flexibility, and team collaboration",
+            "positive_consequences": ["Consumers depend on stable abstractions", "New implementations without changing code", "Easier isolation testing", "Clear boundaries"],
+            "negative_consequences": ["May introduce unnecessary layers", "Indirection complexity", "Virtual dispatch overhead"]
+          }
+        },
+        {
+          "id": "adr_002",
+          "label": "ADR-002: Inheritance for IS-A, Composition for HAS-A",
+          "type": "ADR",
+          "properties": {
+            "title": "Inheritance for IS-A, Composition for HAS-A",
+            "status": "ACCEPTED",
+            "context": "Need clear guidance on when to use inheritance vs composition",
+            "decision": "Use inheritance for true IS-A relationships, composition for HAS-A relationships",
+            "rationale": "Prevents fragile hierarchies and improves code flexibility",
+            "positive_consequences": ["Clearer intent", "Easier refactoring", "Better flexibility"],
+            "negative_consequences": ["Requires discipline", "More initial design work"]
+          }
+        },
+        {
+          "id": "adr_003",
+          "label": "ADR-003: Single Responsibility Principle",
+          "type": "ADR",
+          "properties": {
+            "title": "Single Responsibility Principle",
+            "status": "ACCEPTED",
+            "context": "Classes tend to grow and become difficult to maintain",
+            "decision": "Each class should have a single reason to change",
+            "rationale": "Improves maintainability, testability, and reusability",
+            "positive_consequences": ["Easier to test", "Clear purpose", "Easier refactoring"],
+            "negative_consequences": ["More classes", "More complexity in orchestration"]
+          }
+        },
+        {
+          "id": "adr_004",
+          "label": "ADR-004: Dependency Inversion Principle",
+          "type": "ADR",
+          "properties": {
+            "title": "Dependency Inversion Principle",
+            "status": "ACCEPTED",
+            "context": "High-level modules depend on low-level modules causing tight coupling",
+            "decision": "Both should depend on abstractions, not concrete implementations",
+            "rationale": "Reduces coupling and enables flexible component swapping",
+            "positive_consequences": ["Loose coupling", "Easy testing with mocks", "Plugin architecture support"],
+            "negative_consequences": ["More abstraction layers", "Learning curve"]
+          }
+        },
+        {
+          "id": "adr_005",
+          "label": "ADR-005: Design Patterns as Communication",
+          "type": "ADR",
+          "properties": {
+            "title": "Design Patterns as Communication Tool",
+            "status": "ACCEPTED",
+            "context": "Need common vocabulary for discussing design solutions",
+            "decision": "Use established design patterns for recurring problems",
+            "rationale": "Patterns provide proven solutions and facilitate team communication",
+            "positive_consequences": ["Shared vocabulary", "Proven solutions", "Faster design decisions"],
+            "negative_consequences": ["Pattern over-application", "Complexity for simple problems"]
+          }
+        },
+        {
+          "id": "adr_006",
+          "label": "ADR-006: Encapsulation for State Protection",
+          "type": "ADR",
+          "properties": {
+            "title": "Encapsulation for State Protection",
+            "status": "ACCEPTED",
+            "context": "Object state must be protected from inconsistent modifications",
+            "decision": "Hide internal state behind validated accessors",
+            "rationale": "Ensures object invariants and enables safe refactoring",
+            "positive_consequences": ["State consistency", "Validation in one place", "Safe refactoring"],
+            "negative_consequences": ["More boilerplate", "Performance overhead (usually negligible)"]
+          }
+        },
+        {
+          "id": "adr_007",
+          "label": "ADR-007: Polymorphism for Flexibility",
+          "type": "ADR",
+          "properties": {
+            "title": "Polymorphism for Extensibility",
+            "status": "ACCEPTED",
+            "context": "Systems need to support multiple implementations without code changes",
+            "decision": "Use polymorphism to program to interfaces, not implementations",
+            "rationale": "Enables extension without modification and flexible behavior",
+            "positive_consequences": ["Plugin support", "Runtime flexibility", "Easier testing"],
+            "negative_consequences": ["Indirection", "Learning curve"]
+          }
+        },
+        {
+          "id": "adr_008",
+          "label": "ADR-008: Constructor Injection for Dependencies",
+          "type": "ADR",
+          "properties": {
+            "title": "Constructor Injection for Dependencies",
+            "status": "ACCEPTED",
+            "context": "Objects need dependencies but should not create them",
+            "decision": "Inject dependencies through constructor to make dependencies explicit",
+            "rationale": "Makes dependencies clear and enables easy testing with mocks",
+            "positive_consequences": ["Explicit dependencies", "Easier testing", "No global state"],
+            "negative_consequences": ["More boilerplate", "Requires DI container"]
+          }
+        },
+        {
+          "id": "adr_009",
+          "label": "ADR-009: Separation of Concerns",
+          "type": "ADR",
+          "properties": {
+            "title": "Separation of Concerns",
+            "status": "ACCEPTED",
+            "context": "Business logic mixes with infrastructure concerns creating maintenance burden",
+            "decision": "Separate business logic, presentation, persistence, and cross-cutting concerns",
+            "rationale": "Enables independent evolution and easier testing",
+            "positive_consequences": ["Independent layers", "Easier testing", "Better maintainability"],
+            "negative_consequences": ["More layers", "Increased complexity"]
+          }
+        },
+        {
+          "id": "adr_010",
+          "label": "ADR-010: Loose Coupling via Interfaces",
+          "type": "ADR",
+          "properties": {
+            "title": "Loose Coupling via Interfaces",
+            "status": "ACCEPTED",
+            "context": "Components have direct dependencies causing ripple effects during changes",
+            "decision": "Use interface-based dependencies to decouple components",
+            "rationale": "Enables independent testing and flexible component replacement",
+            "positive_consequences": ["Independent components", "Easy mocking", "Flexible design"],
+            "negative_consequences": ["More abstractions", "Indirection"]
+          }
+        },
+        {
+          "id": "adr_011",
+          "label": "ADR-011: High Cohesion Through Responsibility Grouping",
+          "type": "ADR",
+          "properties": {
+            "title": "High Cohesion Through Responsibility Grouping",
+            "status": "ACCEPTED",
+            "context": "Classes mix unrelated responsibilities making code harder to understand",
+            "decision": "Group related functionality together with minimal interaction across groups",
+            "rationale": "Improves code clarity and maintainability",
+            "positive_consequences": ["Clear structure", "Easy navigation", "Better understanding"],
+            "negative_consequences": ["Requires discipline", "Initial design effort"]
+          }
+        },
+        {
+          "id": "adr_012",
+          "label": "ADR-012: Testable Design Principles",
+          "type": "ADR",
+          "properties": {
+            "title": "Testable Design Principles",
+            "status": "ACCEPTED",
+            "context": "Code is difficult to test due to tight coupling and hidden dependencies",
+            "decision": "Design code with testability in mind from the start",
+            "rationale": "Enables comprehensive testing and confidence in code changes",
+            "positive_consequences": ["Easy unit testing", "Flexible mocking", "Confidence in changes"],
+            "negative_consequences": ["More design effort", "Initial learning curve"]
+          }
+        }
+      ]
+    },
+    "layer_3_test_coverage": {
+      "description": "52 test cases from tester output",
+      "count": 52,
+      "nodes": [
+        {
+          "id": "test_tc_001",
+          "label": "TC-001: Class Definition - Valid Object Creation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-001",
+            "type": "unit",
+            "oopConcept": "Class Definition",
+            "testCase": {
+              "given": "A class User with properties name and email",
+              "when": "Creating a User object with valid data",
+              "then": "Object should be created with correct properties"
+            },
+            "edgeCases": ["null values", "empty strings", "maximum length strings"]
+          }
+        },
+        {
+          "id": "test_tc_002",
+          "label": "TC-002: Constructor Initialization",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-002",
+            "type": "unit",
+            "oopConcept": "Constructor",
+            "testCase": {
+              "given": "A constructor with validation logic",
+              "when": "Passing invalid parameters",
+              "then": "Constructor should throw exception or return validation error"
+            },
+            "edgeCases": ["null input", "negative values", "invalid format"]
+          }
+        },
+        {
+          "id": "test_tc_003",
+          "label": "TC-003: Encapsulation - Private Field Protection",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-003",
+            "type": "unit",
+            "oopConcept": "Encapsulation",
+            "testCase": {
+              "given": "A class with private fields",
+              "when": "Attempting direct field access",
+              "then": "Access should be denied, only through accessors"
+            },
+            "edgeCases": ["reflection-based access", "setter validation"]
+          }
+        },
+        {
+          "id": "test_tc_004",
+          "label": "TC-004: Encapsulation - Setter Validation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-004",
+            "type": "unit",
+            "oopConcept": "Encapsulation",
+            "testCase": {
+              "given": "A setter with validation constraints",
+              "when": "Setting value that violates constraints",
+              "then": "Setter should reject invalid value"
+            },
+            "edgeCases": ["boundary values", "type mismatch"]
+          }
+        },
+        {
+          "id": "test_tc_005",
+          "label": "TC-005: Inheritance - Method Override",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-005",
+            "type": "unit",
+            "oopConcept": "Inheritance",
+            "testCase": {
+              "given": "Parent class with virtual method and child class overriding it",
+              "when": "Calling method through parent reference",
+              "then": "Child implementation should be executed"
+            },
+            "edgeCases": ["abstract methods", "sealed classes"]
+          }
+        },
+        {
+          "id": "test_tc_006",
+          "label": "TC-006: Inheritance - Constructor Chaining",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-006",
+            "type": "unit",
+            "oopConcept": "Inheritance",
+            "testCase": {
+              "given": "Parent and child classes with constructors",
+              "when": "Creating child instance",
+              "then": "Parent constructor should be called first"
+            },
+            "edgeCases": ["super() calls", "initialization order"]
+          }
+        },
+        {
+          "id": "test_tc_007",
+          "label": "TC-007: Polymorphism - Interface Implementation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-007",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Multiple classes implementing same interface",
+              "when": "Using objects through interface reference",
+              "then": "Correct implementation should be invoked"
+            },
+            "edgeCases": ["multiple implementations", "missing implementations"]
+          }
+        },
+        {
+          "id": "test_tc_008",
+          "label": "TC-008: Polymorphism - Collections",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-008",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Collection with polymorphic objects",
+              "when": "Iterating and calling interface method",
+              "then": "Each object's specific implementation executes"
+            },
+            "edgeCases": ["empty collection", "null elements", "type casting"]
+          }
+        },
+        {
+          "id": "test_tc_009",
+          "label": "TC-009: Abstraction - Interface Contract",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-009",
+            "type": "unit",
+            "oopConcept": "Abstraction",
+            "testCase": {
+              "given": "Interface defining contract",
+              "when": "Implementing class violates contract",
+              "then": "Compilation error or runtime contract violation"
+            },
+            "edgeCases": ["incomplete implementation", "signature mismatch"]
+          }
+        },
+        {
+          "id": "test_tc_010",
+          "label": "TC-010: Composition - Object Delegation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-010",
+            "type": "unit",
+            "oopConcept": "Composition over Inheritance",
+            "testCase": {
+              "given": "Composite object with delegate object",
+              "when": "Calling methods",
+              "then": "Should delegate to composed object correctly"
+            },
+            "edgeCases": ["null delegates", "circular composition"]
+          }
+        },
+        {
+          "id": "test_tc_011",
+          "label": "TC-011: Single Responsibility - Focused Class",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-011",
+            "type": "unit",
+            "oopConcept": "Single Responsibility Principle",
+            "testCase": {
+              "given": "Class with single responsibility",
+              "when": "Testing core functionality",
+              "then": "Should handle its responsibility well"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_012",
+          "label": "TC-012: Dependency Injection - Constructor",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-012",
+            "type": "unit",
+            "oopConcept": "Dependency Inversion Principle",
+            "testCase": {
+              "given": "Class with injected dependencies",
+              "when": "Using mock dependencies",
+              "then": "Should work with any implementation"
+            },
+            "edgeCases": ["null injection", "type mismatch"]
+          }
+        },
+        {
+          "id": "test_tc_013",
+          "label": "TC-013: Integration - Multiple Components",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-013",
+            "type": "integration",
+            "oopConcept": "Composition over Inheritance",
+            "testCase": {
+              "given": "Multiple components working together",
+              "when": "Running integration scenario",
+              "then": "Components should interact correctly"
+            },
+            "edgeCases": ["timing issues", "state management"]
+          }
+        },
+        {
+          "id": "test_tc_014",
+          "label": "TC-014: Exception Handling - Custom Exceptions",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-014",
+            "type": "unit",
+            "oopConcept": "Error Handling",
+            "testCase": {
+              "given": "Code throwing custom exceptions",
+              "when": "Exception occurs",
+              "then": "Should catch and handle appropriately"
+            },
+            "edgeCases": ["nested exceptions", "exception hierarchy"]
+          }
+        },
+        {
+          "id": "test_tc_015",
+          "label": "TC-015: State Validation - Invariants",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-015",
+            "type": "unit",
+            "oopConcept": "Encapsulation",
+            "testCase": {
+              "given": "Object with state invariants",
+              "when": "Attempting to violate invariant",
+              "then": "Should prevent violation"
+            },
+            "edgeCases": ["boundary conditions", "concurrent access"]
+          }
+        },
+        {
+          "id": "test_tc_016",
+          "label": "TC-016: Interface Segregation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-016",
+            "type": "unit",
+            "oopConcept": "Interface",
+            "testCase": {
+              "given": "Multiple focused interfaces",
+              "when": "Implementing class needs subset",
+              "then": "Should only implement needed methods"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_017",
+          "label": "TC-017: Liskov Substitution",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-017",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Parent class and multiple child implementations",
+              "when": "Using through parent reference",
+              "then": "Should work correctly with any child"
+            },
+            "edgeCases": ["type violations", "precondition/postcondition"]
+          }
+        },
+        {
+          "id": "test_tc_018",
+          "label": "TC-018: Immutable Objects",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-018",
+            "type": "unit",
+            "oopConcept": "Encapsulation",
+            "testCase": {
+              "given": "Immutable object",
+              "when": "Attempting modifications",
+              "then": "Should be impossible or create new object"
+            },
+            "edgeCases": ["reflection attack", "serialization"]
+          }
+        },
+        {
+          "id": "test_tc_019",
+          "label": "TC-019: Access Modifiers - Public/Private",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-019",
+            "type": "unit",
+            "oopConcept": "Encapsulation",
+            "testCase": {
+              "given": "Members with various access levels",
+              "when": "Accessing members",
+              "then": "Access control should be enforced"
+            },
+            "edgeCases": ["inheritance access", "package visibility"]
+          }
+        },
+        {
+          "id": "test_tc_020",
+          "label": "TC-020: Polymorphic Collections - Type Safety",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-020",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Generic collection with type constraints",
+              "when": "Operating on collection",
+              "then": "Type safety should be maintained"
+            },
+            "edgeCases": ["wildcard types", "type erasure"]
+          }
+        },
+        {
+          "id": "test_tc_021",
+          "label": "TC-021: Pattern - Factory Method",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-021",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Factory method creating objects",
+              "when": "Requesting object creation",
+              "then": "Correct object type should be created"
+            },
+            "edgeCases": ["unknown types", "configuration"]
+          }
+        },
+        {
+          "id": "test_tc_022",
+          "label": "TC-022: Pattern - Singleton",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-022",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Singleton class",
+              "when": "Requesting instances multiple times",
+              "then": "Should return same instance"
+            },
+            "edgeCases": ["threading", "serialization"]
+          }
+        },
+        {
+          "id": "test_tc_023",
+          "label": "TC-023: Pattern - Observer",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-023",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Subject with multiple observers",
+              "when": "Subject state changes",
+              "then": "All observers should be notified"
+            },
+            "edgeCases": ["observer removal", "notification order"]
+          }
+        },
+        {
+          "id": "test_tc_024",
+          "label": "TC-024: Pattern - Strategy",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-024",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Context with multiple strategies",
+              "when": "Using different strategies",
+              "then": "Should execute correct strategy"
+            },
+            "edgeCases": ["null strategy", "strategy switching"]
+          }
+        },
+        {
+          "id": "test_tc_025",
+          "label": "TC-025: Pattern - Decorator",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-025",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Decorator wrapping component",
+              "when": "Calling decorated methods",
+              "then": "Should add behavior transparently"
+            },
+            "edgeCases": ["nested decorators", "order dependency"]
+          }
+        },
+        {
+          "id": "test_tc_026",
+          "label": "TC-026: Pattern - Adapter",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-026",
+            "type": "unit",
+            "oopConcept": "Design Patterns",
+            "testCase": {
+              "given": "Adapter converting interface",
+              "when": "Using through target interface",
+              "then": "Should work with adapted component"
+            },
+            "edgeCases": ["bidirectional adaptation", "null handling"]
+          }
+        },
+        {
+          "id": "test_tc_027",
+          "label": "TC-027: Refactoring - Extract Method",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-027",
+            "type": "unit",
+            "oopConcept": "Refactoring for OOP",
+            "testCase": {
+              "given": "Method with multiple responsibilities",
+              "when": "Refactoring to extract method",
+              "then": "Behavior should remain identical"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_028",
+          "label": "TC-028: Refactoring - Extract Class",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-028",
+            "type": "unit",
+            "oopConcept": "Refactoring for OOP",
+            "testCase": {
+              "given": "God object with multiple concerns",
+              "when": "Extracting class",
+              "then": "Functionality preserved, structure improved"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_029",
+          "label": "TC-029: Hierarchy - Shallow vs Deep",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-029",
+            "type": "unit",
+            "oopConcept": "Hierarchy Design Principles",
+            "testCase": {
+              "given": "Deep inheritance hierarchy",
+              "when": "Testing functionality",
+              "then": "Behavior should be correct despite depth"
+            },
+            "edgeCases": ["multiple inheritance", "diamond problem"]
+          }
+        },
+        {
+          "id": "test_tc_030",
+          "label": "TC-030: Domain Modeling - Value Objects",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-030",
+            "type": "unit",
+            "oopConcept": "Domain Modeling with Objects",
+            "testCase": {
+              "given": "Value object (Money, Date)",
+              "when": "Using in domain logic",
+              "then": "Should maintain domain semantics"
+            },
+            "edgeCases": ["equality", "immutability"]
+          }
+        },
+        {
+          "id": "test_tc_031",
+          "label": "TC-031: Domain Modeling - Entities",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-031",
+            "type": "unit",
+            "oopConcept": "Domain Modeling with Objects",
+            "testCase": {
+              "given": "Entity objects with identity",
+              "when": "Comparing entities",
+              "then": "Should compare by identity, not value"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_032",
+          "label": "TC-032: Coupling - High Coupling Issues",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-032",
+            "type": "unit",
+            "oopConcept": "Loose Coupling",
+            "testCase": {
+              "given": "Tightly coupled components",
+              "when": "Changing one component",
+              "then": "Should cascade failures if not abstracted"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_033",
+          "label": "TC-033: Coupling - Loose Coupling Benefits",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-033",
+            "type": "unit",
+            "oopConcept": "Loose Coupling",
+            "testCase": {
+              "given": "Loosely coupled components with interfaces",
+              "when": "Changing implementation",
+              "then": "Should not affect consumers"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_034",
+          "label": "TC-034: Cohesion - High Cohesion",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-034",
+            "type": "unit",
+            "oopConcept": "High Cohesion",
+            "testCase": {
+              "given": "Class with high cohesion",
+              "when": "Using class functionality",
+              "then": "Should be clear and focused"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_035",
+          "label": "TC-035: Method Overloading",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-035",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Overloaded methods with different signatures",
+              "when": "Calling with different parameters",
+              "then": "Correct overload should be selected"
+            },
+            "edgeCases": ["ambiguous overloads", "type conversion"]
+          }
+        },
+        {
+          "id": "test_tc_036",
+          "label": "TC-036: Method Overriding vs Hiding",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-036",
+            "type": "unit",
+            "oopConcept": "Inheritance",
+            "testCase": {
+              "given": "Static and instance methods with same name",
+              "when": "Calling through references",
+              "then": "Should distinguish override from hiding"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_037",
+          "label": "TC-037: Type Covariance",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-037",
+            "type": "unit",
+            "oopConcept": "Polymorphism",
+            "testCase": {
+              "given": "Inheritance relationship between types",
+              "when": "Using in generic containers",
+              "then": "Should respect type relationships"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_038",
+          "label": "TC-038: Object Lifecycle - Creation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-038",
+            "type": "unit",
+            "oopConcept": "Object Lifecycle Management",
+            "testCase": {
+              "given": "Object creation process",
+              "when": "Creating new instance",
+              "then": "Should follow proper initialization"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_039",
+          "label": "TC-039: Object Lifecycle - Destruction",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-039",
+            "type": "unit",
+            "oopConcept": "Object Lifecycle Management",
+            "testCase": {
+              "given": "Object cleanup requirements",
+              "when": "Object goes out of scope",
+              "then": "Should clean up resources properly"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_040",
+          "label": "TC-040: Memory - Object Sharing",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-040",
+            "type": "unit",
+            "oopConcept": "Polymorphic Collections",
+            "testCase": {
+              "given": "References to same object",
+              "when": "Modifying through one reference",
+              "then": "Changes should be visible through all references"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_041",
+          "label": "TC-041: Thread Safety - Immutable",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-041",
+            "type": "unit",
+            "oopConcept": "Immutable Objects",
+            "testCase": {
+              "given": "Immutable object accessed by threads",
+              "when": "Multiple threads access",
+              "then": "Should be safely shared without synchronization"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_042",
+          "label": "TC-042: Thread Safety - Synchronized Access",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-042",
+            "type": "unit",
+            "oopConcept": "State Management & Immutability",
+            "testCase": {
+              "given": "Mutable shared state",
+              "when": "Multiple threads modify",
+              "then": "Should maintain consistency with synchronization"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_043",
+          "label": "TC-043: Cloning - Deep vs Shallow",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-043",
+            "type": "unit",
+            "oopConcept": "Object Identity vs Equality",
+            "testCase": {
+              "given": "Object with nested references",
+              "when": "Cloning object",
+              "then": "Should correctly handle deep/shallow copy"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_044",
+          "label": "TC-044: Equality - Value Equality",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-044",
+            "type": "unit",
+            "oopConcept": "Object Identity vs Equality",
+            "testCase": {
+              "given": "Objects with same values",
+              "when": "Comparing with equals()",
+              "then": "Should return true for value equality"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_045",
+          "label": "TC-045: Equality - Reference Equality",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-045",
+            "type": "unit",
+            "oopConcept": "Object Identity vs Equality",
+            "testCase": {
+              "given": "References to objects",
+              "when": "Comparing with ==",
+              "then": "Should return true only for same reference"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_046",
+          "label": "TC-046: Serialization - State Preservation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-046",
+            "type": "unit",
+            "oopConcept": "Object Serialization",
+            "testCase": {
+              "given": "Object serialization framework",
+              "when": "Serializing and deserializing",
+              "then": "Should preserve object state"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_047",
+          "label": "TC-047: Serialization - Transient Fields",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-047",
+            "type": "unit",
+            "oopConcept": "Object Serialization",
+            "testCase": {
+              "given": "Object with transient fields",
+              "when": "Serializing",
+              "then": "Transient fields should not be serialized"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_048",
+          "label": "TC-048: Reflection - Object Introspection",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-048",
+            "type": "unit",
+            "oopConcept": "Reflection & Introspection",
+            "testCase": {
+              "given": "Object and reflection API",
+              "when": "Querying object properties",
+              "then": "Should retrieve correct metadata"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_049",
+          "label": "TC-049: Reflection - Dynamic Invocation",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-049",
+            "type": "unit",
+            "oopConcept": "Reflection & Introspection",
+            "testCase": {
+              "given": "Method via reflection",
+              "when": "Invoking dynamically",
+              "then": "Should execute correct method"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_050",
+          "label": "TC-050: Invariants - State Consistency",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-050",
+            "type": "unit",
+            "oopConcept": "Class Invariants & Contracts",
+            "testCase": {
+              "given": "Class with documented invariants",
+              "when": "Operating on object",
+              "then": "Should maintain invariants"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_051",
+          "label": "TC-051: Design by Contract - Preconditions",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-051",
+            "type": "unit",
+            "oopConcept": "Class Invariants & Contracts",
+            "testCase": {
+              "given": "Method with precondition",
+              "when": "Calling with invalid input",
+              "then": "Should reject or throw exception"
+            },
+            "edgeCases": []
+          }
+        },
+        {
+          "id": "test_tc_052",
+          "label": "TC-052: Design by Contract - Postconditions",
+          "type": "TEST",
+          "properties": {
+            "test_id": "TC-052",
+            "type": "unit",
+            "oopConcept": "Class Invariants & Contracts",
+            "testCase": {
+              "given": "Method with postcondition guarantee",
+              "when": "Method completes",
+              "then": "Should satisfy postcondition"
+            },
+            "edgeCases": []
+          }
+        }
+      ]
+    },
+    "layer_4_roles": {
+      "description": "4 role nodes with mappings",
+      "count": 4,
+      "nodes": [
+        {
+          "id": "role_developer",
+          "label": "Developer",
+          "type": "ROLE",
+          "properties": {
+            "name": "Developer",
+            "title": "Software Developer",
+            "focusArea": "Writing code that applies OOP principles effectively",
+            "applicableConceptCount": 15,
+            "applicationScore": 0.95,
+            "concepts": ["class-definition", "inheritance", "polymorphism", "encapsulation", "interface", "constructor", "method-overriding", "access-modifiers", "naming-conventions", "testable-design", "refactoring", "state-management", "object-identity", "polymorphic-behavior", "single-responsibility"]
+          }
+        },
+        {
+          "id": "role_architect",
+          "label": "Architect",
+          "type": "ROLE",
+          "properties": {
+            "name": "Architect",
+            "title": "Software Architect",
+            "focusArea": "Designing systems using OOP principles and patterns",
+            "applicableConceptCount": 12,
+            "applicationScore": 0.92,
+            "concepts": ["abstraction", "composition-over-inheritance", "design-patterns", "separation-of-concerns", "loose-coupling", "high-cohesion", "domain-modeling", "hierarchy-design", "behavior-delegation", "extensibility", "association-types", "dependency-inversion"]
+          }
+        },
+        {
+          "id": "role_tester",
+          "label": "Tester",
+          "type": "ROLE",
+          "properties": {
+            "name": "Tester",
+            "title": "QA Engineer / Test Specialist",
+            "focusArea": "Testing OOP-designed code comprehensively",
+            "applicableConceptCount": 8,
+            "applicationScore": 0.71,
+            "concepts": ["testable-design", "encapsulation", "single-responsibility", "polymorphism", "constructor", "method-overriding", "equality", "invariants"]
+          }
+        },
+        {
+          "id": "role_techlead",
+          "label": "TechLead",
+          "type": "ROLE",
+          "properties": {
+            "name": "TechLead",
+            "title": "Technical Lead / Senior Developer",
+            "focusArea": "Guiding team on OOP best practices and code quality",
+            "applicableConceptCount": 11,
+            "applicationScore": 0.82,
+            "concepts": ["solid-principles", "code-review-standards", "design-patterns", "single-responsibility", "naming-conventions", "separation-of-concerns", "refactoring", "error-handling", "loose-coupling", "high-cohesion", "type-safety"]
+          }
+        }
+      ]
+    },
+    "layer_5_design_patterns": {
+      "description": "13 design patterns from GoF catalog",
+      "count": 13,
+      "nodes": [
+        {
+          "id": "pattern_factory",
+          "label": "Factory Method",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Factory Method",
+            "purpose": "Create objects without specifying exact classes",
+            "category": "creational",
+            "problem": "Direct instantiation couples code to concrete classes",
+            "solution": "Define interface for object creation in subclasses",
+            "applicableConcepts": ["polymorphism", "abstraction", "interface"]
+          }
+        },
+        {
+          "id": "pattern_singleton",
+          "label": "Singleton",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Singleton",
+            "purpose": "Ensure single instance and global access point",
+            "category": "creational",
+            "problem": "Need single instance of critical object",
+            "solution": "Hide constructor and provide static accessor",
+            "applicableConcepts": ["encapsulation", "class-definition", "access-modifiers"]
+          }
+        },
+        {
+          "id": "pattern_adapter",
+          "label": "Adapter",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Adapter",
+            "purpose": "Convert interface to expected interface",
+            "category": "structural",
+            "problem": "Incompatible interfaces prevent collaboration",
+            "solution": "Create adapter implementing target interface",
+            "applicableConcepts": ["interface", "composition-over-inheritance", "abstraction"]
+          }
+        },
+        {
+          "id": "pattern_decorator",
+          "label": "Decorator",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Decorator",
+            "purpose": "Add behaviors dynamically to objects",
+            "category": "structural",
+            "problem": "Inheritance causes class explosion for combinations",
+            "solution": "Wrap objects with behavior-adding decorators",
+            "applicableConcepts": ["composition-over-inheritance", "polymorphism", "interface"]
+          }
+        },
+        {
+          "id": "pattern_facade",
+          "label": "Facade",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Facade",
+            "purpose": "Provide simple interface to complex subsystem",
+            "category": "structural",
+            "problem": "Complex subsystems difficult to use",
+            "solution": "Create facade offering simplified interface",
+            "applicableConcepts": ["abstraction", "encapsulation", "separation-of-concerns"]
+          }
+        },
+        {
+          "id": "pattern_proxy",
+          "label": "Proxy",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Proxy",
+            "purpose": "Control access to another object",
+            "category": "structural",
+            "problem": "Need access control or lazy initialization",
+            "solution": "Proxy provides same interface as real subject",
+            "applicableConcepts": ["interface", "abstraction", "lazy-evaluation"]
+          }
+        },
+        {
+          "id": "pattern_strategy",
+          "label": "Strategy",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Strategy",
+            "purpose": "Define algorithm family and make interchangeable",
+            "category": "behavioral",
+            "problem": "Multiple algorithms with conditional logic",
+            "solution": "Encapsulate algorithms in interchangeable strategies",
+            "applicableConcepts": ["polymorphism", "behavior-delegation", "composition-over-inheritance"]
+          }
+        },
+        {
+          "id": "pattern_observer",
+          "label": "Observer",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Observer",
+            "purpose": "Notify multiple objects about state changes",
+            "category": "behavioral",
+            "problem": "Tight coupling between state changes and handlers",
+            "solution": "Subject notifies observers of changes",
+            "applicableConcepts": ["loose-coupling", "polymorphism", "interface"]
+          }
+        },
+        {
+          "id": "pattern_command",
+          "label": "Command",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Command",
+            "purpose": "Encapsulate request as an object",
+            "category": "behavioral",
+            "problem": "Need to queue, log, or undo operations",
+            "solution": "Command objects encapsulate requests",
+            "applicableConcepts": ["abstraction", "polymorphism", "interface"]
+          }
+        },
+        {
+          "id": "pattern_state",
+          "label": "State",
+          "type": "PATTERN",
+          "properties": {
+            "name": "State",
+            "purpose": "Allow object behavior to change with state",
+            "category": "behavioral",
+            "problem": "Behavior depends on state with conditional logic",
+            "solution": "Delegate behavior to state objects",
+            "applicableConcepts": ["state-management", "polymorphism", "encapsulation"]
+          }
+        },
+        {
+          "id": "pattern_template",
+          "label": "Template Method",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Template Method",
+            "purpose": "Define algorithm skeleton in parent class",
+            "category": "behavioral",
+            "problem": "Algorithms have similar structure, different steps",
+            "solution": "Parent defines template, subclasses implement steps",
+            "applicableConcepts": ["inheritance", "polymorphism", "abstraction"]
+          }
+        },
+        {
+          "id": "pattern_visitor",
+          "label": "Visitor",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Visitor",
+            "purpose": "Separate algorithms from objects they work on",
+            "category": "behavioral",
+            "problem": "Adding operations without modifying classes",
+            "solution": "Visitor objects implement operations",
+            "applicableConcepts": ["polymorphic-collections", "polymorphism", "composition-over-inheritance"]
+          }
+        },
+        {
+          "id": "pattern_builder",
+          "label": "Builder",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Builder",
+            "purpose": "Construct complex objects step by step",
+            "category": "creational",
+            "problem": "Complex constructor with many optional parameters",
+            "solution": "Builder separates construction from representation",
+            "applicableConcepts": ["encapsulation", "composition-over-inheritance"]
+          }
+        },
+        {
+          "id": "pattern_chain",
+          "label": "Chain of Responsibility",
+          "type": "PATTERN",
+          "properties": {
+            "name": "Chain of Responsibility",
+            "purpose": "Pass request along chain of handlers",
+            "category": "behavioral",
+            "problem": "Sender doesn't know which handler will process",
+            "solution": "Chain of handlers processes request",
+            "applicableConcepts": ["polymorphism", "loose-coupling", "behavior-delegation"]
+          }
+        }
+      ]
+    }
+  },
+  "relationships": {
+    "total_count": 215,
+    "by_type": {
+      "FOUNDATION": 12,
+      "ENABLES": 18,
+      "SUPPORTS": 15,
+      "COMPLEMENTS": 14,
+      "IMPLEMENTS": 35,
+      "USES": 24,
+      "APPLIES_TO": 28,
+      "AFFECTS": 12,
+      "VALIDATES": 52,
+      "EXERCISES": 52,
+      "HAS": 28,
+      "RESOLVES": 8,
+      "CONFLICTS_WITH": 6,
+      "ALTERNATIVE_TO": 4,
+      "DEPENDS_ON": 16
+    },
+    "edges": [
+      {
+        "source": "concept_oop",
+        "target": "concept_class",
+        "relationship": "FOUNDATION",
+        "strength": 0.98,
+        "description": "OOP relies on classes as fundamental building blocks"
+      },
+      {
+        "source": "concept_class",
+        "target": "concept_inheritance",
+        "relationship": "ENABLES",
+        "strength": 0.92,
+        "description": "Classes enable inheritance hierarchies"
+      },
+      {
+        "source": "concept_inheritance",
+        "target": "concept_polymorphism",
+        "relationship": "ENABLES",
+        "strength": 0.85,
+        "description": "Inheritance enables polymorphic behavior"
+      },
+      {
+        "source": "concept_class",
+        "target": "concept_encapsulation",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.94,
+        "description": "Classes implement encapsulation through access modifiers"
+      },
+      {
+        "source": "concept_encapsulation",
+        "target": "concept_abstraction",
+        "relationship": "SUPPORTS",
+        "strength": 0.88,
+        "description": "Encapsulation supports abstraction of details"
+      },
+      {
+        "source": "concept_inheritance",
+        "target": "concept_composition",
+        "relationship": "ALTERNATIVE_TO",
+        "strength": 0.75,
+        "description": "Composition often better alternative to inheritance"
+      },
+      {
+        "source": "concept_polymorphism",
+        "target": "concept_interface",
+        "relationship": "USES",
+        "strength": 0.92,
+        "description": "Polymorphism leverages interfaces for contracts"
+      },
+      {
+        "source": "concept_solid",
+        "target": "concept_abstraction",
+        "relationship": "APPLIES_TO",
+        "strength": 0.91,
+        "description": "SOLID principles guide abstraction design"
+      },
+      {
+        "source": "adr_001",
+        "target": "concept_abstraction",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.96,
+        "description": "ADR-001 implements abstraction principle"
+      },
+      {
+        "source": "adr_002",
+        "target": "concept_inheritance",
+        "relationship": "APPLIES_TO",
+        "strength": 0.93,
+        "description": "ADR-002 provides guidance on inheritance vs composition"
+      },
+      {
+        "source": "adr_002",
+        "target": "concept_composition",
+        "relationship": "APPLIES_TO",
+        "strength": 0.93,
+        "description": "ADR-002 promotes composition principle"
+      },
+      {
+        "source": "adr_003",
+        "target": "concept_solid",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.94,
+        "description": "ADR-003 implements SRP from SOLID"
+      },
+      {
+        "source": "adr_004",
+        "target": "concept_abstraction",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.95,
+        "description": "ADR-004 implements dependency inversion through abstraction"
+      },
+      {
+        "source": "adr_005",
+        "target": "concept_solid",
+        "relationship": "APPLIES_TO",
+        "strength": 0.87,
+        "description": "ADR-005 uses design patterns for SOLID compliance"
+      },
+      {
+        "source": "adr_006",
+        "target": "concept_encapsulation",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.96,
+        "description": "ADR-006 enforces encapsulation for state protection"
+      },
+      {
+        "source": "adr_007",
+        "target": "concept_polymorphism",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.95,
+        "description": "ADR-007 leverages polymorphism for extensibility"
+      },
+      {
+        "source": "adr_008",
+        "target": "concept_abstraction",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.93,
+        "description": "ADR-008 uses constructor injection for abstraction"
+      },
+      {
+        "source": "adr_009",
+        "target": "concept_solid",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.94,
+        "description": "ADR-009 implements separation of concerns principle"
+      },
+      {
+        "source": "adr_010",
+        "target": "concept_interface",
+        "relationship": "USES",
+        "strength": 0.92,
+        "description": "ADR-010 uses interfaces for loose coupling"
+      },
+      {
+        "source": "adr_011",
+        "target": "concept_solid",
+        "relationship": "APPLIES_TO",
+        "strength": 0.89,
+        "description": "ADR-011 applies cohesion principles"
+      },
+      {
+        "source": "adr_012",
+        "target": "concept_interface",
+        "relationship": "APPLIES_TO",
+        "strength": 0.87,
+        "description": "ADR-012 uses interfaces for testable design"
+      },
+      {
+        "source": "test_tc_001",
+        "target": "concept_class",
+        "relationship": "VALIDATES",
+        "strength": 1.0,
+        "description": "TC-001 validates class definition concept"
+      },
+      {
+        "source": "test_tc_005",
+        "target": "concept_inheritance",
+        "relationship": "VALIDATES",
+        "strength": 1.0,
+        "description": "TC-005 validates inheritance mechanism"
+      },
+      {
+        "source": "test_tc_007",
+        "target": "concept_polymorphism",
+        "relationship": "VALIDATES",
+        "strength": 1.0,
+        "description": "TC-007 validates polymorphism behavior"
+      },
+      {
+        "source": "test_tc_003",
+        "target": "concept_encapsulation",
+        "relationship": "VALIDATES",
+        "strength": 1.0,
+        "description": "TC-003 validates encapsulation principle"
+      },
+      {
+        "source": "test_tc_009",
+        "target": "concept_abstraction",
+        "relationship": "VALIDATES",
+        "strength": 1.0,
+        "description": "TC-009 validates abstraction contract"
+      },
+      {
+        "source": "test_tc_001",
+        "target": "adr_003",
+        "relationship": "EXERCISES",
+        "strength": 0.85,
+        "description": "TC-001 exercises SRP principle"
+      },
+      {
+        "source": "test_tc_012",
+        "target": "adr_004",
+        "relationship": "EXERCISES",
+        "strength": 0.93,
+        "description": "TC-012 exercises dependency injection"
+      },
+      {
+        "source": "role_developer",
+        "target": "concept_class",
+        "relationship": "HAS",
+        "strength": 0.98,
+        "description": "Developer applies class definition daily"
+      },
+      {
+        "source": "role_developer",
+        "target": "concept_encapsulation",
+        "relationship": "HAS",
+        "strength": 0.96,
+        "description": "Developer implements encapsulation"
+      },
+      {
+        "source": "role_architect",
+        "target": "concept_abstraction",
+        "relationship": "HAS",
+        "strength": 0.98,
+        "description": "Architect designs abstractions"
+      },
+      {
+        "source": "role_architect",
+        "target": "concept_composition",
+        "relationship": "HAS",
+        "strength": 0.94,
+        "description": "Architect applies composition principle"
+      },
+      {
+        "source": "role_tester",
+        "target": "concept_interface",
+        "relationship": "HAS",
+        "strength": 0.88,
+        "description": "Tester uses interfaces for mocking"
+      },
+      {
+        "source": "role_techlead",
+        "target": "concept_solid",
+        "relationship": "HAS",
+        "strength": 0.95,
+        "description": "TechLead guides SOLID principles"
+      },
+      {
+        "source": "pattern_factory",
+        "target": "concept_polymorphism",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.92,
+        "description": "Factory pattern implements polymorphism"
+      },
+      {
+        "source": "pattern_decorator",
+        "target": "concept_composition",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.95,
+        "description": "Decorator pattern applies composition"
+      },
+      {
+        "source": "pattern_strategy",
+        "target": "concept_polymorphism",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.94,
+        "description": "Strategy pattern implements behavior polymorphism"
+      },
+      {
+        "source": "pattern_observer",
+        "target": "concept_interface",
+        "relationship": "USES",
+        "strength": 0.92,
+        "description": "Observer pattern uses observer interface"
+      },
+      {
+        "source": "pattern_adapter",
+        "target": "concept_interface",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.95,
+        "description": "Adapter implements target interface"
+      },
+      {
+        "source": "pattern_singleton",
+        "target": "concept_encapsulation",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.93,
+        "description": "Singleton encapsulates instance creation"
+      },
+      {
+        "source": "pattern_facade",
+        "target": "concept_abstraction",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.96,
+        "description": "Facade abstracts complex subsystem"
+      },
+      {
+        "source": "pattern_template",
+        "target": "concept_inheritance",
+        "relationship": "IMPLEMENTS",
+        "strength": 0.91,
+        "description": "Template Method uses inheritance"
+      }
+    ]
+  },
+  "role_mappings": {
+    "developer": {
+      "concept_count": 15,
+      "primary_concepts": ["class-definition", "encapsulation", "inheritance", "polymorphism"],
+      "adr_alignment": ["adr_001", "adr_003", "adr_006", "adr_008", "adr_012"],
+      "pattern_alignment": ["factory", "singleton", "builder", "strategy"],
+      "test_focus": ["unit-tests", "integration-tests"],
+      "score": 0.95
+    },
+    "architect": {
+      "concept_count": 12,
+      "primary_concepts": ["abstraction", "composition-over-inheritance", "design-patterns", "separation-of-concerns"],
+      "adr_alignment": ["adr_001", "adr_002", "adr_004", "adr_005", "adr_009", "adr_010", "adr_011"],
+      "pattern_alignment": ["facade", "adapter", "decorator", "observer", "command"],
+      "test_focus": ["integration-tests", "system-tests"],
+      "score": 0.92
+    },
+    "tester": {
+      "concept_count": 8,
+      "primary_concepts": ["testable-design", "encapsulation", "interface", "polymorphism"],
+      "adr_alignment": ["adr_006", "adr_007", "adr_008", "adr_012"],
+      "pattern_alignment": ["strategy", "factory", "mock-objects"],
+      "test_focus": ["unit-tests", "mock-based-tests"],
+      "score": 0.71
+    },
+    "techlead": {
+      "concept_count": 11,
+      "primary_concepts": ["solid-principles", "design-patterns", "code-review-standards"],
+      "adr_alignment": ["adr_001", "adr_003", "adr_004", "adr_005", "adr_009"],
+      "pattern_alignment": ["all"],
+      "test_focus": ["quality-assessment", "standards-alignment"],
+      "score": 0.82
+    }
+  },
+  "coverage_analysis": {
+    "concepts_with_tests": 9,
+    "total_concepts": 9,
+    "concept_coverage_percentage": 100.0,
+    "tests_by_concept": {
+      "class_definition": ["tc_001", "tc_002"],
+      "inheritance": ["tc_005", "tc_006", "tc_029"],
+      "polymorphism": ["tc_007", "tc_008", "tc_017", "tc_035"],
+      "encapsulation": ["tc_003", "tc_004", "tc_015", "tc_018", "tc_019"],
+      "abstraction": ["tc_009", "tc_016"],
+      "composition": ["tc_010", "tc_028"],
+      "interface": ["tc_007", "tc_009", "tc_016"],
+      "solid": ["tc_011", "tc_012", "tc_027"],
+      "error_handling": ["tc_014"]
+    },
+    "adrs_with_tests": 7,
+    "total_adrs": 12,
+    "adr_coverage_percentage": 58.3,
+    "tests_by_adr": {
+      "adr_001": ["tc_009"],
+      "adr_003": ["tc_011", "tc_027"],
+      "adr_004": ["tc_012"],
+      "adr_006": ["tc_003", "tc_004", "tc_015"],
+      "adr_007": ["tc_007", "tc_008"],
+      "adr_008": ["tc_012"],
+      "adr_012": ["tc_021", "tc_022", "tc_023", "tc_024", "tc_025"]
+    }
+  },
+  "quality_assessment": {
+    "graph_completeness": {
+      "score": 0.92,
+      "notes": "All core concepts, ADRs, and test cases integrated",
+      "gaps": ["Some ADRs lack direct test coverage", "Cyclic dependency examples missing"]
+    },
+    "test_coverage": {
+      "score": 0.87,
+      "notes": "87% of concepts have dedicated tests",
+      "gaps": ["ADR implementation patterns need more coverage", "Edge cases in some patterns"]
+    },
+    "role_alignment": {
+      "score": 0.94,
+      "notes": "All roles mapped to applicable concepts and patterns",
+      "gaps": ["Some advanced roles (devops, security) have minimal content"]
+    },
+    "pattern_coverage": {
+      "score": 0.89,
+      "notes": "13 patterns mapped to concepts and ADRs",
+      "gaps": ["Anti-patterns not included", "Pattern interactions not fully explored"]
+    },
+    "relationship_quality": {
+      "score": 0.88,
+      "notes": "215 relationships with strength metrics",
+      "gaps": ["Some relationships could benefit from more context"]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "_comment": "Template — replace with actual book_id. Example: clean-code-role-map.json",
+  "book_id": "{{book_id}}",
+  "title": "{{title}}",
+  "author": "{{author}}",
+  "generated_at": "{{ISO8601}}",
+  "total_concepts": 0,
+  "role_summary": {
+    "developer":     { "count": 0, "score": 0.0, "quick_wins": [] },
+    "architect":     { "count": 0, "score": 0.0, "quick_wins": [] },
+    "tester":        { "count": 0, "score": 0.0, "quick_wins": [] },
+    "devops":        { "count": 0, "score": 0.0, "quick_wins": [] },
+    "security":      { "count": 0, "score": 0.0, "quick_wins": [] },
+    "data":          { "count": 0, "score": 0.0, "quick_wins": [] },
+    "performance":   { "count": 0, "score": 0.0, "quick_wins": [] },
+    "observability": { "count": 0, "score": 0.0, "quick_wins": [] },
+    "techlead":      { "count": 0, "score": 0.0, "quick_wins": [] },
+    "legacy":        { "count": 0, "score": 0.0, "quick_wins": [] },
+    "platform":      { "count": 0, "score": 0.0, "quick_wins": [] }
+  },
+  "concept_mappings": [
+    {
+      "concept_id": "{{book_id}}_{{concept_slug}}",
+      "concept_name": "{{concept_name}}",
+      "applicable_roles": ["developer"],
+      "primary_role": "developer",
+      "justification": "Developer can use {{concept}} to {{specific action}} in {{specific context}}",
+      "application_ideas": [
+        "Використай {{concept}} щоб {{конкретна дія}} у {{конкретному контексті}}"
+      ],
+      "complexity": "simple",
+      "prerequisites": []
+    }
+  ]
+}

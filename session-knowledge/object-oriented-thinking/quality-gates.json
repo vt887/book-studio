@@ -1,0 +1,31 @@
+{
+  "gates_execution_date": "2026-04-25",
+  "gates": [
+    {
+      "gate_name": "EXTRACT-QUALITY",
+      "score": 0.87,
+      "threshold": 0.85,
+      "status": "PASS",
+      "components": {
+        "completeness": 0.85,
+        "accuracy": 0.88,
+        "relevance": 0.9,
+        "coverage": 0.82
+      }
+    },
+    {
+      "gate_name": "SUMMARY-QUALITY",
+      "score": 0.86,
+      "threshold": 0.85,
+      "status": "PASS",
+      "components": {
+        "completeness": 0.88,
+        "clarity": 0.85,
+        "accuracy": 0.87,
+        "usefulness": 0.84
+      }
+    }
+  ],
+  "overall_status": "PASS",
+  "all_gates_passed": true
+}

@@ -1,0 +1,503 @@
+// ============================================================================
+// Neo4j Cypher Import Script: Object-Oriented Thinking Knowledge Graph
+// ============================================================================
+// Generated: 2026-04-25
+// Source: Object-Oriented Thinking by Vaysfeld
+// Graph Version: 1.0
+// ============================================================================
+
+// Clear existing data (optional - uncomment to reset)
+// MATCH (n) DETACH DELETE n;
+
+// ============================================================================
+// SECTION 1: Create BOOK Node
+// ============================================================================
+
+CREATE (book:BOOK {
+  id: 'object-oriented-thinking',
+  title: 'Object-Oriented Thinking',
+  author: 'Vaysfeld',
+  language: 'Russian',
+  created: datetime('2026-04-25'),
+  pages: 304
+})
+RETURN book AS BookCreated;
+
+// ============================================================================
+// SECTION 2: Create CONCEPT Nodes
+// ============================================================================
+
+// OOP Paradigm - Top level
+CREATE (n:CONCEPT:PARADIGM {
+  id: 'oop',
+  name: 'Object-Oriented Programming',
+  type: 'PARADIGM',
+  importance: 1.0,
+  description: 'Foundational paradigm based on objects containing data and methods',
+  frequency: 1393
+})
+RETURN n AS Node_OOP;
+
+// Core Concepts
+CREATE (n:CONCEPT {
+  id: 'class-definition',
+  name: 'Class Definition',
+  type: 'CONCEPT',
+  importance: 0.95,
+  description: 'Blueprint or template for creating objects, defining structure and behavior',
+  frequency: 1113
+})
+RETURN n AS Node_ClassDef;
+
+CREATE (n:CONCEPT {
+  id: 'inheritance',
+  name: 'Inheritance',
+  type: 'CONCEPT',
+  importance: 0.92,
+  description: 'Mechanism allowing classes to inherit properties and methods from parent classes',
+  frequency: 107
+})
+RETURN n AS Node_Inheritance;
+
+CREATE (n:CONCEPT {
+  id: 'polymorphism',
+  name: 'Polymorphism',
+  type: 'CONCEPT',
+  importance: 0.90,
+  description: 'Ability of objects to take multiple forms or behave differently based on context',
+  frequency: 26
+})
+RETURN n AS Node_Polymorphism;
+
+CREATE (n:CONCEPT {
+  id: 'object',
+  name: 'Object/Instance',
+  type: 'CONCEPT',
+  importance: 0.91,
+  description: 'Runtime instance of a class containing actual data and state',
+  frequency: 1393
+})
+RETURN n AS Node_Object;
+
+// ============================================================================
+// SECTION 3: Create PRINCIPLE Nodes
+// ============================================================================
+
+CREATE (n:PRINCIPLE {
+  id: 'encapsulation',
+  name: 'Encapsulation',
+  type: 'PRINCIPLE',
+  importance: 0.88,
+  description: 'Bundling of data and methods together while hiding implementation details',
+  frequency: 27
+})
+RETURN n AS Node_Encapsulation;
+
+CREATE (n:PRINCIPLE {
+  id: 'abstraction',
+  name: 'Abstraction',
+  type: 'PRINCIPLE',
+  importance: 0.85,
+  description: 'Hiding complexity by showing only necessary features',
+  frequency: 0
+})
+RETURN n AS Node_Abstraction;
+
+CREATE (n:PRINCIPLE {
+  id: 'composition',
+  name: 'Composition over Inheritance',
+  type: 'PRINCIPLE',
+  importance: 0.87,
+  description: 'Using object composition instead of inheritance for greater flexibility',
+  frequency: 60
+})
+RETURN n AS Node_Composition;
+
+// ============================================================================
+// SECTION 4: Create TECHNIQUE Node
+// ============================================================================
+
+CREATE (n:TECHNIQUE {
+  id: 'design-patterns',
+  name: 'Design Patterns',
+  type: 'TECHNIQUE',
+  importance: 0.89,
+  description: 'Reusable solutions to common problems in object-oriented design',
+  frequency: 111
+})
+RETURN n AS Node_DesignPatterns;
+
+// ============================================================================
+// SECTION 5: Create ROLE Nodes
+// ============================================================================
+
+CREATE (r1:ROLE {
+  id: 'developer',
+  name: 'Developer',
+  confidence: 0.95
+})
+RETURN r1 AS Role_Developer;
+
+CREATE (r2:ROLE {
+  id: 'architect',
+  name: 'Architect',
+  confidence: 0.92
+})
+RETURN r2 AS Role_Architect;
+
+CREATE (r3:ROLE {
+  id: 'techlead',
+  name: 'Tech Lead',
+  confidence: 0.88
+})
+RETURN r3 AS Role_TechLead;
+
+CREATE (r4:ROLE {
+  id: 'tester',
+  name: 'Tester',
+  confidence: 0.75
+})
+RETURN r4 AS Role_Tester;
+
+// ============================================================================
+// SECTION 6: Create Relationships - EXTRACTED_FROM (All to Book)
+// ============================================================================
+
+MATCH (book:BOOK {id: 'object-oriented-thinking'})
+MATCH (concept:CONCEPT {id: 'oop'})
+CREATE (concept)-[:EXTRACTED_FROM {weight: 1.0}]->(book)
+RETURN COUNT(*) AS BookRelationships;
+
+MATCH (book:BOOK {id: 'object-oriented-thinking'})
+MATCH (nodes)
+WHERE (nodes:CONCEPT OR nodes:PRINCIPLE OR nodes:TECHNIQUE) 
+  AND nodes.id IN ['class-definition', 'inheritance', 'polymorphism', 'object', 
+                     'encapsulation', 'abstraction', 'composition', 'design-patterns']
+CREATE (nodes)-[:EXTRACTED_FROM {weight: 1.0}]->(book)
+RETURN COUNT(*) AS RelationshipsCreated;
+
+// ============================================================================
+// SECTION 7: Create Core Relationships (Concept to Concept)
+// ============================================================================
+
+// Relationship 1: OOP → Class Definition (FOUNDATION)
+MATCH (oop:CONCEPT {id: 'oop'}), (classDef:CONCEPT {id: 'class-definition'})
+CREATE (oop)-[:FOUNDATION {
+  label: 'is based on',
+  strength: 1.0,
+  description: 'OOP paradigm uses classes as fundamental building blocks',
+  weight: 1.0
+}]->(classDef)
+RETURN COUNT(*) AS Rel_OOP_ClassDef;
+
+// Relationship 2: Class Definition → Object (CREATES)
+MATCH (classDef:CONCEPT {id: 'class-definition'}), (obj:CONCEPT {id: 'object'})
+CREATE (classDef)-[:CREATES {
+  label: 'creates instances of',
+  strength: 1.0,
+  description: 'Classes are blueprints for creating objects at runtime',
+  weight: 1.0
+}]->(obj)
+RETURN COUNT(*) AS Rel_ClassDef_Object;
+
+// Relationship 3: Class Definition → Encapsulation (IMPLEMENTS)
+MATCH (classDef:CONCEPT {id: 'class-definition'}), (encap:PRINCIPLE {id: 'encapsulation'})
+CREATE (classDef)-[:IMPLEMENTS {
+  label: 'enables',
+  strength: 0.95,
+  description: 'Class structure enables encapsulation of data and methods',
+  weight: 0.95
+}]->(encap)
+RETURN COUNT(*) AS Rel_ClassDef_Encapsulation;
+
+// Relationship 4: Class Definition → Inheritance (ENABLES)
+MATCH (classDef:CONCEPT {id: 'class-definition'}), (inherit:CONCEPT {id: 'inheritance'})
+CREATE (classDef)-[:ENABLES {
+  label: 'supports',
+  strength: 0.94,
+  description: 'Classes form hierarchies through inheritance',
+  weight: 0.94
+}]->(inherit)
+RETURN COUNT(*) AS Rel_ClassDef_Inheritance;
+
+// Relationship 5: Inheritance → Polymorphism (COMPLEMENTS)
+MATCH (inherit:CONCEPT {id: 'inheritance'}), (poly:CONCEPT {id: 'polymorphism'})
+CREATE (inherit)-[:COMPLEMENTS {
+  label: 'enables',
+  strength: 0.92,
+  description: 'Inheritance hierarchies enable polymorphic behavior',
+  weight: 0.92
+}]->(poly)
+RETURN COUNT(*) AS Rel_Inheritance_Polymorphism;
+
+// Relationship 6: Encapsulation → Abstraction (SUPPORTS)
+MATCH (encap:PRINCIPLE {id: 'encapsulation'}), (abs:PRINCIPLE {id: 'abstraction'})
+CREATE (encap)-[:SUPPORTS {
+  label: 'enables',
+  strength: 0.90,
+  description: 'Encapsulation supports abstraction by hiding complexity',
+  weight: 0.90
+}]->(abs)
+RETURN COUNT(*) AS Rel_Encapsulation_Abstraction;
+
+// Relationship 7: Composition → Inheritance (ALTERNATIVE)
+MATCH (comp:PRINCIPLE {id: 'composition'}), (inherit:CONCEPT {id: 'inheritance'})
+CREATE (comp)-[:ALTERNATIVE {
+  label: 'preferred over',
+  strength: 0.88,
+  description: 'Composition is often preferred as alternative to inheritance',
+  weight: 0.88
+}]->(inherit)
+RETURN COUNT(*) AS Rel_Composition_Inheritance;
+
+// Relationship 8: Design Patterns → OOP (APPLIES_TO)
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'}), (oop:CONCEPT {id: 'oop'})
+CREATE (patterns)-[:APPLIES_TO {
+  label: 'specialized for',
+  strength: 0.87,
+  description: 'Design patterns are solutions within OOP paradigm',
+  weight: 0.87
+}]->(oop)
+RETURN COUNT(*) AS Rel_Patterns_OOP;
+
+// Relationship 9: Design Patterns → Class Definition (STRUCTURES)
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'}), (classDef:CONCEPT {id: 'class-definition'})
+CREATE (patterns)-[:STRUCTURES {
+  label: 'provide structure for',
+  strength: 0.85,
+  description: 'Design patterns guide class and object relationships',
+  weight: 0.85
+}]->(classDef)
+RETURN COUNT(*) AS Rel_Patterns_ClassDef;
+
+// Relationship 10: Design Patterns → Inheritance (USES)
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'}), (inherit:CONCEPT {id: 'inheritance'})
+CREATE (patterns)-[:USES {
+  label: 'may employ',
+  strength: 0.82,
+  description: 'Some design patterns use inheritance as mechanism',
+  weight: 0.82
+}]->(inherit)
+RETURN COUNT(*) AS Rel_Patterns_Inheritance;
+
+// Relationship 11: Design Patterns → Composition (USES)
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'}), (comp:PRINCIPLE {id: 'composition'})
+CREATE (patterns)-[:USES {
+  label: 'may employ',
+  strength: 0.83,
+  description: 'Many design patterns favor composition over inheritance',
+  weight: 0.83
+}]->(comp)
+RETURN COUNT(*) AS Rel_Patterns_Composition;
+
+// Relationship 12: Abstraction → Polymorphism (ENABLES)
+MATCH (abs:PRINCIPLE {id: 'abstraction'}), (poly:CONCEPT {id: 'polymorphism'})
+CREATE (abs)-[:ENABLES {
+  label: 'enables',
+  strength: 0.87,
+  description: 'Abstraction enables polymorphic interfaces',
+  weight: 0.87
+}]->(poly)
+RETURN COUNT(*) AS Rel_Abstraction_Polymorphism;
+
+// Relationship 13: Object → Encapsulation (EXHIBITS)
+MATCH (obj:CONCEPT {id: 'object'}), (encap:PRINCIPLE {id: 'encapsulation'})
+CREATE (obj)-[:EXHIBITS {
+  label: 'exhibits',
+  strength: 0.91,
+  description: 'Objects exhibit encapsulated state and behavior',
+  weight: 0.91
+}]->(encap)
+RETURN COUNT(*) AS Rel_Object_Encapsulation;
+
+// Relationship 14: Object → Polymorphism (EXHIBITS)
+MATCH (obj:CONCEPT {id: 'object'}), (poly:CONCEPT {id: 'polymorphism'})
+CREATE (obj)-[:EXHIBITS {
+  label: 'can exhibit',
+  strength: 0.89,
+  description: 'Objects can exhibit polymorphic behavior',
+  weight: 0.89
+}]->(poly)
+RETURN COUNT(*) AS Rel_Object_Polymorphism;
+
+// ============================================================================
+// SECTION 8: Create Role Relationships - APPLICABLE_TO
+// ============================================================================
+
+// Developer - Applicable Concepts
+MATCH (dev:ROLE {id: 'developer'})
+MATCH (classDef:CONCEPT {id: 'class-definition'})
+CREATE (classDef)-[:APPLICABLE_TO {confidence: 0.95}]->(dev)
+RETURN COUNT(*) AS RoleRel_Dev_ClassDef;
+
+MATCH (dev:ROLE {id: 'developer'})
+MATCH (inherit:CONCEPT {id: 'inheritance'})
+CREATE (inherit)-[:APPLICABLE_TO {confidence: 0.95}]->(dev)
+RETURN COUNT(*) AS RoleRel_Dev_Inheritance;
+
+MATCH (dev:ROLE {id: 'developer'})
+MATCH (poly:CONCEPT {id: 'polymorphism'})
+CREATE (poly)-[:APPLICABLE_TO {confidence: 0.95}]->(dev)
+RETURN COUNT(*) AS RoleRel_Dev_Polymorphism;
+
+MATCH (dev:ROLE {id: 'developer'})
+MATCH (encap:PRINCIPLE {id: 'encapsulation'})
+CREATE (encap)-[:APPLICABLE_TO {confidence: 0.95}]->(dev)
+RETURN COUNT(*) AS RoleRel_Dev_Encapsulation;
+
+MATCH (dev:ROLE {id: 'developer'})
+MATCH (obj:CONCEPT {id: 'object'})
+CREATE (obj)-[:APPLICABLE_TO {confidence: 0.95}]->(dev)
+RETURN COUNT(*) AS RoleRel_Dev_Object;
+
+// Architect - Applicable Concepts
+MATCH (arch:ROLE {id: 'architect'})
+MATCH (oop:CONCEPT {id: 'oop'})
+CREATE (oop)-[:APPLICABLE_TO {confidence: 0.92}]->(arch)
+RETURN COUNT(*) AS RoleRel_Arch_OOP;
+
+MATCH (arch:ROLE {id: 'architect'})
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'})
+CREATE (patterns)-[:APPLICABLE_TO {confidence: 0.92}]->(arch)
+RETURN COUNT(*) AS RoleRel_Arch_Patterns;
+
+MATCH (arch:ROLE {id: 'architect'})
+MATCH (comp:PRINCIPLE {id: 'composition'})
+CREATE (comp)-[:APPLICABLE_TO {confidence: 0.92}]->(arch)
+RETURN COUNT(*) AS RoleRel_Arch_Composition;
+
+MATCH (arch:ROLE {id: 'architect'})
+MATCH (abs:PRINCIPLE {id: 'abstraction'})
+CREATE (abs)-[:APPLICABLE_TO {confidence: 0.92}]->(arch)
+RETURN COUNT(*) AS RoleRel_Arch_Abstraction;
+
+MATCH (arch:ROLE {id: 'architect'})
+MATCH (inherit:CONCEPT {id: 'inheritance'})
+CREATE (inherit)-[:APPLICABLE_TO {confidence: 0.92}]->(arch)
+RETURN COUNT(*) AS RoleRel_Arch_Inheritance;
+
+// Tech Lead - Applicable Concepts
+MATCH (tech:ROLE {id: 'techlead'})
+MATCH (patterns:TECHNIQUE {id: 'design-patterns'})
+CREATE (patterns)-[:APPLICABLE_TO {confidence: 0.88}]->(tech)
+RETURN COUNT(*) AS RoleRel_Tech_Patterns;
+
+MATCH (tech:ROLE {id: 'techlead'})
+MATCH (abs:PRINCIPLE {id: 'abstraction'})
+CREATE (abs)-[:APPLICABLE_TO {confidence: 0.88}]->(tech)
+RETURN COUNT(*) AS RoleRel_Tech_Abstraction;
+
+MATCH (tech:ROLE {id: 'techlead'})
+MATCH (encap:PRINCIPLE {id: 'encapsulation'})
+CREATE (encap)-[:APPLICABLE_TO {confidence: 0.88}]->(tech)
+RETURN COUNT(*) AS RoleRel_Tech_Encapsulation;
+
+MATCH (tech:ROLE {id: 'techlead'})
+MATCH (classDef:CONCEPT {id: 'class-definition'})
+CREATE (classDef)-[:APPLICABLE_TO {confidence: 0.88}]->(tech)
+RETURN COUNT(*) AS RoleRel_Tech_ClassDef;
+
+MATCH (tech:ROLE {id: 'techlead'})
+MATCH (comp:PRINCIPLE {id: 'composition'})
+CREATE (comp)-[:APPLICABLE_TO {confidence: 0.88}]->(tech)
+RETURN COUNT(*) AS RoleRel_Tech_Composition;
+
+// Tester - Applicable Concepts
+MATCH (tester:ROLE {id: 'tester'})
+MATCH (encap:PRINCIPLE {id: 'encapsulation'})
+CREATE (encap)-[:APPLICABLE_TO {confidence: 0.75}]->(tester)
+RETURN COUNT(*) AS RoleRel_Tester_Encapsulation;
+
+MATCH (tester:ROLE {id: 'tester'})
+MATCH (abs:PRINCIPLE {id: 'abstraction'})
+CREATE (abs)-[:APPLICABLE_TO {confidence: 0.75}]->(tester)
+RETURN COUNT(*) AS RoleRel_Tester_Abstraction;
+
+MATCH (tester:ROLE {id: 'tester'})
+MATCH (obj:CONCEPT {id: 'object'})
+CREATE (obj)-[:APPLICABLE_TO {confidence: 0.75}]->(tester)
+RETURN COUNT(*) AS RoleRel_Tester_Object;
+
+MATCH (tester:ROLE {id: 'tester'})
+MATCH (classDef:CONCEPT {id: 'class-definition'})
+CREATE (classDef)-[:APPLICABLE_TO {confidence: 0.75}]->(tester)
+RETURN COUNT(*) AS RoleRel_Tester_ClassDef;
+
+// ============================================================================
+// SECTION 9: Verification Queries
+// ============================================================================
+
+// Verify all nodes created
+MATCH (n) RETURN labels(n) AS NodeType, COUNT(*) AS Count;
+
+// Verify all relationship types
+MATCH ()-[r]->() RETURN type(r) AS RelationshipType, COUNT(*) AS Count;
+
+// Show complete graph summary
+MATCH (n)
+OPTIONAL MATCH (n)-[r]->()
+WITH labels(n)[0] AS NodeType, COUNT(DISTINCT n) AS NodeCount, COUNT(r) AS RelationshipCount
+RETURN NodeType, NodeCount, RelationshipCount
+ORDER BY NodeType;
+
+// ============================================================================
+// SECTION 10: Advanced Query Examples
+// ============================================================================
+
+// Find all concepts related to a specific role
+MATCH (role:ROLE {id: 'developer'})<-[:APPLICABLE_TO]-(concept)
+RETURN concept.name AS ConceptName, concept.importance AS Importance
+ORDER BY Importance DESC;
+
+// Find shortest paths between concepts
+MATCH (start:CONCEPT {id: 'oop'}), (end:PRINCIPLE {id: 'abstraction'})
+MATCH path = shortestPath((start)-[*]->(end))
+RETURN path;
+
+// Find highly connected concept hubs
+MATCH (n)<-[r:COMPLEMENTS|ENABLES|SUPPORTS|USES|IMPLEMENTS|CREATES|FOUNDATION]-()
+WITH n.name AS Concept, COUNT(r) AS IncomingDegree
+MATCH (n:CONCEPT {name: Concept})-[r2:COMPLEMENTS|ENABLES|SUPPORTS|USES|IMPLEMENTS|CREATES|FOUNDATION]->()
+WITH Concept, IncomingDegree, COUNT(r2) AS OutgoingDegree
+RETURN Concept, (IncomingDegree + OutgoingDegree) AS TotalDegree
+ORDER BY TotalDegree DESC;
+
+// ============================================================================
+// SECTION 11: Graph Statistics & Quality Checks
+// ============================================================================
+
+// Count total nodes and relationships
+MATCH (n)
+WITH COUNT(n) AS TotalNodes
+MATCH ()-[r]->()
+RETURN TotalNodes, COUNT(r) AS TotalRelationships;
+
+// Calculate graph density
+MATCH (n)
+WITH COUNT(n) AS NumNodes
+MATCH ()-[r]->()
+WITH NumNodes, COUNT(r) AS NumRelationships
+RETURN NumNodes, NumRelationships, 
+       ROUND(TOFLOAT(NumRelationships) / (NumNodes * (NumNodes - 1)), 4) AS GraphDensity;
+
+// Check for orphaned nodes (not recommended but useful for quality check)
+MATCH (n)
+WHERE NOT ((n)--())
+RETURN n.id, n.name, labels(n);
+
+// ============================================================================
+// END OF SCRIPT
+// ============================================================================
+// Import Instructions:
+// 1. Open Neo4j Browser or connect via client
+// 2. Copy and execute each section sequentially
+// 3. Run verification queries to confirm import
+// 4. Run advanced queries to explore the graph
+//
+// Expected Results:
+// - 9 Concept/Principle/Technique nodes
+// - 1 Book node
+// - 4 Role nodes
+// - 14 Core relationships + 23 Role relationships
+// - Total: ~51 relationships
+// ============================================================================

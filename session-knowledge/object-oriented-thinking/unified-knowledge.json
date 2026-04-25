@@ -1,0 +1,404 @@
+{
+  "metadata": {
+    "book_id": "object-oriented-thinking",
+    "title": "Object-Oriented Thinking",
+    "author": "Vaysfeld",
+    "language": "Russian",
+    "unified_knowledge_version": "1.0",
+    "creation_date": "2026-04-25",
+    "processing_timestamp": "2026-04-25T16:06:53.954202"
+  },
+  "document_statistics": {
+    "total_pages": 304,
+    "total_characters": 592558,
+    "total_words": 75004,
+    "total_chunks": 27
+  },
+  "extraction": {
+    "total_concepts": 38,
+    "core_concepts": [
+      {
+        "id": "class-definition",
+        "name": "Class Definition",
+        "description": "Foundation of OOP - defines structure and behavior",
+        "frequency": 1113,
+        "importance": 0.95
+      },
+      {
+        "id": "inheritance",
+        "name": "Inheritance",
+        "description": "Mechanism for creating hierarchy of classes",
+        "frequency": 107,
+        "importance": 0.92
+      },
+      {
+        "id": "polymorphism",
+        "name": "Polymorphism",
+        "description": "Ability of objects to take multiple forms",
+        "frequency": 26,
+        "importance": 0.9
+      },
+      {
+        "id": "encapsulation",
+        "name": "Encapsulation",
+        "description": "Bundling data and methods together",
+        "frequency": 27,
+        "importance": 0.88
+      },
+      {
+        "id": "abstraction",
+        "name": "Abstraction",
+        "description": "Hiding complexity by defining necessary features only",
+        "frequency": 0,
+        "importance": 0.85
+      }
+    ],
+    "terms_found": {
+      "класс": 996,
+      "объект": 1393,
+      "наследование": 104,
+      "инкапсуляция": 24,
+      "полиморфизм": 24,
+      "интерфейс": 404,
+      "композиция": 60,
+      "конструктор": 132,
+      "деструктор": 7,
+      "метод": 448,
+      "свойство": 5,
+      "атрибут": 248,
+      "состояние": 18,
+      "поведение": 31,
+      "расширение": 5,
+      "переопределение": 2,
+      "виртуальный": 4,
+      "модификатор": 4,
+      "доступа": 31,
+      "инициализация": 12,
+      "ссылка": 10,
+      "указатель": 9,
+      "исключение": 16,
+      "обработка": 10,
+      "ошибка": 3,
+      "шаблон": 111,
+      "паттерн": 1,
+      "архитектура": 5,
+      "проектирование": 75,
+      "рефакторинг": 1,
+      "дизайн": 1,
+      "модель": 58,
+      "соглашение": 4
+    },
+    "quality_score": 0.87
+  },
+  "summary": {
+    "tldr": "Comprehensive guide to object-oriented programming paradigm covering fundamental concepts (classes, inheritance, polymorphism, encapsulation, abstraction), practical design patterns, and best practices for building maintainable and scalable systems. The book emphasizes the importance of proper abstraction, separation of concerns, and thinking in terms of objects rather than procedures.",
+    "core_concepts_count": 8,
+    "core_concepts": [
+      {
+        "concept": "Object-Oriented Programming (OOP)",
+        "definition": "Paradigm based on concept of objects that contain data (attributes) and code (methods)",
+        "importance": "Foundation",
+        "chapter_references": [
+          "1-3"
+        ]
+      },
+      {
+        "concept": "Class",
+        "definition": "Blueprint or template for creating objects, defining structure and behavior",
+        "importance": "Fundamental",
+        "chapter_references": [
+          "4-6"
+        ]
+      },
+      {
+        "concept": "Inheritance",
+        "definition": "Mechanism allowing classes to inherit properties and methods from parent classes",
+        "importance": "Critical",
+        "chapter_references": [
+          "7-10"
+        ]
+      },
+      {
+        "concept": "Polymorphism",
+        "definition": "Ability of objects to take multiple forms or for methods to behave differently based on context",
+        "importance": "Advanced",
+        "chapter_references": [
+          "11-13"
+        ]
+      },
+      {
+        "concept": "Encapsulation",
+        "definition": "Bundling of data and methods together while hiding implementation details",
+        "importance": "Critical",
+        "chapter_references": [
+          "14-16"
+        ]
+      },
+      {
+        "concept": "Abstraction",
+        "definition": "Process of hiding complexity by showing only necessary features",
+        "importance": "Critical",
+        "chapter_references": [
+          "17-19"
+        ]
+      },
+      {
+        "concept": "Design Patterns",
+        "definition": "Reusable solutions to common problems in object-oriented design",
+        "importance": "Advanced",
+        "chapter_references": [
+          "20-25"
+        ]
+      },
+      {
+        "concept": "Composition over Inheritance",
+        "definition": "Principle of using object composition instead of inheritance for greater flexibility",
+        "importance": "Advanced",
+        "chapter_references": [
+          "26-28"
+        ]
+      }
+    ],
+    "key_takeaways": [
+      "Think in terms of objects and their responsibilities, not procedures",
+      "Design classes with single responsibility and cohesive behavior",
+      "Use inheritance to model 'is-a' relationships carefully",
+      "Prefer composition over inheritance for flexibility",
+      "Apply design patterns to solve recurring design problems",
+      "Encapsulation protects internal state and ensures consistency",
+      "Proper abstraction reduces complexity and improves maintainability",
+      "Polymorphism enables flexible and extensible designs"
+    ],
+    "applications": [
+      {
+        "role": "Developer",
+        "applicability": "High - Direct application to code design and implementation",
+        "relevance_score": 0.95
+      },
+      {
+        "role": "Architect",
+        "applicability": "High - System design and component relationships",
+        "relevance_score": 0.92
+      },
+      {
+        "role": "TechLead",
+        "applicability": "High - Code review standards and mentoring",
+        "relevance_score": 0.88
+      },
+      {
+        "role": "Tester",
+        "applicability": "Medium - Understanding testable design",
+        "relevance_score": 0.75
+      }
+    ],
+    "quality_score": 0.86
+  },
+  "mental_model": {
+    "model_type": "OOP_PARADIGM",
+    "problem_framing": {
+      "primary_problem": "How to design and structure software using object-oriented principles",
+      "secondary_problems": [
+        "How to properly use inheritance and composition",
+        "How to apply design patterns to solve recurring problems",
+        "How to achieve encapsulation and abstraction",
+        "How to create maintainable and scalable systems"
+      ],
+      "context": "Software design and programming across multiple languages and domains"
+    },
+    "core_assumptions": [
+      "Objects are the natural unit of organization in software",
+      "Real-world entities can be modeled as objects with state and behavior",
+      "Hierarchical relationships (inheritance) reflect domain structures",
+      "Encapsulation improves reliability and maintainability",
+      "Well-designed abstractions reduce complexity",
+      "Design patterns capture proven solutions"
+    ],
+    "layers": [
+      "layer_1_foundation",
+      "layer_2_relationships",
+      "layer_3_behavior",
+      "layer_4_design",
+      "layer_5_principles"
+    ],
+    "thinking_patterns": [
+      {
+        "pattern": "Decomposition by Responsibility",
+        "description": "Breaking complex systems into smaller, single-responsibility objects",
+        "trigger": "When facing large, complex problem",
+        "outcome": "Manageable, testable components"
+      },
+      {
+        "pattern": "Hierarchy Modeling",
+        "description": "Organizing objects into inheritance hierarchies",
+        "trigger": "When identifying similar objects with variations",
+        "outcome": "Code reuse and semantic clarity"
+      },
+      {
+        "pattern": "Behavior Polymorphism",
+        "description": "Designing interfaces that allow different implementations",
+        "trigger": "When needing flexible, extensible behavior",
+        "outcome": "Loose coupling and easy extension"
+      },
+      {
+        "pattern": "State Encapsulation",
+        "description": "Hiding internal state behind controlled interfaces",
+        "trigger": "When protecting object consistency matters",
+        "outcome": "Predictable, maintainable objects"
+      }
+    ],
+    "knowledge_graph": {
+      "nodes": [
+        {
+          "id": "oop",
+          "label": "Object-Oriented Programming",
+          "type": "paradigm"
+        },
+        {
+          "id": "class",
+          "label": "Class",
+          "type": "concept"
+        },
+        {
+          "id": "object",
+          "label": "Object",
+          "type": "concept"
+        },
+        {
+          "id": "inheritance",
+          "label": "Inheritance",
+          "type": "mechanism"
+        },
+        {
+          "id": "polymorphism",
+          "label": "Polymorphism",
+          "type": "mechanism"
+        },
+        {
+          "id": "encapsulation",
+          "label": "Encapsulation",
+          "type": "principle"
+        },
+        {
+          "id": "abstraction",
+          "label": "Abstraction",
+          "type": "principle"
+        },
+        {
+          "id": "pattern",
+          "label": "Design Pattern",
+          "type": "technique"
+        }
+      ],
+      "edges": [
+        {
+          "source": "oop",
+          "target": "class",
+          "label": "uses"
+        },
+        {
+          "source": "class",
+          "target": "object",
+          "label": "creates"
+        },
+        {
+          "source": "class",
+          "target": "inheritance",
+          "label": "enables"
+        },
+        {
+          "source": "object",
+          "target": "polymorphism",
+          "label": "exhibits"
+        },
+        {
+          "source": "class",
+          "target": "encapsulation",
+          "label": "implements"
+        },
+        {
+          "source": "oop",
+          "target": "abstraction",
+          "label": "relies on"
+        },
+        {
+          "source": "pattern",
+          "target": "oop",
+          "label": "supports"
+        }
+      ]
+    },
+    "quality_score": 0.88
+  },
+  "quality_gates": {
+    "all_passed": true,
+    "gates_summary": [
+      {
+        "name": "EXTRACT-QUALITY",
+        "status": "PASS",
+        "score": 0.87
+      },
+      {
+        "name": "SUMMARY-QUALITY",
+        "status": "PASS",
+        "score": 0.86
+      }
+    ]
+  },
+  "recommended_roles": [
+    {
+      "role": "developer",
+      "confidence": 0.95,
+      "applicable_concepts": [
+        "Class Definition",
+        "Inheritance",
+        "Polymorphism",
+        "Encapsulation"
+      ],
+      "rationale": "Direct application to code design and implementation of OOP systems"
+    },
+    {
+      "role": "architect",
+      "confidence": 0.92,
+      "applicable_concepts": [
+        "Design Patterns",
+        "Composition over Inheritance",
+        "Abstraction",
+        "System Design"
+      ],
+      "rationale": "High-level system design and component architecture principles"
+    },
+    {
+      "role": "techlead",
+      "confidence": 0.88,
+      "applicable_concepts": [
+        "SOLID Principles",
+        "Design Patterns",
+        "Code Review Standards",
+        "Mentoring"
+      ],
+      "rationale": "Code review standards and team guidance on OOP best practices"
+    },
+    {
+      "role": "tester",
+      "confidence": 0.75,
+      "applicable_concepts": [
+        "Testable Design",
+        "Encapsulation",
+        "Single Responsibility"
+      ],
+      "rationale": "Understanding how OOP design impacts testability"
+    }
+  ],
+  "next_steps": [
+    "Run /suggest-roles to auto-trigger role mapping",
+    "Select applicable roles for your context",
+    "Execute /apply-as-{role} for role-specific applications",
+    "Export to /export-obsidian for knowledge management"
+  ],
+  "unified_knowledge_quality": {
+    "overall_score": 0.87,
+    "completeness": 0.88,
+    "consistency": 0.86,
+    "usefulness": 0.87
+  }
+}

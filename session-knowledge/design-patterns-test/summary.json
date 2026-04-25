@@ -1,0 +1,133 @@
+{
+  "book_id": "design-patterns-test",
+  "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+  "generated_at": "2026-04-25T00:00:00Z",
+  "quality_score": 0.88,
+  "summary": {
+    "tldr": "Design patterns are proven, reusable solutions to common software design problems organized into three categories (Creational, Structural, Behavioral) and grounded in SOLID principles. They improve code reusability, communication, and maintainability but require careful application to avoid over-engineering.",
+    "main_themes": [
+      "Patterns as reusable design solutions",
+      "Three pattern categories by purpose",
+      "SOLID principles as foundation",
+      "Patterns vs. over-engineering",
+      "Terminology and team communication"
+    ],
+    "key_insights": [
+      "Design patterns provide tested, proven solutions to recurring problems",
+      "Patterns should solve real problems, not be applied blindly",
+      "SOLID principles underpin all good design patterns",
+      "Understanding trade-offs is critical before applying patterns",
+      "Patterns establish shared vocabulary for software teams"
+    ],
+    "anti_patterns": [
+      "Over-engineering simple problems with patterns",
+      "Using patterns without understanding their trade-offs",
+      "Global state in Singleton pattern making testing difficult",
+      "Complex inheritance hierarchies when Decorator pattern applies"
+    ]
+  },
+  "detailed_summary": {
+    "introduction": "Design patterns represent best practices and reusable solutions to common software design problems. Each pattern consists of three elements: the problem it solves, a general solution, and the consequences/trade-offs.",
+    "core_concepts": [
+      {
+        "name": "Pattern Framework",
+        "description": "All patterns follow Problem → Solution → Consequences structure"
+      },
+      {
+        "name": "Three Categories",
+        "description": "Creational (object creation), Structural (composition), Behavioral (interaction)"
+      },
+      {
+        "name": "SOLID Foundation",
+        "description": "Five principles that guide pattern design and application"
+      }
+    ],
+    "pattern_overview": {
+      "creational": {
+        "count": 3,
+        "purpose": "Object creation abstraction",
+        "patterns": [
+          {
+            "name": "Factory",
+            "benefit": "Decouples client from concrete classes"
+          },
+          {
+            "name": "Singleton",
+            "benefit": "Ensures single instance, challenges testing"
+          },
+          {
+            "name": "Builder",
+            "benefit": "Readable construction of complex objects"
+          }
+        ]
+      },
+      "structural": {
+        "count": 3,
+        "purpose": "Object composition and relationships",
+        "patterns": [
+          {
+            "name": "Adapter",
+            "benefit": "Makes incompatible interfaces work together"
+          },
+          {
+            "name": "Decorator",
+            "benefit": "Adds behavior dynamically without inheritance"
+          },
+          {
+            "name": "Facade",
+            "benefit": "Simplifies complex subsystems"
+          }
+        ]
+      },
+      "behavioral": {
+        "count": 3,
+        "purpose": "Object interaction and responsibility distribution",
+        "patterns": [
+          {
+            "name": "Observer",
+            "benefit": "Event-driven one-to-many relationships"
+          },
+          {
+            "name": "Strategy",
+            "benefit": "Runtime algorithm selection"
+          },
+          {
+            "name": "Command",
+            "benefit": "Request encapsulation for undo/redo"
+          }
+        ]
+      }
+    },
+    "solid_principles": {
+      "single_responsibility": "One reason to change",
+      "open_closed": "Extensible without modification",
+      "liskov_substitution": "Substitutable derived classes",
+      "interface_segregation": "Specific, not general interfaces",
+      "dependency_inversion": "Abstract, not concrete dependencies"
+    },
+    "practical_guidance": {
+      "when_to_use": "Apply patterns when they solve real problems in your codebase",
+      "when_to_avoid": "Don't over-engineer simple problems",
+      "key_principle": "Start simple, refactor to patterns when needed"
+    },
+    "benefits": [
+      "Improved code reusability",
+      "Established terminology for communication",
+      "Avoids re-discovering solutions",
+      "Better maintainability and extensibility"
+    ],
+    "drawbacks": [
+      "Initial learning curve",
+      "Can over-complicate simple problems",
+      "May not apply to specific contexts",
+      "Trade-offs must be evaluated"
+    ]
+  },
+  "key_takeaways": [
+    "Patterns are guidelines, not laws",
+    "Understand principles behind patterns, not just mechanics",
+    "Each pattern has trade-offs to evaluate",
+    "Use patterns to solve real problems, avoid over-engineering",
+    "Patterns enable better team communication through shared terminology"
+  ]
+}

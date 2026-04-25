@@ -1,0 +1,209 @@
+{
+  "book_id": "design-patterns-test",
+  "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+  "authors": ["Gang of Four (GoF)"],
+  "extracted_at": "2026-04-25T00:00:00Z",
+  "quality_score": 0.92,
+  "concepts_extracted": 20,
+  "concepts": [
+    {
+      "id": "concept-001",
+      "name": "Design Pattern Definition",
+      "category": "Foundational",
+      "definition": "Reusable solutions to common problems in software design representing best practices",
+      "key_points": ["Problem-Solution-Consequences framework", "Tested and proven paradigms", "Speeds up development"],
+      "quotes": ["Design patterns are reusable solutions to common problems in software design"],
+      "entities": ["Design Pattern", "Best Practices", "Development Paradigms"],
+      "confidence": 0.98
+    },
+    {
+      "id": "concept-002",
+      "name": "Factory Pattern",
+      "category": "Creational",
+      "definition": "Creates objects without specifying exact classes, decoupling client code from concrete classes",
+      "key_points": ["Abstracts object creation", "Handles uncertainty in object types", "Improves code flexibility"],
+      "examples": ["DatabaseFactory creates MySQL or PostgreSQL connections"],
+      "confidence": 0.96
+    },
+    {
+      "id": "concept-003",
+      "name": "Singleton Pattern",
+      "category": "Creational",
+      "definition": "Ensures a class has only one instance with global point of access",
+      "key_points": ["Global state management", "Single instance guarantee", "Testing challenges"],
+      "use_cases": ["Logging", "Configuration", "Database connections"],
+      "trade_offs": ["Global state can make testing harder"],
+      "confidence": 0.95
+    },
+    {
+      "id": "concept-004",
+      "name": "Builder Pattern",
+      "category": "Creational",
+      "definition": "Constructs complex objects step by step, separating construction from representation",
+      "key_points": ["Readable code", "Fluent interfaces", "Complex object assembly"],
+      "examples": ["ConfigBuilder.withDatabase().withCache().build()"],
+      "confidence": 0.94
+    },
+    {
+      "id": "concept-005",
+      "name": "Adapter Pattern",
+      "category": "Structural",
+      "definition": "Makes incompatible interfaces work together by converting interface of one class into another",
+      "key_points": ["Interface compatibility", "Legacy code integration", "Loose coupling"],
+      "examples": ["LegacyPaymentGatewayAdapter"],
+      "confidence": 0.95
+    },
+    {
+      "id": "concept-006",
+      "name": "Decorator Pattern",
+      "category": "Structural",
+      "definition": "Adds behavior to objects dynamically without using inheritance",
+      "key_points": ["Runtime behavior addition", "Alternative to subclassing", "Composition over inheritance"],
+      "examples": ["Coffee → EspressoCoffee → MilkDecorator → WhippedCreamDecorator"],
+      "confidence": 0.96
+    },
+    {
+      "id": "concept-007",
+      "name": "Facade Pattern",
+      "category": "Structural",
+      "definition": "Provides simplified interface to complex subsystem",
+      "key_points": ["Complexity hiding", "Reduced dependencies", "Simplified API"],
+      "examples": ["ShoppingCartFacade simplifies order processing"],
+      "confidence": 0.93
+    },
+    {
+      "id": "concept-008",
+      "name": "Observer Pattern",
+      "category": "Behavioral",
+      "definition": "Defines one-to-many dependency between objects with automatic notification",
+      "key_points": ["Event-driven architecture", "Loose coupling", "Reactive programming"],
+      "examples": ["EventEmitter in Node.js", "addEventListener in browsers"],
+      "confidence": 0.97
+    },
+    {
+      "id": "concept-009",
+      "name": "Strategy Pattern",
+      "category": "Behavioral",
+      "definition": "Encapsulates algorithms so they're interchangeable at runtime",
+      "key_points": ["Algorithm abstraction", "Runtime selection", "Eliminates conditionals"],
+      "examples": ["PaymentStrategy → CreditCardStrategy, PayPalStrategy"],
+      "confidence": 0.96
+    },
+    {
+      "id": "concept-010",
+      "name": "Command Pattern",
+      "category": "Behavioral",
+      "definition": "Encapsulates request as an object allowing parameterization and queuing",
+      "key_points": ["Request abstraction", "Undo/Redo support", "Request logging"],
+      "examples": ["Undo/Redo operations in editors"],
+      "confidence": 0.94
+    },
+    {
+      "id": "concept-011",
+      "name": "Single Responsibility Principle (SRP)",
+      "category": "SOLID",
+      "definition": "A class should have only one reason to change",
+      "key_points": ["Focused responsibility", "Easier maintenance", "Better testability"],
+      "confidence": 0.98
+    },
+    {
+      "id": "concept-012",
+      "name": "Open/Closed Principle (OCP)",
+      "category": "SOLID",
+      "definition": "Open for extension, closed for modification",
+      "key_points": ["Extensibility", "Stability", "Backward compatibility"],
+      "confidence": 0.97
+    },
+    {
+      "id": "concept-013",
+      "name": "Liskov Substitution Principle (LSP)",
+      "category": "SOLID",
+      "definition": "Derived classes should be substitutable for base classes",
+      "key_points": ["Type safety", "Behavioral consistency", "Polymorphism"],
+      "confidence": 0.96
+    },
+    {
+      "id": "concept-014",
+      "name": "Interface Segregation Principle (ISP)",
+      "category": "SOLID",
+      "definition": "Use specific interfaces, not general ones",
+      "key_points": ["Minimal dependencies", "Flexible contracts", "Reduced coupling"],
+      "confidence": 0.95
+    },
+    {
+      "id": "concept-015",
+      "name": "Dependency Inversion Principle (DIP)",
+      "category": "SOLID",
+      "definition": "Depend on abstractions, not concrete implementations",
+      "key_points": ["Abstraction dependency", "Loose coupling", "Testability"],
+      "confidence": 0.98
+    },
+    {
+      "id": "concept-016",
+      "name": "Pattern Categories Framework",
+      "category": "Foundational",
+      "definition": "Three main categories organizing design patterns by purpose",
+      "categories": ["Creational (Object Creation)", "Structural (Object Composition)", "Behavioral (Object Interaction)"],
+      "confidence": 0.99
+    },
+    {
+      "id": "concept-017",
+      "name": "Over-Engineering Anti-Pattern",
+      "category": "Best Practices",
+      "definition": "Applying patterns to simple problems adds unnecessary complexity",
+      "key_points": ["Simplicity first", "Refactor when needed", "Context matters"],
+      "confidence": 0.93
+    },
+    {
+      "id": "concept-018",
+      "name": "Pattern Trade-offs",
+      "category": "Best Practices",
+      "definition": "Each pattern has benefits and drawbacks that must be understood",
+      "trade_offs": [
+        "Improved reusability vs Learning curve",
+        "Better maintainability vs Over-complication",
+        "Established terminology vs Context mismatch"
+      ],
+      "confidence": 0.91
+    },
+    {
+      "id": "concept-019",
+      "name": "Creational Patterns Group",
+      "category": "Foundational",
+      "definition": "Patterns dealing with object creation mechanisms",
+      "patterns": ["Factory", "Singleton", "Builder"],
+      "purpose": "Decouple object creation from usage",
+      "confidence": 0.98
+    },
+    {
+      "id": "concept-020",
+      "name": "Pattern as Terminology",
+      "category": "Best Practices",
+      "definition": "Design patterns provide established vocabulary for team communication",
+      "benefits": ["Efficient communication", "Shared understanding", "Reduces misunderstanding"],
+      "confidence": 0.94
+    }
+  ],
+  "key_terms": [
+    "Design Pattern",
+    "Creational Pattern",
+    "Structural Pattern",
+    "Behavioral Pattern",
+    "Factory Pattern",
+    "Singleton Pattern",
+    "Builder Pattern",
+    "Adapter Pattern",
+    "Decorator Pattern",
+    "Facade Pattern",
+    "Observer Pattern",
+    "Strategy Pattern",
+    "Command Pattern",
+    "SOLID Principles",
+    "Object-Oriented Design"
+  ],
+  "entities": {
+    "patterns": ["Factory", "Singleton", "Builder", "Adapter", "Decorator", "Facade", "Observer", "Strategy", "Command"],
+    "principles": ["SRP", "OCP", "LSP", "ISP", "DIP"],
+    "contexts": ["Web Development", "Enterprise Applications", "Library Design", "Framework Development"]
+  }
+}

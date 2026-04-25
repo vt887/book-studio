@@ -1,0 +1,714 @@
+// ========================================
+// Neo4j Cypher Queries - Object-Oriented Thinking Knowledge Graph
+// Generated: 2026-04-25T17:00:00Z
+// Total Queries: 50+
+// ========================================
+
+// PHASE 1: CLEANUP (Run this if re-importing)
+// ========================================
+MATCH (n) DETACH DELETE n;
+
+
+// PHASE 2: CREATE CORE CONCEPT NODES (Layer 1)
+// ========================================
+
+CREATE (oop:CONCEPT {
+  id: 'concept_oop',
+  name: 'Object-Oriented Programming',
+  definition: 'Paradigm based on concept of objects that contain data and code',
+  importance: 1.0,
+  complexity: 'high',
+  chapter: '1-3',
+  confidence: 0.95
+});
+
+CREATE (class:CONCEPT {
+  id: 'concept_class',
+  name: 'Class Definition',
+  definition: 'Blueprint or template for creating objects, defining structure and behavior',
+  importance: 0.98,
+  complexity: 'simple',
+  chapter: '4-6',
+  confidence: 0.95,
+  frequency: 1113
+});
+
+CREATE (inheritance:CONCEPT {
+  id: 'concept_inheritance',
+  name: 'Inheritance',
+  definition: 'Mechanism allowing classes to inherit properties and methods from parent classes',
+  importance: 0.92,
+  complexity: 'medium',
+  chapter: '7-10',
+  confidence: 0.92,
+  frequency: 107
+});
+
+CREATE (polymorphism:CONCEPT {
+  id: 'concept_polymorphism',
+  name: 'Polymorphism',
+  definition: 'Ability of objects to take multiple forms or methods to behave differently based on context',
+  importance: 0.90,
+  complexity: 'medium',
+  chapter: '11-13',
+  confidence: 0.90,
+  frequency: 26
+});
+
+CREATE (encapsulation:CONCEPT {
+  id: 'concept_encapsulation',
+  name: 'Encapsulation',
+  definition: 'Bundling of data and methods together while hiding implementation details',
+  importance: 0.88,
+  complexity: 'simple',
+  chapter: '14-16',
+  confidence: 0.91,
+  frequency: 27
+});
+
+CREATE (abstraction:CONCEPT {
+  id: 'concept_abstraction',
+  name: 'Abstraction',
+  definition: 'Process of hiding complexity by showing only necessary features',
+  importance: 0.85,
+  complexity: 'medium',
+  chapter: '17-19',
+  confidence: 0.89
+});
+
+CREATE (composition:CONCEPT {
+  id: 'concept_composition',
+  name: 'Composition over Inheritance',
+  definition: 'Principle of using object composition instead of inheritance for greater flexibility',
+  importance: 0.87,
+  complexity: 'medium',
+  chapter: '26-28',
+  confidence: 0.88
+});
+
+CREATE (interface_concept:CONCEPT {
+  id: 'concept_interface',
+  name: 'Interface',
+  definition: 'Contract defining methods that implementing classes must provide',
+  importance: 0.86,
+  complexity: 'simple',
+  chapter: '20-22',
+  confidence: 0.90,
+  frequency: 404
+});
+
+CREATE (solid:CONCEPT {
+  id: 'concept_solid',
+  name: 'SOLID Principles',
+  definition: 'Five design principles for maintainable and testable object-oriented software',
+  importance: 0.84,
+  complexity: 'high',
+  chapter: '23-25',
+  confidence: 0.86
+});
+
+
+// PHASE 3: CREATE CORE CONCEPT RELATIONSHIPS
+// ========================================
+
+MATCH (oop:CONCEPT {id: 'concept_oop'}), (class:CONCEPT {id: 'concept_class'})
+CREATE (oop)-[r:FOUNDATION {strength: 0.98}]->(class)
+SET r.description = 'OOP relies on classes as fundamental building blocks';
+
+MATCH (class:CONCEPT {id: 'concept_class'}), (inheritance:CONCEPT {id: 'concept_inheritance'})
+CREATE (class)-[r:ENABLES {strength: 0.92}]->(inheritance)
+SET r.description = 'Classes enable inheritance hierarchies';
+
+MATCH (inheritance:CONCEPT {id: 'concept_inheritance'}), (polymorphism:CONCEPT {id: 'concept_polymorphism'})
+CREATE (inheritance)-[r:ENABLES {strength: 0.85}]->(polymorphism)
+SET r.description = 'Inheritance enables polymorphic behavior';
+
+MATCH (class:CONCEPT {id: 'concept_class'}), (encapsulation:CONCEPT {id: 'concept_encapsulation'})
+CREATE (class)-[r:IMPLEMENTS {strength: 0.94}]->(encapsulation)
+SET r.description = 'Classes implement encapsulation through access modifiers';
+
+MATCH (encapsulation:CONCEPT {id: 'concept_encapsulation'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (encapsulation)-[r:SUPPORTS {strength: 0.88}]->(abstraction)
+SET r.description = 'Encapsulation supports abstraction of details';
+
+MATCH (inheritance:CONCEPT {id: 'concept_inheritance'}), (composition:CONCEPT {id: 'concept_composition'})
+CREATE (inheritance)-[r:ALTERNATIVE_TO {strength: 0.75}]->(composition)
+SET r.description = 'Composition often better alternative to inheritance';
+
+MATCH (polymorphism:CONCEPT {id: 'concept_polymorphism'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (polymorphism)-[r:USES {strength: 0.92}]->(interface_concept)
+SET r.description = 'Polymorphism leverages interfaces for contracts';
+
+MATCH (solid:CONCEPT {id: 'concept_solid'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (solid)-[r:APPLIES_TO {strength: 0.91}]->(abstraction)
+SET r.description = 'SOLID principles guide abstraction design';
+
+
+// PHASE 4: CREATE ARCHITECTURAL DECISION NODES (Layer 2)
+// ========================================
+
+CREATE (adr001:ADR {
+  id: 'adr_001',
+  title: 'Abstraction as Primary Design Tool',
+  status: 'ACCEPTED',
+  context: 'Balance hiding complexity with exposing necessary interfaces',
+  decision: 'Use abstraction as primary architectural tool for hiding complexity and defining boundaries',
+  rationale: 'Enables testability, maintainability, flexibility, and team collaboration',
+  positive_consequences: ['Consumers depend on stable abstractions', 'New implementations without changing code', 'Easier isolation testing', 'Clear boundaries'],
+  negative_consequences: ['May introduce unnecessary layers', 'Indirection complexity', 'Virtual dispatch overhead']
+});
+
+CREATE (adr002:ADR {
+  id: 'adr_002',
+  title: 'Inheritance for IS-A, Composition for HAS-A',
+  status: 'ACCEPTED',
+  context: 'Need clear guidance on when to use inheritance vs composition',
+  decision: 'Use inheritance for true IS-A relationships, composition for HAS-A relationships',
+  rationale: 'Prevents fragile hierarchies and improves code flexibility',
+  positive_consequences: ['Clearer intent', 'Easier refactoring', 'Better flexibility'],
+  negative_consequences: ['Requires discipline', 'More initial design work']
+});
+
+CREATE (adr003:ADR {
+  id: 'adr_003',
+  title: 'Single Responsibility Principle',
+  status: 'ACCEPTED',
+  context: 'Classes tend to grow and become difficult to maintain',
+  decision: 'Each class should have a single reason to change',
+  rationale: 'Improves maintainability, testability, and reusability',
+  positive_consequences: ['Easier to test', 'Clear purpose', 'Easier refactoring'],
+  negative_consequences: ['More classes', 'More complexity in orchestration']
+});
+
+CREATE (adr004:ADR {
+  id: 'adr_004',
+  title: 'Dependency Inversion Principle',
+  status: 'ACCEPTED',
+  context: 'High-level modules depend on low-level modules causing tight coupling',
+  decision: 'Both should depend on abstractions, not concrete implementations',
+  rationale: 'Reduces coupling and enables flexible component swapping',
+  positive_consequences: ['Loose coupling', 'Easy testing with mocks', 'Plugin architecture support'],
+  negative_consequences: ['More abstraction layers', 'Learning curve']
+});
+
+CREATE (adr005:ADR {
+  id: 'adr_005',
+  title: 'Design Patterns as Communication Tool',
+  status: 'ACCEPTED',
+  context: 'Need common vocabulary for discussing design solutions',
+  decision: 'Use established design patterns for recurring problems',
+  rationale: 'Patterns provide proven solutions and facilitate team communication',
+  positive_consequences: ['Shared vocabulary', 'Proven solutions', 'Faster design decisions'],
+  negative_consequences: ['Pattern over-application', 'Complexity for simple problems']
+});
+
+CREATE (adr006:ADR {
+  id: 'adr_006',
+  title: 'Encapsulation for State Protection',
+  status: 'ACCEPTED',
+  context: 'Object state must be protected from inconsistent modifications',
+  decision: 'Hide internal state behind validated accessors',
+  rationale: 'Ensures object invariants and enables safe refactoring',
+  positive_consequences: ['State consistency', 'Validation in one place', 'Safe refactoring'],
+  negative_consequences: ['More boilerplate', 'Performance overhead (usually negligible)']
+});
+
+CREATE (adr007:ADR {
+  id: 'adr_007',
+  title: 'Polymorphism for Extensibility',
+  status: 'ACCEPTED',
+  context: 'Systems need to support multiple implementations without code changes',
+  decision: 'Use polymorphism to program to interfaces, not implementations',
+  rationale: 'Enables extension without modification and flexible behavior',
+  positive_consequences: ['Plugin support', 'Runtime flexibility', 'Easier testing'],
+  negative_consequences: ['Indirection', 'Learning curve']
+});
+
+CREATE (adr008:ADR {
+  id: 'adr_008',
+  title: 'Constructor Injection for Dependencies',
+  status: 'ACCEPTED',
+  context: 'Objects need dependencies but should not create them',
+  decision: 'Inject dependencies through constructor to make dependencies explicit',
+  rationale: 'Makes dependencies clear and enables easy testing with mocks',
+  positive_consequences: ['Explicit dependencies', 'Easier testing', 'No global state'],
+  negative_consequences: ['More boilerplate', 'Requires DI container']
+});
+
+CREATE (adr009:ADR {
+  id: 'adr_009',
+  title: 'Separation of Concerns',
+  status: 'ACCEPTED',
+  context: 'Business logic mixes with infrastructure concerns creating maintenance burden',
+  decision: 'Separate business logic, presentation, persistence, and cross-cutting concerns',
+  rationale: 'Enables independent evolution and easier testing',
+  positive_consequences: ['Independent layers', 'Easier testing', 'Better maintainability'],
+  negative_consequences: ['More layers', 'Increased complexity']
+});
+
+CREATE (adr010:ADR {
+  id: 'adr_010',
+  title: 'Loose Coupling via Interfaces',
+  status: 'ACCEPTED',
+  context: 'Components have direct dependencies causing ripple effects during changes',
+  decision: 'Use interface-based dependencies to decouple components',
+  rationale: 'Enables independent testing and flexible component replacement',
+  positive_consequences: ['Independent components', 'Easy mocking', 'Flexible design'],
+  negative_consequences: ['More abstractions', 'Indirection']
+});
+
+CREATE (adr011:ADR {
+  id: 'adr_011',
+  title: 'High Cohesion Through Responsibility Grouping',
+  status: 'ACCEPTED',
+  context: 'Classes mix unrelated responsibilities making code harder to understand',
+  decision: 'Group related functionality together with minimal interaction across groups',
+  rationale: 'Improves code clarity and maintainability',
+  positive_consequences: ['Clear structure', 'Easy navigation', 'Better understanding'],
+  negative_consequences: ['Requires discipline', 'Initial design effort']
+});
+
+CREATE (adr012:ADR {
+  id: 'adr_012',
+  title: 'Testable Design Principles',
+  status: 'ACCEPTED',
+  context: 'Code is difficult to test due to tight coupling and hidden dependencies',
+  decision: 'Design code with testability in mind from the start',
+  rationale: 'Enables comprehensive testing and confidence in code changes',
+  positive_consequences: ['Easy unit testing', 'Flexible mocking', 'Confidence in changes'],
+  negative_consequences: ['More design effort', 'Initial learning curve']
+});
+
+
+// PHASE 5: CREATE ADR RELATIONSHIPS TO CONCEPTS
+// ========================================
+
+MATCH (adr001:ADR {id: 'adr_001'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (adr001)-[r:IMPLEMENTS {strength: 0.96}]->(abstraction)
+SET r.description = 'ADR-001 implements abstraction principle';
+
+MATCH (adr002:ADR {id: 'adr_002'}), (inheritance:CONCEPT {id: 'concept_inheritance'})
+CREATE (adr002)-[r:APPLIES_TO {strength: 0.93}]->(inheritance)
+SET r.description = 'ADR-002 provides guidance on inheritance';
+
+MATCH (adr002:ADR {id: 'adr_002'}), (composition:CONCEPT {id: 'concept_composition'})
+CREATE (adr002)-[r:APPLIES_TO {strength: 0.93}]->(composition)
+SET r.description = 'ADR-002 promotes composition principle';
+
+MATCH (adr003:ADR {id: 'adr_003'}), (solid:CONCEPT {id: 'concept_solid'})
+CREATE (adr003)-[r:IMPLEMENTS {strength: 0.94}]->(solid)
+SET r.description = 'ADR-003 implements SRP from SOLID';
+
+MATCH (adr004:ADR {id: 'adr_004'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (adr004)-[r:IMPLEMENTS {strength: 0.95}]->(abstraction)
+SET r.description = 'ADR-004 implements dependency inversion through abstraction';
+
+MATCH (adr005:ADR {id: 'adr_005'}), (solid:CONCEPT {id: 'concept_solid'})
+CREATE (adr005)-[r:APPLIES_TO {strength: 0.87}]->(solid)
+SET r.description = 'ADR-005 uses design patterns for SOLID compliance';
+
+MATCH (adr006:ADR {id: 'adr_006'}), (encapsulation:CONCEPT {id: 'concept_encapsulation'})
+CREATE (adr006)-[r:IMPLEMENTS {strength: 0.96}]->(encapsulation)
+SET r.description = 'ADR-006 enforces encapsulation for state protection';
+
+MATCH (adr007:ADR {id: 'adr_007'}), (polymorphism:CONCEPT {id: 'concept_polymorphism'})
+CREATE (adr007)-[r:IMPLEMENTS {strength: 0.95}]->(polymorphism)
+SET r.description = 'ADR-007 leverages polymorphism for extensibility';
+
+MATCH (adr008:ADR {id: 'adr_008'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (adr008)-[r:IMPLEMENTS {strength: 0.93}]->(abstraction)
+SET r.description = 'ADR-008 uses constructor injection for abstraction';
+
+MATCH (adr009:ADR {id: 'adr_009'}), (solid:CONCEPT {id: 'concept_solid'})
+CREATE (adr009)-[r:IMPLEMENTS {strength: 0.94}]->(solid)
+SET r.description = 'ADR-009 implements separation of concerns principle';
+
+MATCH (adr010:ADR {id: 'adr_010'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (adr010)-[r:USES {strength: 0.92}]->(interface_concept)
+SET r.description = 'ADR-010 uses interfaces for loose coupling';
+
+MATCH (adr011:ADR {id: 'adr_011'}), (solid:CONCEPT {id: 'concept_solid'})
+CREATE (adr011)-[r:APPLIES_TO {strength: 0.89}]->(solid)
+SET r.description = 'ADR-011 applies cohesion principles';
+
+MATCH (adr012:ADR {id: 'adr_012'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (adr012)-[r:APPLIES_TO {strength: 0.87}]->(interface_concept)
+SET r.description = 'ADR-012 uses interfaces for testable design';
+
+
+// PHASE 6: CREATE TEST NODES (Layer 3) - Core Test Cases
+// ========================================
+
+CREATE (tc001:TEST {
+  id: 'tc_001',
+  testId: 'TC-001',
+  type: 'unit',
+  title: 'Class Definition - Valid Object Creation',
+  oopConcept: 'Class Definition',
+  given: 'A class User with properties name and email',
+  when: 'Creating a User object with valid data',
+  then: 'Object should be created with correct properties',
+  edgeCases: ['null values', 'empty strings', 'maximum length strings']
+});
+
+CREATE (tc005:TEST {
+  id: 'tc_005',
+  testId: 'TC-005',
+  type: 'unit',
+  title: 'Inheritance - Method Override',
+  oopConcept: 'Inheritance',
+  given: 'Parent class with virtual method and child class overriding it',
+  when: 'Calling method through parent reference',
+  then: 'Child implementation should be executed',
+  edgeCases: ['abstract methods', 'sealed classes']
+});
+
+CREATE (tc007:TEST {
+  id: 'tc_007',
+  testId: 'TC-007',
+  type: 'unit',
+  title: 'Polymorphism - Interface Implementation',
+  oopConcept: 'Polymorphism',
+  given: 'Multiple classes implementing same interface',
+  when: 'Using objects through interface reference',
+  then: 'Correct implementation should be invoked',
+  edgeCases: ['multiple implementations', 'missing implementations']
+});
+
+CREATE (tc003:TEST {
+  id: 'tc_003',
+  testId: 'TC-003',
+  type: 'unit',
+  title: 'Encapsulation - Private Field Protection',
+  oopConcept: 'Encapsulation',
+  given: 'A class with private fields',
+  when: 'Attempting direct field access',
+  then: 'Access should be denied, only through accessors',
+  edgeCases: ['reflection-based access', 'setter validation']
+});
+
+CREATE (tc009:TEST {
+  id: 'tc_009',
+  testId: 'TC-009',
+  type: 'unit',
+  title: 'Abstraction - Interface Contract',
+  oopConcept: 'Abstraction',
+  given: 'Interface defining contract',
+  when: 'Implementing class violates contract',
+  then: 'Compilation error or runtime contract violation',
+  edgeCases: ['incomplete implementation', 'signature mismatch']
+});
+
+CREATE (tc012:TEST {
+  id: 'tc_012',
+  testId: 'TC-012',
+  type: 'unit',
+  title: 'Dependency Injection - Constructor',
+  oopConcept: 'Dependency Inversion Principle',
+  given: 'Class with injected dependencies',
+  when: 'Using mock dependencies',
+  then: 'Should work with any implementation',
+  edgeCases: ['null injection', 'type mismatch']
+});
+
+
+// PHASE 7: CREATE TEST RELATIONSHIPS
+// ========================================
+
+MATCH (tc001:TEST {id: 'tc_001'}), (class:CONCEPT {id: 'concept_class'})
+CREATE (tc001)-[r:VALIDATES {strength: 1.0}]->(class)
+SET r.description = 'TC-001 validates class definition concept';
+
+MATCH (tc005:TEST {id: 'tc_005'}), (inheritance:CONCEPT {id: 'concept_inheritance'})
+CREATE (tc005)-[r:VALIDATES {strength: 1.0}]->(inheritance)
+SET r.description = 'TC-005 validates inheritance mechanism';
+
+MATCH (tc007:TEST {id: 'tc_007'}), (polymorphism:CONCEPT {id: 'concept_polymorphism'})
+CREATE (tc007)-[r:VALIDATES {strength: 1.0}]->(polymorphism)
+SET r.description = 'TC-007 validates polymorphism behavior';
+
+MATCH (tc003:TEST {id: 'tc_003'}), (encapsulation:CONCEPT {id: 'concept_encapsulation'})
+CREATE (tc003)-[r:VALIDATES {strength: 1.0}]->(encapsulation)
+SET r.description = 'TC-003 validates encapsulation principle';
+
+MATCH (tc009:TEST {id: 'tc_009'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (tc009)-[r:VALIDATES {strength: 1.0}]->(abstraction)
+SET r.description = 'TC-009 validates abstraction contract';
+
+MATCH (tc001:TEST {id: 'tc_001'}), (adr003:ADR {id: 'adr_003'})
+CREATE (tc001)-[r:EXERCISES {strength: 0.85}]->(adr003)
+SET r.description = 'TC-001 exercises SRP principle';
+
+MATCH (tc012:TEST {id: 'tc_012'}), (adr004:ADR {id: 'adr_004'})
+CREATE (tc012)-[r:EXERCISES {strength: 0.93}]->(adr004)
+SET r.description = 'TC-012 exercises dependency injection';
+
+
+// PHASE 8: CREATE ROLE NODES (Layer 4)
+// ========================================
+
+CREATE (dev:ROLE {
+  id: 'role_developer',
+  name: 'Developer',
+  title: 'Software Developer',
+  focusArea: 'Writing code that applies OOP principles effectively',
+  applicableConceptCount: 15,
+  applicationScore: 0.95
+});
+
+CREATE (arch:ROLE {
+  id: 'role_architect',
+  name: 'Architect',
+  title: 'Software Architect',
+  focusArea: 'Designing systems using OOP principles and patterns',
+  applicableConceptCount: 12,
+  applicationScore: 0.92
+});
+
+CREATE (tester:ROLE {
+  id: 'role_tester',
+  name: 'Tester',
+  title: 'QA Engineer / Test Specialist',
+  focusArea: 'Testing OOP-designed code comprehensively',
+  applicableConceptCount: 8,
+  applicationScore: 0.71
+});
+
+CREATE (techlead:ROLE {
+  id: 'role_techlead',
+  name: 'TechLead',
+  title: 'Technical Lead / Senior Developer',
+  focusArea: 'Guiding team on OOP best practices and code quality',
+  applicableConceptCount: 11,
+  applicationScore: 0.82
+});
+
+
+// PHASE 9: CREATE ROLE-CONCEPT RELATIONSHIPS
+// ========================================
+
+MATCH (dev:ROLE {id: 'role_developer'}), (class:CONCEPT {id: 'concept_class'})
+CREATE (dev)-[r:HAS {strength: 0.98}]->(class)
+SET r.description = 'Developer applies class definition daily';
+
+MATCH (dev:ROLE {id: 'role_developer'}), (encapsulation:CONCEPT {id: 'concept_encapsulation'})
+CREATE (dev)-[r:HAS {strength: 0.96}]->(encapsulation)
+SET r.description = 'Developer implements encapsulation';
+
+MATCH (arch:ROLE {id: 'role_architect'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (arch)-[r:HAS {strength: 0.98}]->(abstraction)
+SET r.description = 'Architect designs abstractions';
+
+MATCH (arch:ROLE {id: 'role_architect'}), (composition:CONCEPT {id: 'concept_composition'})
+CREATE (arch)-[r:HAS {strength: 0.94}]->(composition)
+SET r.description = 'Architect applies composition principle';
+
+MATCH (tester:ROLE {id: 'role_tester'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (tester)-[r:HAS {strength: 0.88}]->(interface_concept)
+SET r.description = 'Tester uses interfaces for mocking';
+
+MATCH (techlead:ROLE {id: 'role_techlead'}), (solid:CONCEPT {id: 'concept_solid'})
+CREATE (techlead)-[r:HAS {strength: 0.95}]->(solid)
+SET r.description = 'TechLead guides SOLID principles';
+
+
+// PHASE 10: CREATE DESIGN PATTERN NODES (Layer 5)
+// ========================================
+
+CREATE (factory:PATTERN {
+  id: 'pattern_factory',
+  name: 'Factory Method',
+  purpose: 'Create objects without specifying exact classes',
+  category: 'creational',
+  problem: 'Direct instantiation couples code to concrete classes',
+  solution: 'Define interface for object creation in subclasses'
+});
+
+CREATE (decorator:PATTERN {
+  id: 'pattern_decorator',
+  name: 'Decorator',
+  purpose: 'Add behaviors dynamically to objects',
+  category: 'structural',
+  problem: 'Inheritance causes class explosion for combinations',
+  solution: 'Wrap objects with behavior-adding decorators'
+});
+
+CREATE (strategy:PATTERN {
+  id: 'pattern_strategy',
+  name: 'Strategy',
+  purpose: 'Define algorithm family and make interchangeable',
+  category: 'behavioral',
+  problem: 'Multiple algorithms with conditional logic',
+  solution: 'Encapsulate algorithms in interchangeable strategies'
+});
+
+CREATE (observer:PATTERN {
+  id: 'pattern_observer',
+  name: 'Observer',
+  purpose: 'Notify multiple objects about state changes',
+  category: 'behavioral',
+  problem: 'Tight coupling between state changes and handlers',
+  solution: 'Subject notifies observers of changes'
+});
+
+CREATE (adapter:PATTERN {
+  id: 'pattern_adapter',
+  name: 'Adapter',
+  purpose: 'Convert interface to expected interface',
+  category: 'structural',
+  problem: 'Incompatible interfaces prevent collaboration',
+  solution: 'Create adapter implementing target interface'
+});
+
+CREATE (facade:PATTERN {
+  id: 'pattern_facade',
+  name: 'Facade',
+  purpose: 'Provide simple interface to complex subsystem',
+  category: 'structural',
+  problem: 'Complex subsystems difficult to use',
+  solution: 'Create facade offering simplified interface'
+});
+
+
+// PHASE 11: CREATE PATTERN-CONCEPT RELATIONSHIPS
+// ========================================
+
+MATCH (factory:PATTERN {id: 'pattern_factory'}), (polymorphism:CONCEPT {id: 'concept_polymorphism'})
+CREATE (factory)-[r:IMPLEMENTS {strength: 0.92}]->(polymorphism)
+SET r.description = 'Factory pattern implements polymorphism';
+
+MATCH (decorator:PATTERN {id: 'pattern_decorator'}), (composition:CONCEPT {id: 'concept_composition'})
+CREATE (decorator)-[r:IMPLEMENTS {strength: 0.95}]->(composition)
+SET r.description = 'Decorator pattern applies composition';
+
+MATCH (strategy:PATTERN {id: 'pattern_strategy'}), (polymorphism:CONCEPT {id: 'concept_polymorphism'})
+CREATE (strategy)-[r:IMPLEMENTS {strength: 0.94}]->(polymorphism)
+SET r.description = 'Strategy pattern implements behavior polymorphism';
+
+MATCH (observer:PATTERN {id: 'pattern_observer'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (observer)-[r:USES {strength: 0.92}]->(interface_concept)
+SET r.description = 'Observer pattern uses observer interface';
+
+MATCH (adapter:PATTERN {id: 'pattern_adapter'}), (interface_concept:CONCEPT {id: 'concept_interface'})
+CREATE (adapter)-[r:IMPLEMENTS {strength: 0.95}]->(interface_concept)
+SET r.description = 'Adapter implements target interface';
+
+MATCH (facade:PATTERN {id: 'pattern_facade'}), (abstraction:CONCEPT {id: 'concept_abstraction'})
+CREATE (facade)-[r:IMPLEMENTS {strength: 0.96}]->(abstraction)
+SET r.description = 'Facade abstracts complex subsystem';
+
+
+// VERIFICATION QUERIES - Run these to verify graph integrity
+// ========================================
+
+// Q1: Count all nodes by type
+MATCH (n) RETURN DISTINCT labels(n)[0] as node_type, COUNT(n) as count ORDER BY count DESC;
+
+// Q2: List all concepts with their importance
+MATCH (c:CONCEPT) RETURN c.name as concept, c.importance as importance ORDER BY importance DESC;
+
+// Q3: List all ADRs and their status
+MATCH (a:ADR) RETURN a.title as title, a.status as status ORDER BY a.id;
+
+// Q4: Show concept foundation chain (OOP -> Class -> Inheritance -> Polymorphism)
+MATCH path = (oop:CONCEPT {id: 'concept_oop'})-[:FOUNDATION|ENABLES*]->(end:CONCEPT)
+RETURN path LIMIT 5;
+
+// Q5: Find all tests validating a specific concept
+MATCH (t:TEST)-[:VALIDATES]->(c:CONCEPT {name: 'Polymorphism'})
+RETURN t.title as test, t.testId as id ORDER BY id;
+
+// Q6: Show ADR coverage by counting relationships to concepts
+MATCH (a:ADR)-[:IMPLEMENTS|APPLIES_TO]->(c:CONCEPT)
+RETURN a.title as adr, COUNT(c) as concept_count ORDER BY concept_count DESC;
+
+// Q7: Find all patterns implementing polymorphism
+MATCH (p:PATTERN)-[:IMPLEMENTS]->(c:CONCEPT {name: 'Polymorphism'})
+RETURN p.name as pattern, p.category as category;
+
+// Q8: Show role-concept alignment for Developer
+MATCH (dev:ROLE {name: 'Developer'})-[:HAS]->(c:CONCEPT)
+RETURN c.name as concept, labels(c)[0] as type ORDER BY c.importance DESC LIMIT 10;
+
+// Q9: Count relationships by type
+MATCH ()-[r]->() RETURN TYPE(r) as relationship_type, COUNT(r) as count ORDER BY count DESC;
+
+// Q10: Find concepts that are both foundation and enable other concepts
+MATCH (c:CONCEPT)-[:FOUNDATION|ENABLES]->()
+RETURN c.name as concept, COUNT(*) as outgoing_relationships ORDER BY outgoing_relationships DESC;
+
+// Q11: Show integration between SOLID principles and design patterns
+MATCH (p:PATTERN)-[:IMPLEMENTS|USES]->(c:CONCEPT)-[:FOUNDATION|ENABLES*]->(s:CONCEPT {name: 'SOLID Principles'})
+RETURN DISTINCT p.name as pattern, c.name as concept LIMIT 10;
+
+// Q12: List all test cases by OOP concept
+MATCH (t:TEST)-[:VALIDATES]->(c:CONCEPT)
+RETURN c.name as concept, COUNT(t) as test_count, COLLECT(t.testId) as test_ids ORDER BY test_count DESC;
+
+// Q13: Find decision consequences impact (ADRs with positive impact on concepts)
+MATCH (a:ADR)-[:IMPLEMENTS|APPLIES_TO]->(c:CONCEPT)
+RETURN a.id as adr, a.title as decision, c.name as enables, c.importance as importance ORDER BY importance DESC;
+
+// Q14: Calculate concept centrality (most connected)
+MATCH (c:CONCEPT)-[r]-() 
+RETURN c.name as concept, COUNT(r) as connectivity ORDER BY connectivity DESC;
+
+// Q15: Find roles and their applicable patterns
+MATCH (r:ROLE)-[:HAS]->(c:CONCEPT)<-[:IMPLEMENTS|USES]-(p:PATTERN)
+RETURN DISTINCT r.name as role, p.name as pattern, c.name as shared_concept LIMIT 15;
+
+// Q16: Show test coverage gaps (ADRs not covered by tests)
+MATCH (a:ADR) 
+WHERE NOT EXISTS((a)-[:EXERCISES]->(:TEST))
+RETURN a.id as adr_id, a.title as adr_title;
+
+// Q17: Complexity distribution of concepts
+MATCH (c:CONCEPT) 
+RETURN c.complexity as complexity, COUNT(c) as count, COLLECT(c.name) as concepts;
+
+// Q18: Find alternative approaches (concepts with ALTERNATIVE_TO relationships)
+MATCH (c1:CONCEPT)-[:ALTERNATIVE_TO]->(c2:CONCEPT)
+RETURN c1.name as primary_approach, c2.name as alternative, c1.chapter as chapter ORDER BY chapter;
+
+// Q19: Show full path from test to concept through ADR
+MATCH path = (t:TEST)-[:EXERCISES]->(a:ADR)-[:IMPLEMENTS|APPLIES_TO]->(c:CONCEPT)
+RETURN t.testId as test, a.id as adr, c.name as concept LIMIT 10;
+
+// Q20: Calculate importance scores for comprehensive learning path
+MATCH (c:CONCEPT) 
+RETURN c.name as concept, c.importance as base_importance, c.chapter as chapter 
+ORDER BY c.importance DESC, c.chapter;
+
+// ADVANCED ANALYSIS QUERIES
+// ========================================
+
+// Q21: Find concept clusters (groups of closely connected concepts)
+MATCH (c1:CONCEPT)-[r:FOUNDATION|ENABLES|SUPPORTS|COMPLEMENTS]-(c2:CONCEPT)
+RETURN c1.name as concept1, TYPE(r) as relationship, c2.name as concept2, r.strength as strength
+ORDER BY r.strength DESC;
+
+// Q22: Role-based learning paths (what role should learn what concepts)
+MATCH (r:ROLE)-[:HAS]->(c:CONCEPT)
+WITH r, COUNT(c) as concept_count, COLLECT(c.name) as concepts
+RETURN r.name as role, concept_count, concepts
+ORDER BY concept_count DESC;
+
+// Q23: Pattern distribution by category
+MATCH (p:PATTERN)
+RETURN p.category as pattern_category, COUNT(p) as count, COLLECT(p.name) as patterns
+ORDER BY count DESC;
+
+// Q24: Relationship strength distribution
+MATCH ()-[r]->() 
+RETURN TYPE(r) as relationship_type, COUNT(r) as count, 
+       MIN(COALESCE(r.strength, 0)) as min_strength,
+       AVG(COALESCE(r.strength, 0)) as avg_strength,
+       MAX(COALESCE(r.strength, 0)) as max_strength
+ORDER BY avg_strength DESC;
+
+// Q25: Concept prerequisites (what should be learned first)
+MATCH (c:CONCEPT)
+OPTIONAL MATCH (c)<-[:FOUNDATION|ENABLES]-(prerequisite:CONCEPT)
+RETURN c.name as concept, c.importance as importance, c.complexity as complexity,
+       COLLECT(DISTINCT prerequisite.name) as prerequisites
+ORDER BY c.importance DESC;

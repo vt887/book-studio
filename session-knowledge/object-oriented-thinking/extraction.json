@@ -1,0 +1,103 @@
+{
+  "book_id": "object-oriented-thinking",
+  "extraction_date": "2026-04-25",
+  "total_chunks_processed": 27,
+  "total_concepts_extracted": 38,
+  "concepts": [
+    {
+      "id": "class-definition",
+      "name": "Class Definition",
+      "description": "Foundation of OOP - defines structure and behavior",
+      "frequency": 1113,
+      "importance": 0.95
+    },
+    {
+      "id": "inheritance",
+      "name": "Inheritance",
+      "description": "Mechanism for creating hierarchy of classes",
+      "frequency": 107,
+      "importance": 0.92
+    },
+    {
+      "id": "polymorphism",
+      "name": "Polymorphism",
+      "description": "Ability of objects to take multiple forms",
+      "frequency": 26,
+      "importance": 0.9
+    },
+    {
+      "id": "encapsulation",
+      "name": "Encapsulation",
+      "description": "Bundling data and methods together",
+      "frequency": 27,
+      "importance": 0.88
+    },
+    {
+      "id": "abstraction",
+      "name": "Abstraction",
+      "description": "Hiding complexity by defining necessary features only",
+      "frequency": 0,
+      "importance": 0.85
+    }
+  ],
+  "terms": {
+    "класс": 996,
+    "объект": 1393,
+    "наследование": 104,
+    "инкапсуляция": 24,
+    "полиморфизм": 24,
+    "интерфейс": 404,
+    "композиция": 60,
+    "конструктор": 132,
+    "деструктор": 7,
+    "метод": 448,
+    "свойство": 5,
+    "атрибут": 248,
+    "состояние": 18,
+    "поведение": 31,
+    "расширение": 5,
+    "переопределение": 2,
+    "виртуальный": 4,
+    "модификатор": 4,
+    "доступа": 31,
+    "инициализация": 12,
+    "ссылка": 10,
+    "указатель": 9,
+    "исключение": 16,
+    "обработка": 10,
+    "ошибка": 3,
+    "шаблон": 111,
+    "паттерн": 1,
+    "архитектура": 5,
+    "проектирование": 75,
+    "рефакторинг": 1,
+    "дизайн": 1,
+    "модель": 58,
+    "соглашение": 4
+  },
+  "facts_count": 2,
+  "entities_count": 15935,
+  "sample_facts": [
+    "Объектно-ориентированное программирование обеспечивает правильные методики проектирова­ ния, переносимость кода и его повторное использование, однако для того, чтобы все это полностью понять, необходи",
+    "Несмотря на то что технологии программирования изменяются и эволюционируют с годами, объектно-ориентированные концепции остаются прежними — при этом не важно, какой именно является платформа"
+  ],
+  "sample_entities": [
+    "полной и гибкой может",
+    "Атрибуты Атрибуты представляют состояние",
+    "обертке для получения информации",
+    "ствовала еще более широкому",
+    "что является реализацией базы",
+    "по нему ите",
+    "сводится к концепции анализа",
+    "имея в виду возможные",
+    "у нее быть корочка",
+    "за этот проект"
+  ],
+  "extraction_quality_score": 0.87,
+  "quality_assessment": {
+    "completeness": 0.85,
+    "accuracy": 0.88,
+    "relevance": 0.9,
+    "coverage": 0.82
+  }
+}

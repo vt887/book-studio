@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "book_id": "object-oriented-thinking",
+    "title": "Object-Oriented Thinking by Vaysfeld",
+    "graph_version": "1.0",
+    "creation_date": "2026-04-25",
+    "graph_builder": "knowledge-director + graph-builder-spec"
+  },
+  "nodes": [
+    {
+      "id": "oop",
+      "label": "Object-Oriented Programming",
+      "type": "PARADIGM",
+      "importance": 1.0,
+      "description": "Foundational paradigm based on objects containing data and methods",
+      "frequency": 1393,
+      "roles": ["developer", "architect", "techlead"]
+    },
+    {
+      "id": "class-definition",
+      "label": "Class Definition",
+      "type": "CONCEPT",
+      "importance": 0.95,
+      "description": "Blueprint or template for creating objects, defining structure and behavior",
+      "frequency": 1113,
+      "roles": ["developer", "architect", "techlead"]
+    },
+    {
+      "id": "encapsulation",
+      "label": "Encapsulation",
+      "type": "PRINCIPLE",
+      "importance": 0.88,
+      "description": "Bundling of data and methods together while hiding implementation details",
+      "frequency": 27,
+      "roles": ["developer", "architect", "techlead", "tester"]
+    },
+    {
+      "id": "inheritance",
+      "label": "Inheritance",
+      "type": "CONCEPT",
+      "importance": 0.92,
+      "description": "Mechanism allowing classes to inherit properties and methods from parent classes",
+      "frequency": 107,
+      "roles": ["developer", "architect", "techlead"]
+    },
+    {
+      "id": "polymorphism",
+      "label": "Polymorphism",
+      "type": "CONCEPT",
+      "importance": 0.90,
+      "description": "Ability of objects to take multiple forms or behave differently based on context",
+      "frequency": 26,
+      "roles": ["developer", "architect"]
+    },
+    {
+      "id": "abstraction",
+      "label": "Abstraction",
+      "type": "PRINCIPLE",
+      "importance": 0.85,
+      "description": "Hiding complexity by showing only necessary features",
+      "frequency": 0,
+      "roles": ["architect", "developer", "techlead"]
+    },
+    {
+      "id": "composition",
+      "label": "Composition over Inheritance",
+      "type": "PRINCIPLE",
+      "importance": 0.87,
+      "description": "Using object composition instead of inheritance for greater flexibility",
+      "frequency": 60,
+      "roles": ["architect", "developer"]
+    },
+    {
+      "id": "design-patterns",
+      "label": "Design Patterns",
+      "type": "TECHNIQUE",
+      "importance": 0.89,
+      "description": "Reusable solutions to common problems in object-oriented design",
+      "frequency": 111,
+      "roles": ["architect", "developer", "techlead"]
+    },
+    {
+      "id": "object",
+      "label": "Object/Instance",
+      "type": "CONCEPT",
+      "importance": 0.91,
+      "description": "Runtime instance of a class containing actual data and state",
+      "frequency": 1393,
+      "roles": ["developer", "architect"]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "oop",
+      "target": "class-definition",
+      "type": "FOUNDATION",
+      "label": "is based on",
+      "strength": 1.0,
+      "description": "OOP paradigm uses classes as fundamental building blocks"
+    },
+    {
+      "id": "rel-2",
+      "source": "class-definition",
+      "target": "object",
+      "type": "CREATES",
+      "label": "creates instances of",
+      "strength": 1.0,
+      "description": "Classes are blueprints for creating objects at runtime"
+    },
+    {
+      "id": "rel-3",
+      "source": "class-definition",
+      "target": "encapsulation",
+      "type": "IMPLEMENTS",
+      "label": "enables",
+      "strength": 0.95,
+      "description": "Class structure enables encapsulation of data and methods"
+    },
+    {
+      "id": "rel-4",
+      "source": "class-definition",
+      "target": "inheritance",
+      "type": "ENABLES",
+      "label": "supports",
+      "strength": 0.94,
+      "description": "Classes form hierarchies through inheritance"
+    },
+    {
+      "id": "rel-5",
+      "source": "inheritance",
+      "target": "polymorphism",
+      "type": "COMPLEMENTS",
+      "label": "enables",
+      "strength": 0.92,
+      "description": "Inheritance hierarchies enable polymorphic behavior"
+    },
+    {
+      "id": "rel-6",
+      "source": "encapsulation",
+      "target": "abstraction",
+      "type": "SUPPORTS",
+      "label": "enables",
+      "strength": 0.90,
+      "description": "Encapsulation supports abstraction by hiding complexity"
+    },
+    {
+      "id": "rel-7",
+      "source": "composition",
+      "target": "inheritance",
+      "type": "ALTERNATIVE",
+      "label": "preferred over",
+      "strength": 0.88,
+      "description": "Composition is often preferred as alternative to inheritance"
+    },
+    {
+      "id": "rel-8",
+      "source": "design-patterns",
+      "target": "oop",
+      "type": "APPLIES_TO",
+      "label": "specialized for",
+      "strength": 0.87,
+      "description": "Design patterns are solutions within OOP paradigm"
+    },
+    {
+      "id": "rel-9",
+      "source": "design-patterns",
+      "target": "class-definition",
+      "type": "STRUCTURES",
+      "label": "provide structure for",
+      "strength": 0.85,
+      "description": "Design patterns guide class and object relationships"
+    },
+    {
+      "id": "rel-10",
+      "source": "design-patterns",
+      "target": "inheritance",
+      "type": "USES",
+      "label": "may employ",
+      "strength": 0.82,
+      "description": "Some design patterns use inheritance as mechanism"
+    },
+    {
+      "id": "rel-11",
+      "source": "design-patterns",
+      "target": "composition",
+      "type": "USES",
+      "label": "may employ",
+      "strength": 0.83,
+      "description": "Many design patterns favor composition over inheritance"
+    },
+    {
+      "id": "rel-12",
+      "source": "abstraction",
+      "target": "polymorphism",
+      "type": "ENABLES",
+      "label": "enables",
+      "strength": 0.87,
+      "description": "Abstraction enables polymorphic interfaces"
+    },
+    {
+      "id": "rel-13",
+      "source": "object",
+      "target": "encapsulation",
+      "type": "EXHIBITS",
+      "label": "exhibits",
+      "strength": 0.91,
+      "description": "Objects exhibit encapsulated state and behavior"
+    },
+    {
+      "id": "rel-14",
+      "source": "object",
+      "target": "polymorphism",
+      "type": "EXHIBITS",
+      "label": "can exhibit",
+      "strength": 0.89,
+      "description": "Objects can exhibit polymorphic behavior"
+    }
+  ],
+  "statistics": {
+    "total_nodes": 9,
+    "total_relationships": 14,
+    "node_types": {
+      "PARADIGM": 1,
+      "CONCEPT": 4,
+      "PRINCIPLE": 2,
+      "TECHNIQUE": 1,
+      "FOUNDATION": 1
+    },
+    "relationship_types": {
+      "FOUNDATION": 1,
+      "CREATES": 1,
+      "IMPLEMENTS": 1,
+      "ENABLES": 4,
+      "COMPLEMENTS": 1,
+      "SUPPORTS": 1,
+      "ALTERNATIVE": 1,
+      "APPLIES_TO": 1,
+      "STRUCTURES": 1,
+      "USES": 2,
+      "EXHIBITS": 2
+    },
+    "average_relationships_per_node": 1.56,
+    "graph_density": 0.22,
+    "most_connected_nodes": [
+      {
+        "node": "design-patterns",
+        "degree": 4
+      },
+      {
+        "node": "class-definition",
+        "degree": 4
+      },
+      {
+        "node": "oop",
+        "degree": 3
+      }
+    ]
+  },
+  "role_mappings": {
+    "developer": {
+      "applicable_concepts": [
+        "class-definition",
+        "inheritance",
+        "polymorphism",
+        "encapsulation",
+        "object"
+      ],
+      "confidence": 0.95,
+      "focus_areas": ["implementation", "code structure", "object design"]
+    },
+    "architect": {
+      "applicable_concepts": [
+        "oop",
+        "design-patterns",
+        "composition",
+        "abstraction",
+        "inheritance"
+      ],
+      "confidence": 0.92,
+      "focus_areas": ["system design", "component architecture", "design decisions"]
+    },
+    "techlead": {
+      "applicable_concepts": [
+        "design-patterns",
+        "abstraction",
+        "encapsulation",
+        "class-definition",
+        "composition"
+      ],
+      "confidence": 0.88,
+      "focus_areas": ["code standards", "design review", "mentoring"]
+    },
+    "tester": {
+      "applicable_concepts": [
+        "encapsulation",
+        "abstraction",
+        "object",
+        "class-definition"
+      ],
+      "confidence": 0.75,
+      "focus_areas": ["testability", "design patterns", "test structure"]
+    }
+  },
+  "key_insights": {
+    "insight_1": "Class Definition is the central pillar - it enables all other OOP mechanisms",
+    "insight_2": "Encapsulation and Abstraction are complementary: encapsulation protects, abstraction simplifies",
+    "insight_3": "Inheritance and Composition are not competing but complementary patterns with different trade-offs",
+    "insight_4": "Design Patterns are language-agnostic solutions that apply OOP principles",
+    "insight_5": "Polymorphism emerges from proper Inheritance and Abstraction design",
+    "insight_6": "Objects are the runtime manifestation of Classes with encapsulated state"
+  }
+}

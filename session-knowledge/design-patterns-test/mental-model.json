@@ -1,0 +1,135 @@
+{
+  "book_id": "design-patterns-test",
+  "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+  "generated_at": "2026-04-25T00:00:00Z",
+  "quality_score": 0.89,
+  "mental_model": {
+    "layers": [
+      {
+        "layer": 1,
+        "name": "Foundational Understanding",
+        "concepts": [
+          "Design patterns are proven solutions to recurring problems",
+          "Three categories: Creational, Structural, Behavioral",
+          "Each pattern has Problem → Solution → Consequences"
+        ],
+        "mental_model": "Patterns are tested best practices organized by purpose"
+      },
+      {
+        "layer": 2,
+        "name": "Pattern Recognition",
+        "concepts": [
+          "Identify when a problem matches a pattern",
+          "Understand why each category exists",
+          "Recognize trade-offs in pattern application"
+        ],
+        "mental_model": "Each pattern solves a specific class of problems with known trade-offs"
+      },
+      {
+        "layer": 3,
+        "name": "SOLID Principles Application",
+        "concepts": [
+          "SRP: Single Responsibility",
+          "OCP: Open/Closed",
+          "LSP: Liskov Substitution",
+          "ISP: Interface Segregation",
+          "DIP: Dependency Inversion"
+        ],
+        "mental_model": "Design patterns are concrete implementations of SOLID principles"
+      },
+      {
+        "layer": 4,
+        "name": "Design Decision Making",
+        "concepts": [
+          "Evaluate pattern trade-offs",
+          "Consider context and complexity",
+          "Avoid over-engineering simple problems",
+          "Refactor to patterns when needed"
+        ],
+        "mental_model": "Patterns are tools, not rules. Use them judiciously based on context."
+      },
+      {
+        "layer": 5,
+        "name": "Team Communication & Architecture",
+        "concepts": [
+          "Patterns provide shared terminology",
+          "Enables efficient architectural discussions",
+          "Creates common understanding across teams",
+          "Reduces misunderstanding in design decisions"
+        ],
+        "mental_model": "Patterns are a language for expressing design intent and architectural decisions"
+      }
+    ],
+    "problem_solving_framework": {
+      "stage_1_identify": {
+        "step": "Recognize the problem type",
+        "approach": "Is this an object creation, composition, or interaction problem?"
+      },
+      "stage_2_categorize": {
+        "step": "Match to pattern category",
+        "approach": "Creational → Structural → Behavioral"
+      },
+      "stage_3_select_pattern": {
+        "step": "Find specific pattern that fits",
+        "approach": "Consider context, complexity, team knowledge"
+      },
+      "stage_4_evaluate_tradeoffs": {
+        "step": "Understand consequences",
+        "approach": "Benefits vs. Learning curve vs. Context mismatch"
+      },
+      "stage_5_decide": {
+        "step": "Apply pattern or refactor later",
+        "approach": "Start simple, apply pattern only if needed"
+      }
+    },
+    "conceptual_map": {
+      "root": "Design Patterns",
+      "branches": {
+        "creational": {
+          "concept": "Object Creation",
+          "patterns": ["Factory", "Singleton", "Builder"],
+          "principle": "Decouple creation from usage"
+        },
+        "structural": {
+          "concept": "Object Composition",
+          "patterns": ["Adapter", "Decorator", "Facade"],
+          "principle": "Flexible relationships between objects"
+        },
+        "behavioral": {
+          "concept": "Object Interaction",
+          "patterns": ["Observer", "Strategy", "Command"],
+          "principle": "Encapsulate responsibilities and algorithms"
+        }
+      },
+      "foundation": "SOLID Principles"
+    },
+    "assumptions": [
+      "Patterns address real recurring problems in software design",
+      "Pattern knowledge improves code quality and communication",
+      "Trade-offs must be evaluated before applying patterns",
+      "Context and simplicity matter more than pattern purity",
+      "Understanding principles matters more than memorizing mechanics"
+    ],
+    "biases_to_avoid": [
+      "Pattern fetishism: Using patterns everywhere",
+      "Cargo cult programming: Applying patterns without understanding",
+      "Premature optimization: Building for future problems that may not exist",
+      "Context blindness: Applying patterns that don't fit the specific situation",
+      "Perfectionism: Over-engineering simple solutions"
+    ],
+    "alternative_perspectives": [
+      {
+        "perspective": "Functional Programming",
+        "contrast": "Some behavioral patterns become trivial with functions (Strategy → higher-order functions)"
+      },
+      {
+        "perspective": "Domain-Driven Design",
+        "contrast": "Patterns should reflect domain concepts, not just implementation details"
+      },
+      {
+        "perspective": "Evolutionary Architecture",
+        "contrast": "Start simple, apply patterns incrementally as needs emerge"
+      }
+    ]
+  }
+}

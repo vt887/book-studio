@@ -1,0 +1,193 @@
+{
+  "book_id": "design-patterns-test",
+  "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+  "generated_at": "2026-04-25T00:00:00Z",
+  "unified_knowledge": {
+    "extraction_summary": {
+      "total_concepts": 20,
+      "categories": {
+        "foundational": 3,
+        "creational": 3,
+        "structural": 3,
+        "behavioral": 3,
+        "solid": 5,
+        "best_practices": 2
+      },
+      "quality_score": 0.92
+    },
+    "core_framework": {
+      "pattern_structure": {
+        "element_1": "Problem - The recurring issue to solve",
+        "element_2": "Solution - A general design approach",
+        "element_3": "Consequences - Results and trade-offs"
+      },
+      "three_categories": {
+        "creational": {
+          "definition": "Object creation mechanisms",
+          "purpose": "Decouple object creation from usage",
+          "patterns": ["Factory", "Singleton", "Builder"],
+          "benefit": "Flexibility in object instantiation"
+        },
+        "structural": {
+          "definition": "Object composition and relationships",
+          "purpose": "Flexible object combinations and dependencies",
+          "patterns": ["Adapter", "Decorator", "Facade"],
+          "benefit": "Loose coupling and composition flexibility"
+        },
+        "behavioral": {
+          "definition": "Object interaction and responsibility distribution",
+          "purpose": "Define how objects communicate and collaborate",
+          "patterns": ["Observer", "Strategy", "Command"],
+          "benefit": "Encapsulated algorithms and interactions"
+        }
+      }
+    },
+    "design_patterns_detailed": [
+      {
+        "name": "Factory Pattern",
+        "category": "Creational",
+        "problem": "Class can't anticipate the type of object it needs",
+        "solution": "Create objects without specifying exact classes",
+        "benefits": ["Decouples client code", "Handles uncertainty"],
+        "tradeoffs": ["Adds abstraction layer", "Slightly more complex"],
+        "example": "DatabaseFactory → MySQL or PostgreSQL connections"
+      },
+      {
+        "name": "Singleton Pattern",
+        "category": "Creational",
+        "problem": "Need exactly one instance of a class accessible globally",
+        "solution": "Restrict instantiation to single instance",
+        "benefits": ["Controlled access point", "Single instance guarantee"],
+        "tradeoffs": ["Global state", "Testing difficulties", "Hides dependencies"],
+        "use_cases": ["Logging", "Configuration", "Database connections"]
+      },
+      {
+        "name": "Builder Pattern",
+        "category": "Creational",
+        "problem": "Complex objects with many configuration options",
+        "solution": "Construct step by step with fluent interface",
+        "benefits": ["Readable code", "Flexible construction", "Immutability"],
+        "tradeoffs": ["More code to write", "Additional classes needed"],
+        "example": "ConfigBuilder.withDatabase().withCache().build()"
+      },
+      {
+        "name": "Adapter Pattern",
+        "category": "Structural",
+        "problem": "Two classes with incompatible interfaces need to work together",
+        "solution": "Convert interface of one class into another",
+        "benefits": ["Legacy integration", "Interface compatibility"],
+        "tradeoffs": ["Extra abstraction", "Performance overhead"],
+        "use_case": "LegacyPaymentGatewayAdapter"
+      },
+      {
+        "name": "Decorator Pattern",
+        "category": "Structural",
+        "problem": "Need to add behavior to objects without modifying them",
+        "solution": "Wrap objects with additional behavior",
+        "benefits": ["Avoids subclassing", "Runtime flexibility", "Composability"],
+        "tradeoffs": ["More objects created", "Order-dependent behavior"],
+        "example": "Coffee → EspressoCoffee → MilkDecorator → WhippedCreamDecorator"
+      },
+      {
+        "name": "Facade Pattern",
+        "category": "Structural",
+        "problem": "Complex subsystem with many interdependent classes",
+        "solution": "Provide unified simplified interface",
+        "benefits": ["Simplified API", "Reduced coupling", "Complexity hiding"],
+        "tradeoffs": ["May hide important details"],
+        "use_case": "ShoppingCartFacade simplifies order processing"
+      },
+      {
+        "name": "Observer Pattern",
+        "category": "Behavioral",
+        "problem": "Need loose coupling between objects that depend on each other",
+        "solution": "One object notifies multiple observers of state changes",
+        "benefits": ["Event-driven architecture", "Loose coupling", "Reactive"],
+        "tradeoffs": ["Less predictable execution", "Memory leaks if not careful"],
+        "examples": ["EventEmitter in Node.js", "addEventListener in browsers"]
+      },
+      {
+        "name": "Strategy Pattern",
+        "category": "Behavioral",
+        "problem": "Multiple algorithms for a task, need to select at runtime",
+        "solution": "Encapsulate algorithms as interchangeable strategies",
+        "benefits": ["Runtime selection", "Eliminates conditionals", "Testable"],
+        "tradeoffs": ["More classes", "Overkill for simple cases"],
+        "example": "PaymentStrategy → CreditCardStrategy, PayPalStrategy"
+      },
+      {
+        "name": "Command Pattern",
+        "category": "Behavioral",
+        "problem": "Need to encapsulate requests for queuing, logging, or undo/redo",
+        "solution": "Encapsulate request as an object",
+        "benefits": ["Request queuing", "Request logging", "Undo/Redo support"],
+        "tradeoffs": ["More objects", "Increased memory usage"],
+        "use_case": "Undo/Redo operations in editors"
+      }
+    ],
+    "solid_principles": {
+      "srp_single_responsibility": {
+        "principle": "A class should have only one reason to change",
+        "benefit": "Focused responsibility, easier maintenance",
+        "application": "Each class should have single well-defined purpose"
+      },
+      "ocp_open_closed": {
+        "principle": "Open for extension, closed for modification",
+        "benefit": "Extensibility without breaking existing code",
+        "application": "Design classes that can be extended without changing them"
+      },
+      "lsp_liskov_substitution": {
+        "principle": "Derived classes should be substitutable for base classes",
+        "benefit": "Type safety, behavioral consistency",
+        "application": "Subclasses must honor parent contracts"
+      },
+      "isp_interface_segregation": {
+        "principle": "Use specific interfaces, not general ones",
+        "benefit": "Minimal dependencies, flexible contracts",
+        "application": "Clients should depend only on interfaces they use"
+      },
+      "dip_dependency_inversion": {
+        "principle": "Depend on abstractions, not concrete implementations",
+        "benefit": "Loose coupling, better testability",
+        "application": "Inject dependencies, use interfaces not concrete classes"
+      }
+    },
+    "practical_wisdom": {
+      "when_to_use_patterns": [
+        "Pattern solves a real recurring problem",
+        "Team understands the pattern",
+        "Context justifies the complexity",
+        "Trade-offs are understood and accepted"
+      ],
+      "when_to_avoid_patterns": [
+        "Solving simple problems",
+        "Team unfamiliar with pattern",
+        "Trade-offs don't justify complexity",
+        "Pattern doesn't fit context"
+      ],
+      "design_philosophy": "Start simple, refactor to patterns when needed",
+      "anti_pattern": "Over-engineering is worse than under-engineering",
+      "key_principle": "Understand principles, not just mechanics"
+    },
+    "benefits_of_patterns": [
+      "Improved code reusability",
+      "Established terminology for communication",
+      "Avoids re-discovering solutions",
+      "Better maintainability",
+      "Speeds up development with proven approaches",
+      "Shared understanding across teams"
+    ],
+    "drawbacks_to_consider": [
+      "Initial learning curve",
+      "Can over-complicate simple problems",
+      "May not apply to specific context",
+      "Trade-offs must be evaluated",
+      "Pattern fetishism can lead to poor design"
+    ],
+    "patterns_not_laws": {
+      "insight": "Design patterns are guidelines, not mandates",
+      "interpretation": "Use them when they solve real problems",
+      "emphasis": "Understand the principles behind them"
+    }
+  }
+}

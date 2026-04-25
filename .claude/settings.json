@@ -1,0 +1,178 @@
+{
+  "project": "book-studio",
+  "version": "3.0.0-obsidian-first",
+  "description": "Multi-agent system for deep book reading with Obsidian-first output",
+
+  "directors": {
+    "reading-director": {
+      "agent": ".claude/agents/directors/reading-director.md",
+      "skills": ["/read-book", "/extract-knowledge"],
+      "delegates": ["extractor-spec", "summarizer-spec", "mental-model-spec"],
+      "gates": ["EXTRACT-QUALITY", "SUMMARY-QUALITY"]
+    },
+    "knowledge-director": {
+      "agent": ".claude/agents/directors/knowledge-director.md",
+      "skills": ["/build-graph", "/export-obsidian"],
+      "delegates": ["graph-builder-spec", "obsidian-exporter-spec"],
+      "gates": ["GRAPH-VALID", "OBSIDIAN-READY"]
+    },
+    "synthesis-director": {
+      "agent": ".claude/agents/directors/synthesis-director.md",
+      "skills": ["/compare-books", "/synthesize-library", "/review-quality"],
+      "delegates": ["cross-book-spec", "validator-spec"],
+      "gates": ["CROSS-BOOK-SYNC"]
+    },
+    "role-mapping-director": {
+      "agent": ".claude/agents/directors/role-mapping-director.md",
+      "skills": ["/suggest-roles"],
+      "delegates": ["role-mapper-spec"],
+      "gates": ["ROLE-MAP-VALID"],
+      "autoTrigger": {
+        "after": "/read-book",
+        "condition": "autoSuggestRoles === true"
+      }
+    },
+    "application-director": {
+      "agent": ".claude/agents/directors/application-director.md",
+      "skills": [
+        "/auto-apply",
+        "/apply-as-developer",
+        "/apply-as-architect",
+        "/apply-as-tester",
+        "/apply-as-devops",
+        "/apply-as-security",
+        "/solve-problem",
+        "/generate-playbook",
+        "/review-implementation"
+      ],
+      "delegates": [
+        "developer-spec",
+        "architect-spec",
+        "tester-spec",
+        "devops-spec",
+        "security-spec",
+        "data-spec",
+        "performance-spec",
+        "observability-spec",
+        "techlead-spec",
+        "legacy-spec",
+        "platform-spec"
+      ],
+      "gates": ["APPLY-VALID"]
+    }
+  },
+
+  "available_roles": [
+    "developer",
+    "architect",
+    "tester",
+    "devops",
+    "security",
+    "data",
+    "performance",
+    "observability",
+    "techlead",
+    "legacy",
+    "platform"
+  ],
+
+  "role_agent_map": {
+    "developer": "developer-spec",
+    "architect": "architect-spec",
+    "tester": "tester-spec",
+    "devops": "devops-spec",
+    "security": "security-spec",
+    "data": "data-spec",
+    "performance": "performance-spec",
+    "observability": "observability-spec",
+    "techlead": "techlead-spec",
+    "legacy": "legacy-spec",
+    "platform": "platform-spec"
+  },
+
+  "autoSuggestRoles": true,
+  "roleMapOutputDir": "obsidian-export/{book_id}/ROLES/",
+  "roleMapArchiveDir": "production/role-maps/",
+
+  "quality_gates": {
+    "EXTRACT-QUALITY": { "threshold": 0.85, "agent": "validator-spec" },
+    "SUMMARY-QUALITY": { "threshold": 0.85, "agent": "validator-spec" },
+    "GRAPH-VALID": { "threshold": 0.95, "agent": "validator-spec" },
+    "OBSIDIAN-READY": { "threshold": 0.95, "agent": "validator-spec" },
+    "CROSS-BOOK-SYNC": { "threshold": 0.80, "agent": "validator-spec" },
+    "ROLE-MAP-VALID": { "threshold": 0.80, "agent": "validator-spec" },
+    "APPLY-VALID": { "threshold": 0.85, "agent": "validator-spec" }
+  },
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/session-start.sh" },
+          { "type": "command", "command": ".claude/hooks/log-decision.sh" },
+          { "type": "command", "command": ".claude/hooks/post-gate-check.sh" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/session-detect-context.sh" },
+          { "type": "command", "command": ".claude/hooks/validate-before-apply.sh" }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/pre-compact.sh" }
+        ]
+      }
+    ]
+  },
+
+  "output_formats": {
+    "developer": ["code_snippets", "refactoring_plan", "bug_analysis"],
+    "architect": ["ADR", "trade_off_analysis", "pattern_catalog", "risk_register"],
+    "tester": ["test_cases", "edge_cases", "test_strategy"],
+    "devops": ["pipeline_yaml", "deployment_scripts", "monitoring_rules", "runbook"],
+    "security": ["threat_model_md", "security_checklist", "remediation_plan"],
+    "data": ["schema_sql", "migration_script", "pipeline_config"],
+    "performance": ["benchmark_script", "optimization_plan", "caching_config"],
+    "observability": ["logging_config", "dashboard_json", "alert_rules"],
+    "techlead": ["review_checklist", "onboarding_md", "team_standards"],
+    "legacy": ["migration_plan", "deprecation_timeline", "compatibility_code"],
+    "platform": ["platform_config_yaml", "template_repo", "golden_path_md"]
+  },
+
+  "obsidian": {
+    "vaultPath": "obsidian-export/",
+    "roleOutputDir": "obsidian-export/{book_id}/ROLES/",
+    "conceptsDir": "obsidian-export/{book_id}/CONCEPTS/",
+    "architectureDir": "obsidian-export/{book_id}/ARCHITECTURE/",
+    "testingDir": "obsidian-export/{book_id}/TESTING/",
+    "graphDir": "obsidian-export/{book_id}/GRAPH/",
+    "indexDir": "obsidian-export/{book_id}/INDEX/",
+    "metadataDir": "obsidian-export/{book_id}/METADATA/"
+  },
+
+  "session": {
+    "stateFile": "production/session-state/active.md",
+    "logsDir": "production/session-logs/",
+    "decisionsDir": "production/decisions/",
+    "runbooksDir": "production/runbooks/",
+    "knowledgeDir": "session-knowledge/"
+  },
+
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Read(*)"
+    ]
+  }
+}

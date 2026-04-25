@@ -1,0 +1,195 @@
+{
+  "book_id": "object-oriented-thinking",
+  "model_date": "2026-04-25",
+  "model_type": "OOP_PARADIGM",
+  "problem_framing": {
+    "primary_problem": "How to design and structure software using object-oriented principles",
+    "secondary_problems": [
+      "How to properly use inheritance and composition",
+      "How to apply design patterns to solve recurring problems",
+      "How to achieve encapsulation and abstraction",
+      "How to create maintainable and scalable systems"
+    ],
+    "context": "Software design and programming across multiple languages and domains"
+  },
+  "core_assumptions": [
+    "Objects are the natural unit of organization in software",
+    "Real-world entities can be modeled as objects with state and behavior",
+    "Hierarchical relationships (inheritance) reflect domain structures",
+    "Encapsulation improves reliability and maintainability",
+    "Well-designed abstractions reduce complexity",
+    "Design patterns capture proven solutions"
+  ],
+  "mental_model_layers": {
+    "layer_1_foundation": {
+      "name": "OOP Fundamentals",
+      "concepts": [
+        "Class",
+        "Object",
+        "Attributes",
+        "Methods"
+      ],
+      "description": "Basic building blocks of object-oriented systems"
+    },
+    "layer_2_relationships": {
+      "name": "Object Relationships",
+      "concepts": [
+        "Inheritance",
+        "Composition",
+        "Association",
+        "Dependency"
+      ],
+      "description": "How objects relate and interact with each other"
+    },
+    "layer_3_behavior": {
+      "name": "Object Behavior",
+      "concepts": [
+        "Polymorphism",
+        "Method Overriding",
+        "Method Overloading",
+        "Interfaces"
+      ],
+      "description": "How objects exhibit different behaviors in different contexts"
+    },
+    "layer_4_design": {
+      "name": "Design Patterns",
+      "concepts": [
+        "Creational Patterns",
+        "Structural Patterns",
+        "Behavioral Patterns"
+      ],
+      "description": "Proven solutions to recurring design problems"
+    },
+    "layer_5_principles": {
+      "name": "Design Principles",
+      "concepts": [
+        "SOLID",
+        "DRY",
+        "KISS",
+        "YAGNI"
+      ],
+      "description": "Guidelines for creating maintainable designs"
+    }
+  },
+  "thinking_patterns": [
+    {
+      "pattern": "Decomposition by Responsibility",
+      "description": "Breaking complex systems into smaller, single-responsibility objects",
+      "trigger": "When facing large, complex problem",
+      "outcome": "Manageable, testable components"
+    },
+    {
+      "pattern": "Hierarchy Modeling",
+      "description": "Organizing objects into inheritance hierarchies",
+      "trigger": "When identifying similar objects with variations",
+      "outcome": "Code reuse and semantic clarity"
+    },
+    {
+      "pattern": "Behavior Polymorphism",
+      "description": "Designing interfaces that allow different implementations",
+      "trigger": "When needing flexible, extensible behavior",
+      "outcome": "Loose coupling and easy extension"
+    },
+    {
+      "pattern": "State Encapsulation",
+      "description": "Hiding internal state behind controlled interfaces",
+      "trigger": "When protecting object consistency matters",
+      "outcome": "Predictable, maintainable objects"
+    }
+  ],
+  "potential_biases": [
+    "Over-engineering with unnecessary abstractions",
+    "Misuse of inheritance for code reuse (composition should be preferred)",
+    "Ignoring performance implications of abstraction",
+    "Creating god objects with too many responsibilities",
+    "Over-complicating simple problems"
+  ],
+  "key_mental_shifts": [
+    "From procedural thinking (functions operating on data) to object-oriented thinking (objects combining data and behavior)",
+    "From flat structures to hierarchical, modular designs",
+    "From monolithic systems to component-based architectures",
+    "From 'how to implement' to 'how to model domain'"
+  ],
+  "knowledge_graph": {
+    "nodes": [
+      {
+        "id": "oop",
+        "label": "Object-Oriented Programming",
+        "type": "paradigm"
+      },
+      {
+        "id": "class",
+        "label": "Class",
+        "type": "concept"
+      },
+      {
+        "id": "object",
+        "label": "Object",
+        "type": "concept"
+      },
+      {
+        "id": "inheritance",
+        "label": "Inheritance",
+        "type": "mechanism"
+      },
+      {
+        "id": "polymorphism",
+        "label": "Polymorphism",
+        "type": "mechanism"
+      },
+      {
+        "id": "encapsulation",
+        "label": "Encapsulation",
+        "type": "principle"
+      },
+      {
+        "id": "abstraction",
+        "label": "Abstraction",
+        "type": "principle"
+      },
+      {
+        "id": "pattern",
+        "label": "Design Pattern",
+        "type": "technique"
+      }
+    ],
+    "edges": [
+      {
+        "source": "oop",
+        "target": "class",
+        "label": "uses"
+      },
+      {
+        "source": "class",
+        "target": "object",
+        "label": "creates"
+      },
+      {
+        "source": "class",
+        "target": "inheritance",
+        "label": "enables"
+      },
+      {
+        "source": "object",
+        "target": "polymorphism",
+        "label": "exhibits"
+      },
+      {
+        "source": "class",
+        "target": "encapsulation",
+        "label": "implements"
+      },
+      {
+        "source": "oop",
+        "target": "abstraction",
+        "label": "relies on"
+      },
+      {
+        "source": "pattern",
+        "target": "oop",
+        "label": "supports"
+      }
+    ]
+  },
+  "model_quality_score": 0.88
+}
