@@ -165,7 +165,8 @@ book-studio/
 - [Claude](https://claude.ai) with MCP / agent support
 - Neo4j (optional — for graph visualisation)
 - Obsidian (optional — for vault viewing)
+- Python 3 (optional — required only for some shell hooks under `.claude/hooks/`)
 
-No Python runtime required; all agents are prompt-based.
+Core agents are prompt-based and do not require a Python runtime.
 
 ---
