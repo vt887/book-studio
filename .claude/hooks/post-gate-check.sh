@@ -12,10 +12,15 @@ TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
 GATES_LOG="$PROJECT_ROOT/production/session-logs/$DATE.md"
 SESSION_FILE="$PROJECT_ROOT/production/session-state/active.md"
 
-GATE_NAME="${GATE_NAME:-UNKNOWN}"
+GATE_NAME="${GATE_NAME:-}"
 GATE_SCORE="${GATE_SCORE:-0.00}"
-GATE_STATUS="${GATE_STATUS:-UNKNOWN}"
+GATE_STATUS="${GATE_STATUS:-}"
 GATE_BOOK_ID="${GATE_BOOK_ID:-unknown}"
+
+# Skip if gate context is not set — only fire when explicitly invoked with gate env vars
+if [ -z "$GATE_NAME" ] || [ -z "$GATE_STATUS" ]; then
+  exit 0
+fi
 
 mkdir -p "$(dirname "$GATES_LOG")"
 

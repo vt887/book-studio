@@ -107,7 +107,7 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "",
+        "matcher": "Write",
         "hooks": [
           { "type": "command", "command": ".claude/hooks/session-start.sh" },
           { "type": "command", "command": ".claude/hooks/log-decision.sh" },
@@ -117,13 +117,13 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "",
+        "matcher": "Bash",
         "hooks": [
           { "type": "command", "command": ".claude/hooks/session-detect-context.sh" }
         ]
       },
       {
-        "matcher": "",
+        "matcher": "Bash",
         "hooks": [
           { "type": "command", "command": ".claude/hooks/validate-before-apply.sh" }
         ]

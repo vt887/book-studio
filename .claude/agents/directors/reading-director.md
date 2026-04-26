@@ -47,29 +47,39 @@ session-knowledge/
 ```
 
 ## UNIFIED-KNOWLEDGE SCHEMA
+unified-knowledge.json is a **lean index** — it does NOT duplicate content from other files.
+Downstream directors load individual files when they need full detail.
+
 ```json
 {
   "book_id": "string",
   "title": "string",
   "author": "string",
+  "year": 0,
   "processed_at": "ISO8601",
-  "concepts": [
-    {
-      "id": "string",
-      "name": "string",
-      "definition": "string",
-      "source_quote": "string",
-      "chapter": "string",
-      "confidence": 0.0,
-      "type": "principle|pattern|technique|anti-pattern|mental-model",
-      "related_concepts": ["string"]
-    }
+  "sources": {
+    "extraction": "session-knowledge/{book_id}/extraction.json",
+    "summary": "session-knowledge/{book_id}/summary.json",
+    "mental_model": "session-knowledge/{book_id}/mental-model.json"
+  },
+  "concept_index": [
+    { "id": "string", "name": "string", "type": "string", "confidence": 0.0 }
   ],
-  "facts": [],
-  "mental_model": {},
-  "summary": {}
+  "role_applicability_preview": {
+    "developer": 0, "architect": 0, "tester": 0, "devops": 0,
+    "security": 0, "data": 0, "performance": 0, "observability": 0,
+    "techlead": 0, "legacy": 0, "platform": 0
+  },
+  "gate_results": {
+    "EXTRACT-QUALITY": 0.0,
+    "SUMMARY-QUALITY": 0.0
+  },
+  "needs_review": []
 }
 ```
+
+**Do NOT embed full concept objects, facts arrays, mental_model tree, or summary text in this file.**
+Those live in their own source files. unified-knowledge.json should stay under 5KB.
 
 ## BEHAVIORAL RULES
 - Never hallucinate content not in the source book

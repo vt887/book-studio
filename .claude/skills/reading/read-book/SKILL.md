@@ -30,6 +30,10 @@ Create directory: `session-knowledge/{book_id}/`
 Agent: `reading-director`
 - Split book into chunks (2000–4000 tokens, 200-token overlap)
 - Tag each chunk: `{ book_id, chapter, section, chunk_index }`
+- **IMPORTANT:** Use `ctx_read(path, mode="lines:N-M")` for each chunk — NOT native `Read` with offset/limit.
+  This keeps chunks cached across reads (~13 tokens per re-read vs full reload).
+  Example: `ctx_read("/path/to/book-raw.txt", mode="lines:1-700")` for chunk 1.
+- If source is PDF: extract to `session-knowledge/{book_id}/book-raw.txt` first via Python/fitz, then chunk from there.
 
 ### Phase 4: Parallel Extraction + Summarization
 Spawn in parallel:
@@ -40,6 +44,16 @@ Spawn in parallel:
 Run gates in parallel:
 - `[EXTRACT-QUALITY]` against `extraction.json` (threshold: 0.85)
 - `[SUMMARY-QUALITY]` against `summary.json` (threshold: 0.85)
+
+After scoring each gate, log the result explicitly via Bash:
+```bash
+GATE_NAME="EXTRACT-QUALITY" GATE_STATUS="PASSED_OR_FAILED" GATE_SCORE="0.00" \
+  GATE_BOOK_ID="{book_id}" bash .claude/hooks/post-gate-check.sh
+
+GATE_NAME="SUMMARY-QUALITY" GATE_STATUS="PASSED_OR_FAILED" GATE_SCORE="0.00" \
+  GATE_BOOK_ID="{book_id}" bash .claude/hooks/post-gate-check.sh
+```
+Replace `PASSED_OR_FAILED` and `0.00` with actual verdict and score.
 
 If either FAILS:
 - Retry the failing specialist once with corrective context

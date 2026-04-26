@@ -5,6 +5,11 @@
 
 set -euo pipefail
 
+# Only print context during apply/suggest-roles flows, not for every Bash call
+if [ -z "${APPLY_BOOK_ID:-}${SUGGEST_BOOK_ID:-}" ]; then
+  exit 0
+fi
+
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 SESSION_FILE="$PROJECT_ROOT/production/session-state/active.md"
 KNOWLEDGE_DIR="$PROJECT_ROOT/session-knowledge"
