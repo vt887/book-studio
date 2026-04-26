@@ -10,7 +10,7 @@ def query_hash(query: str) -> str:
 
 def cache_key(query: str, role: str | None, top_k: int) -> str:
     role_value = role or "all"
-    return f"ctx:{query_hash(query)}:{role_value}:{top_k}"
+    return f"ctx:v2:{query_hash(query)}:{role_value}:{top_k}"
 
 
 async def get_cached_results(

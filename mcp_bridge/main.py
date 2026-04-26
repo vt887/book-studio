@@ -71,6 +71,16 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title=settings.app_name, version=settings.app_version, lifespan=lifespan)
 
 
+@app.get("/")
+async def root() -> dict[str, Any]:
+    return {
+        "service": settings.app_name,
+        "version": settings.app_version,
+        "status_endpoint": "/ready",
+        "health_endpoint": "/health",
+    }
+
+
 @app.get("/live")
 async def live() -> dict[str, str]:
     return {"status": "alive"}
@@ -78,6 +88,14 @@ async def live() -> dict[str, str]:
 
 @app.get("/ready")
 async def ready() -> dict[str, Any]:
+    required_checks = {
+        "postgres": False,
+        "redis": False,
+    }
+    optional_checks = {
+        "neo4j": False,
+    }
+
     checks = {
         "postgres": False,
         "redis": False,
@@ -85,22 +103,32 @@ async def ready() -> dict[str, Any]:
     }
     try:
         checks["postgres"] = await db.healthcheck(app.state.pg_pool)
+        required_checks["postgres"] = checks["postgres"]
     except Exception:
         checks["postgres"] = False
+        required_checks["postgres"] = False
 
     try:
         checks["redis"] = bool(await app.state.redis.ping())
+        required_checks["redis"] = checks["redis"]
     except Exception:
         checks["redis"] = False
+        required_checks["redis"] = False
 
     try:
         checks["neo4j"] = bool(app.state.neo4j_online) and await app.state.graph.healthcheck()
+        optional_checks["neo4j"] = checks["neo4j"]
     except Exception:
         checks["neo4j"] = False
+        optional_checks["neo4j"] = False
+
+    ready_status = all(required_checks.values())
 
     return {
-        "status": "ready" if all(checks.values()) else "not_ready",
+        "status": "ready" if ready_status else "not_ready",
         "checks": checks,
+        "required_checks": required_checks,
+        "optional_checks": optional_checks,
     }
 
 

@@ -4,6 +4,21 @@ from typing import Any
 import asyncpg
 
 
+def _normalize_json_list(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+            if isinstance(parsed, list):
+                return [str(item) for item in parsed]
+        except json.JSONDecodeError:
+            return []
+    return []
+
+
 def vector_literal(values: list[float]) -> str:
     return "[" + ",".join(f"{v:.8f}" for v in values) + "]"
 
@@ -119,8 +134,8 @@ async def semantic_search(
 
     results: list[dict[str, Any]] = []
     for row in rows:
-        tags = row["tags"] or []
-        roles = row["applicable_roles"] or []
+        tags = _normalize_json_list(row["tags"])
+        roles = _normalize_json_list(row["applicable_roles"])
         results.append(
             {
                 "concept_id": row["concept_id"],
