@@ -28,7 +28,8 @@ source text.
 /apply-as-{role}    — generate role-specific artefacts
 ```
 
-Drop a PDF into the project root and run `/read-book` in Claude.
+Run `/read-book` in Claude and provide either a local file path (PDF/EPUB/TXT),
+pasted text, or a URL.
 
 ---
 
@@ -101,7 +102,7 @@ obsidian-export/{book_id}/
 | 4 | DevOps | `devops-spec` | Pipelines, deployment configs |
 | 5 | Security | `security-spec` | Threat models, checklists |
 | 6 | Data Engineer | `data-spec` | Schemas, migrations, pipelines |
-| 7 | Performance | `performance-spec` | Benchmarks, optimisation plans |
+| 7 | Performance | `performance-spec` | Benchmarks, optimization plans |
 | 8 | Observability | `observability-spec` | Dashboards, alert rules |
 | 9 | TechLead | `techlead-spec` | Review standards, onboarding docs |
 | 10 | Legacy | `legacy-spec` | Migration plans, compatibility code |
@@ -163,9 +164,10 @@ book-studio/
 ## Requirements
 
 - [Claude](https://claude.ai) with MCP / agent support
-- Neo4j (optional — for graph visualisation)
+- Neo4j (optional — for graph visualization)
 - Obsidian (optional — for vault viewing)
+- Python 3 (optional — required only for some shell hooks under `.claude/hooks/`)
 
-No Python runtime required; all agents are prompt-based.
+Core agents are prompt-based and do not require a Python runtime.
 
 ---
