@@ -139,11 +139,16 @@ def run_test(base_url: str, timeout: float, attempts: int, log_file: str | None)
     book_id = f"functional-test-{suffix}"
     concept_a = f"ft-{suffix}-a"
     concept_b = f"ft-{suffix}-b"
+    chunk_a = f"ch-{suffix}-a"
+    chunk_b = f"ch-{suffix}-b"
     query_text = f"functional test concept {suffix}"
 
     logger.info(f"Base URL: {base}")
     logger.info(f"Timeout: {timeout}s, Attempts per request: {attempts}")
-    logger.info(f"Test data: book_id={book_id}, concept_a={concept_a}, concept_b={concept_b}")
+    logger.info(
+        f"Test data: book_id={book_id}, concept_a={concept_a}, concept_b={concept_b}, "
+        f"chunk_a={chunk_a}, chunk_b={chunk_b}"
+    )
     logger.info(f"Unique query: {query_text}")
 
     ready_payload: dict[str, Any] = {}
@@ -209,6 +214,8 @@ def run_test(base_url: str, timeout: float, attempts: int, log_file: str | None)
                         "name": f"Functional Test Concept A {suffix}",
                         "definition": f"Used by integration test {suffix}",
                         "summary": f"First concept for read-path checks {suffix}",
+                        "importance_score": 0.8,
+                        "source_chunks": [chunk_a],
                         "tags": ["test", "functional"],
                         "applicable_roles": ["developer", "tester"],
                     },
@@ -217,6 +224,8 @@ def run_test(base_url: str, timeout: float, attempts: int, log_file: str | None)
                         "name": f"Functional Test Concept B {suffix}",
                         "definition": f"Used by graph-link test {suffix}",
                         "summary": f"Second concept for relation checks {suffix}",
+                        "importance_score": 0.7,
+                        "source_chunks": [chunk_b],
                         "tags": ["test", "graph"],
                         "applicable_roles": ["developer", "architect"],
                     },
@@ -229,6 +238,60 @@ def run_test(base_url: str, timeout: float, attempts: int, log_file: str | None)
         logger.info(f"Body:\n{pretty(body)}")
         require(status == 200, f"Expected HTTP 200, got {status}")
         require(body.get("status") == "ok", f"Expected status=ok, got {body.get('status')}")
+        return body
+
+    def step_chunks_write() -> dict[str, Any]:
+        payload = {
+            "chunks": [
+                {
+                    "chunk_id": chunk_a,
+                    "book_id": book_id,
+                    "text_hash": f"hash-{chunk_a}",
+                    "text_content": f"chunk content A {suffix}",
+                },
+                {
+                    "chunk_id": chunk_b,
+                    "book_id": book_id,
+                    "text_hash": f"hash-{chunk_b}",
+                    "text_content": f"chunk content B {suffix}",
+                },
+            ]
+        }
+        logger.info(f"POST /chunks/write payload:\n{pretty(payload)}")
+        status, body, elapsed = http_json(logger, "POST", f"{base}/chunks/write", payload, timeout, attempts)
+        logger.info(f"POST /chunks/write -> status={status}, elapsed_ms={elapsed:.1f}")
+        logger.info(f"Body:\n{pretty(body)}")
+        require(status == 200, f"Expected HTTP 200, got {status}")
+        require(body.get("status") == "ok", f"Expected status=ok, got {body.get('status')}")
+        return body
+
+    def step_quality_consistency() -> dict[str, Any]:
+        status, body, elapsed = http_json(
+            logger,
+            "GET",
+            f"{base}/quality/consistency/{concept_a}",
+            None,
+            timeout,
+            attempts,
+        )
+        logger.info(f"GET /quality/consistency/{concept_a} -> status={status}, elapsed_ms={elapsed:.1f}")
+        logger.info(f"Body:\n{pretty(body)}")
+        require(status == 200, f"Expected HTTP 200, got {status}")
+        require("consistency_score" in body, "Expected consistency_score in quality response")
+        return body
+
+    def step_quality_evaluate() -> dict[str, Any]:
+        payload = {
+            "book_id": book_id,
+            "concept_ids": [concept_a, concept_b],
+        }
+        logger.info(f"POST /quality/evaluate payload:\n{pretty(payload)}")
+        status, body, elapsed = http_json(logger, "POST", f"{base}/quality/evaluate", payload, timeout, attempts)
+        logger.info(f"POST /quality/evaluate -> status={status}, elapsed_ms={elapsed:.1f}")
+        logger.info(f"Body:\n{pretty(body)}")
+        require(status == 200, f"Expected HTTP 200, got {status}")
+        require(body.get("status") == "ok", f"Expected status=ok, got {body.get('status')}")
+        require(body.get("total", 0) >= 2, "Expected at least 2 evaluated concepts")
         return body
 
     def step_ctx_read_postgres() -> dict[str, Any]:
@@ -297,10 +360,13 @@ def run_test(base_url: str, timeout: float, attempts: int, log_file: str | None)
             ready_payload.update(ready_result)
         run_step("Health Endpoint", step_health, logger, results)
         run_step("MCP Tools", step_tools, logger, results)
+        run_step("Chunks Write", step_chunks_write, logger, results)
         run_step("CTX Write", step_ctx_write, logger, results)
         run_step("CTX Read First", step_ctx_read_postgres, logger, results)
         run_step("CTX Read Cache", step_ctx_read_cache, logger, results)
         run_step("MCP Call ctx_read", step_mcp_call_ctx_read, logger, results)
+        run_step("Quality Consistency", step_quality_consistency, logger, results)
+        run_step("Quality Evaluate", step_quality_evaluate, logger, results)
 
         logger.section("Graph Link")
         try:

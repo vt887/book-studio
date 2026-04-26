@@ -41,3 +41,17 @@ class Neo4jStore:
                 relation=relation,
                 weight=weight,
             )
+
+    async def relation_types_for(self, concept_id: str) -> dict[str, set[str]]:
+        query = """
+        MATCH (a:Concept {concept_id: $concept_id})-[r:RELATES]->(b:Concept)
+        RETURN b.concept_id AS target_id, collect(distinct r.type) AS relation_types
+        """
+        result: dict[str, set[str]] = {}
+        async with self._driver.session() as session:
+            cursor = await session.run(query, concept_id=concept_id)
+            async for row in cursor:
+                target_id = str(row["target_id"])
+                relation_types = {str(x).strip().lower() for x in (row["relation_types"] or []) if x}
+                result[target_id] = relation_types
+        return result
