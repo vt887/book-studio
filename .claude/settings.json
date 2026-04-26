@@ -119,7 +119,12 @@
       {
         "matcher": "",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/session-detect-context.sh" },
+          { "type": "command", "command": ".claude/hooks/session-detect-context.sh" }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
           { "type": "command", "command": ".claude/hooks/validate-before-apply.sh" }
         ]
       }
