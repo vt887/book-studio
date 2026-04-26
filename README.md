@@ -164,7 +164,7 @@ book-studio/
 ## Requirements
 
 - [Claude](https://claude.ai) with MCP / agent support
-- Neo4j (optional — for graph visualisation)
+- Neo4j (optional — for graph visualization)
 - Obsidian (optional — for vault viewing)
 - Python 3 (optional — required only for some shell hooks under `.claude/hooks/`)
 
