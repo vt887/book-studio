@@ -9,7 +9,6 @@ from redis.asyncio import Redis
 from mcp_bridge import cache, db
 from mcp_bridge.config import settings
 from mcp_bridge.embedding import deterministic_embedding
-from mcp_bridge.graph import Neo4jStore
 from mcp_bridge.models import (
     ChunkWriteRequest,
     ChunkWriteResponse,
@@ -57,26 +56,15 @@ async def lifespan(app: FastAPI):
     redis_client = Redis.from_url(settings.redis_url, decode_responses=True)
     await _retry_async(redis_client.ping, name="redis")
 
-    graph = Neo4jStore(settings.neo4j_uri, settings.neo4j_user, settings.neo4j_password)
-
-    neo4j_online = True
-    try:
-        await _retry_async(graph.healthcheck, name="neo4j", attempts=12, base_delay=0.5)
-        await _retry_async(graph.ensure_indexes, name="neo4j-indexes", attempts=12, base_delay=0.5)
-    except Exception:
-        neo4j_online = False
 
     app.state.pg_pool = pg_pool
     app.state.redis = redis_client
-    app.state.graph = graph
-    app.state.neo4j_online = neo4j_online
 
     try:
         yield
     finally:
         await pg_pool.close()
         await redis_client.close()
-        await graph.close()
 
 
 app = FastAPI(title=settings.app_name, version=settings.app_version, lifespan=lifespan)
@@ -103,14 +91,11 @@ async def ready() -> dict[str, Any]:
         "postgres": False,
         "redis": False,
     }
-    optional_checks = {
-        "neo4j": False,
-    }
+    optional_checks = {}
 
     checks = {
         "postgres": False,
         "redis": False,
-        "neo4j": False,
     }
     try:
         checks["postgres"] = await db.healthcheck(app.state.pg_pool)
@@ -126,12 +111,6 @@ async def ready() -> dict[str, Any]:
         checks["redis"] = False
         required_checks["redis"] = False
 
-    try:
-        checks["neo4j"] = bool(app.state.neo4j_online) and await app.state.graph.healthcheck()
-        optional_checks["neo4j"] = checks["neo4j"]
-    except Exception:
-        checks["neo4j"] = False
-        optional_checks["neo4j"] = False
 
     ready_status = all(required_checks.values())
 
@@ -149,11 +128,14 @@ async def _ctx_read_logic(request: CtxReadRequest) -> CtxReadResponse:
 
     redis_available = True
     retrieval_model_version = f"{settings.embedding_model_version}:{settings.retrieval_version}"
+    # Normalize top_k early so cache lookups use the same key as later writes.
+    top_k = max(3, min(request.top_k, settings.retrieval_top_k_max))
+
     try:
         cached = await cache.get_cached_results(
             app.state.redis,
             query=request.query,
-            top_k=request.top_k,
+            top_k=top_k,
             role=request.role,
             filters=filters,
             model_version=retrieval_model_version,
@@ -172,8 +154,6 @@ async def _ctx_read_logic(request: CtxReadRequest) -> CtxReadResponse:
             cache_key=cache_key,
             latency_ms=(time.perf_counter() - start) * 1000.0,
         )
-
-    top_k = max(3, min(request.top_k, settings.retrieval_top_k_max))
 
     semantic_key = cache.make_cache_key(
         layer="l1",
@@ -254,7 +234,19 @@ async def _ctx_read_logic(request: CtxReadRequest) -> CtxReadResponse:
 
         return rows, emb_from_cache
 
-    rows, emb_from_cache = await cache.get_or_create(semantic_key, produce_rows)
+    # Use distributed coalescing across instances via Redis so identical concurrent
+    # requests do not trigger duplicate Postgres/model work.
+    try:
+        rows, coalesced = await cache.get_or_create_distributed(app.state.redis, semantic_key, produce_rows)
+        if coalesced:
+            cache.stats.coalesced_waiters += 1
+    except Exception:
+        # Fallback to local in-process coalescing if Redis is unavailable
+        rows, emb_from_cache = await cache.get_or_create(semantic_key, produce_rows)
+        coalesced = False
+        if cache.stats.coalesced_waiters:
+            # keep existing metric
+            pass
 
     if redis_available:
         try:
@@ -283,79 +275,28 @@ async def _ctx_read_logic(request: CtxReadRequest) -> CtxReadResponse:
 
 
 async def _ctx_write_logic(request: CtxWriteRequest) -> CtxWriteResponse:
-    if not request.data.concepts:
-        raise HTTPException(status_code=400, detail="data.concepts cannot be empty")
-
+    if not request.data.skills:
+        raise HTTPException(status_code=400, detail="data.skills cannot be empty")
+    # Validate and normalize
     normalized = []
-    for concept in request.data.concepts:
-        emb = concept.embedding
-        if not emb:
-            emb = deterministic_embedding(
-                f"{concept.name} {concept.definition} {concept.summary}",
-                settings.embedding_dim,
-            )
-        if len(emb) != settings.embedding_dim:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Invalid embedding dimension for concept_id={concept.concept_id}; expected {settings.embedding_dim}",
-            )
-        normalized.append(
-            {
-                "concept_id": concept.concept_id,
-                "name": concept.name,
-                "definition": concept.definition,
-                "summary": concept.summary,
-                "importance_score": concept.importance_score,
-                "source_chunks": concept.source_chunks,
-                "embedding": emb,
-                "tags": concept.tags,
-                "applicable_roles": concept.applicable_roles,
-            }
-        )
-
-    if settings.quality_gate_enabled:
-        for item in normalized:
-            q = await quality.score_concept_quality(app.state.pg_pool, item)
-            if settings.quality_gate_enforce and q["quality_score"] < settings.quality_threshold:
-                raise HTTPException(
-                    status_code=400,
-                    detail=(
-                        f"Concept quality below threshold for concept_id={item['concept_id']}; "
-                        f"quality_score={q['quality_score']:.3f}, threshold={settings.quality_threshold:.2f}"
-                    ),
-                )
-
-    inserted, updated = await db.upsert_concepts(app.state.pg_pool, request.book_id, normalized)
+    for skill in request.data.skills:
+        if not skill.name or not skill.evidence or not (0.0 <= skill.confidence <= 1.0):
+            raise HTTPException(status_code=400, detail=f"Malformed skill: {skill}")
+        normalized.append({
+            "name": skill.name,
+            "evidence": skill.evidence,
+            "confidence": skill.confidence
+        })
+    # Persist in redis only (could be adapted if PG is needed)
     await cache.set_session_memory(
         app.state.redis,
         session_id=request.book_id,
-        data={"book_id": request.book_id, "concepts_count": len(normalized)},
+        data={"book_id": request.book_id, "skills": normalized, "skills_count": len(normalized)},
         ttl_seconds=settings.session_ttl_seconds,
     )
-    return CtxWriteResponse(status="ok", inserted=inserted, updated=updated)
+    return CtxWriteResponse(status="ok", inserted=len(normalized), updated=0)
 
 
-async def _ctx_graph_link_logic(request: CtxGraphLinkRequest) -> CtxGraphLinkResponse:
-    relation = request.relation.strip().lower()
-    if not relation:
-        raise HTTPException(status_code=400, detail="relation cannot be empty")
-    if relation not in {"supports", "contrasts", "extends", "depends_on"}:
-        raise HTTPException(status_code=400, detail="invalid relation type")
-
-    await app.state.graph.link_concepts(
-        from_id=request.from_id,
-        to_id=request.to_id,
-        relation=relation,
-        weight=request.weight,
-    )
-
-    return CtxGraphLinkResponse(
-        status="ok",
-        relation=relation,
-        from_id=request.from_id,
-        to_id=request.to_id,
-        weight=request.weight,
-    )
 
 
 @app.get("/health", response_model=HealthResponse)
@@ -363,7 +304,7 @@ async def health() -> HealthResponse:
     checks = {
         "postgres": False,
         "redis": False,
-        "neo4j": False,
+
     }
 
     try:
@@ -376,10 +317,6 @@ async def health() -> HealthResponse:
     except Exception:
         checks["redis"] = False
 
-    try:
-        checks["neo4j"] = await app.state.graph.healthcheck()
-    except Exception:
-        checks["neo4j"] = False
 
     status = "ok" if all(checks.values()) else "degraded"
     return HealthResponse(status=status, checks=checks)
@@ -423,24 +360,8 @@ async def ctx_write(request: CtxWriteRequest) -> CtxWriteResponse:
     return await _ctx_write_logic(request)
 
 
-@app.post("/ctx/graph/link", response_model=CtxGraphLinkResponse)
-async def ctx_graph_link(request: CtxGraphLinkRequest) -> CtxGraphLinkResponse:
-    if not app.state.neo4j_online:
-        raise HTTPException(status_code=503, detail="neo4j not ready")
-    return await _ctx_graph_link_logic(request)
 
 
-@app.get("/quality/consistency/{concept_id}")
-async def quality_consistency(concept_id: str) -> dict[str, Any]:
-    if not app.state.neo4j_online:
-        raise HTTPException(status_code=503, detail="neo4j not ready")
-    rel = await app.state.graph.relation_types_for(concept_id)
-    score = quality.relation_consistency_score(rel)
-    return {
-        "concept_id": concept_id,
-        "consistency_score": score,
-        "targets": len(rel),
-    }
 
 
 @app.post("/quality/evaluate", response_model=QualityEvaluateResponse)

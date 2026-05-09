@@ -1,47 +1,11 @@
-# VCS
 .git
-.gitignore
-
-# Python cache/build artifacts
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.so
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# Virtual environments
-.venv/
+.agents/skills
+*.pyc
+__pycache__
 venv/
-env/
-
-# IDE/editor files
-.idea/
-.vscode/
-*.iml
-
-# macOS
-.DS_Store
-
-# Local env and secrets
 .env
-.env.*
-!.env.example
-secrets/
-
-# Logs
+.DS_Store
 *.log
-session-logs/
-production/session-logs/
-
-# Large/local data not needed in image
-obsidian-export/
-session-knowledge/
 production/
-docs/
-*.pdf
-
-# Docker and compose local overrides
-docker-compose.override.yml
+session-knowledge/
+.obsidian/

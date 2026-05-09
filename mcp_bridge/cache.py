@@ -257,6 +257,68 @@ in_flight: dict[str, asyncio.Task] = {}
 in_flight_lock = asyncio.Lock()
 
 
+async def _acquire_redis_lock(redis: Redis, lock_key: str, ttl_ms: int = 5000) -> bool:
+    # Try to acquire a short-lived lock using SET NX PX
+    try:
+        res = await redis.set(lock_key, "1", nx=True, px=ttl_ms)
+        return bool(res)
+    except Exception:
+        return False
+
+
+async def get_or_create_distributed(redis: Redis, key: str, producer, lock_ttl_ms: int = 5000) -> tuple[any, bool]:
+    """Distributed coalescing across processes using Redis.
+
+    Returns (result, coalesced) where coalesced=True if caller waited for an existing result.
+    """
+    resp_key = f"ctx:resp:{key}"
+    lock_key = f"ctx:lock:{key}"
+
+    # Fast path: try to read existing response
+    existing = await get_cache_envelope(redis, resp_key)
+    if existing is not None:
+        return existing.get("data"), True
+
+    # Try to acquire lock and become the producer
+    acquired = await _acquire_redis_lock(redis, lock_key, ttl_ms=lock_ttl_ms)
+    if acquired:
+        try:
+            result = await producer()
+            # store short-lived envelope for waiters
+            try:
+                await set_cache_envelope(
+                    redis,
+                    key=resp_key,
+                    source="producer",
+                    latency_ms=0.0,
+                    data=result,
+                    ttl=10,
+                    role="global",
+                    model="none",
+                )
+            except Exception:
+                pass
+            return result, False
+        finally:
+            try:
+                await redis.delete(lock_key)
+            except Exception:
+                pass
+    else:
+        # Wait for producer result to appear
+        waited = 0
+        interval = 0.05
+        while waited < 1.0:
+            existing = await get_cache_envelope(redis, resp_key)
+            if existing is not None:
+                return existing.get("data"), True
+            await asyncio.sleep(interval)
+            waited += interval
+        # Timeout — fallback to local producer
+        result = await producer()
+        return result, False
+
+
 @asynccontextmanager
 async def record_latency(start_perf: float):
     try:
