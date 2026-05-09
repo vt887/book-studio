@@ -1,0 +1,11 @@
+.git
+.agents/skills
+*.pyc
+__pycache__
+venv/
+.env
+.DS_Store
+*.log
+production/
+session-knowledge/
+.obsidian/

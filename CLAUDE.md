@@ -222,6 +222,39 @@ obsidian-export/
         └── _source-book.md
 ```
 
+### Book Metadata Convention (Required)
+
+For every scanned book, the pipeline MUST create and maintain:
+
+- `obsidian-export/{book_id}/METADATA/_source-book.md`
+- `obsidian-export/{book_id}/METADATA/_vault-metadata.json`
+
+Minimum required metadata fields:
+
+- `book_id`
+- `title`
+- `author` (list)
+- `publication_year`
+- `publisher`
+- `edition`
+- `isbn`
+- `pages`
+- `original_language`
+- `genres` (list)
+- `topics` (list)
+- `source_format` (`PDF`/`EPUB`/`TXT`)
+- `source_path`
+- `date_added`
+- `reading_status` (`planned`/`in_progress`/`completed`)
+- `rating` (nullable)
+- `tags` (list)
+
+Markdown file (`_source-book.md`) must include YAML frontmatter with the same fields.
+JSON file (`_vault-metadata.json`) must store a machine-readable equivalent.
+
+If some bibliographic fields are unknown at scan time, keep explicit null/empty values
+and preserve consistent keys for later completion.
+
 ## SESSION LAYOUT (Cache & Metadata)
 
 ```

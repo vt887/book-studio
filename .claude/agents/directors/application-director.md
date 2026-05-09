@@ -47,6 +47,19 @@ When `/auto-apply` is invoked without explicit role:
 - Failure reasons passed back to specialist for one retry
 - Second failure: surface BLOCKED with itemized failures
 
+After scoring, log the gate result explicitly via Bash:
+```bash
+GATE_NAME="APPLY-VALID" GATE_STATUS="PASSED_OR_FAILED" GATE_SCORE="0.00" \
+  GATE_BOOK_ID="{book_id}" bash .claude/hooks/post-gate-check.sh
+```
+
+For architect role: also log the architectural decision via Bash after each ADR:
+```bash
+DECISION_TITLE="{adr_title}" DECISION_BOOK="{book_title}" \
+  DECISION_CONCEPT="{concept_name}" DECISION_CHOICE="{chosen_option}" \
+  DECISION_RATIONALE="{one_line_rationale}" bash .claude/hooks/log-decision.sh
+```
+
 ## OUTPUT SAVE CONTRACT
 Every saved artifact must include header:
 ```markdown

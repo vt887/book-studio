@@ -65,6 +65,13 @@ AskUserQuestion {
 Run `[ROLE-MAP-VALID]` (threshold: 0.80).
 On fail: retry role-mapper-spec with specific corrections.
 
+After scoring, log the result explicitly via Bash:
+```bash
+GATE_NAME="ROLE-MAP-VALID" GATE_STATUS="PASSED_OR_FAILED" GATE_SCORE="0.00" \
+  GATE_BOOK_ID="{book_id}" bash .claude/hooks/post-gate-check.sh
+```
+Replace `PASSED_OR_FAILED` and `0.00` with actual verdict and score.
+
 ### Phase 6: Save
 Agent: `role-mapping-director`
 Save to:

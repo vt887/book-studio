@@ -14,7 +14,11 @@ LOG_FILE="$DECISIONS_DIR/$DATE-decisions.md"
 
 mkdir -p "$DECISIONS_DIR"
 
-TITLE="${DECISION_TITLE:-Unnamed Decision}"
+# Skip if no decision context is set — this hook only fires when explicitly triggered
+TITLE="${DECISION_TITLE:-}"
+if [ -z "$TITLE" ]; then
+  exit 0
+fi
 CONTEXT="${DECISION_CONTEXT:-}"
 CHOICE="${DECISION_CHOICE:-}"
 RATIONALE="${DECISION_RATIONALE:-}"

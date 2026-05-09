@@ -56,7 +56,9 @@ For each concept in `unified-knowledge.json.concepts`:
 - Do not invent concepts not present in unified-knowledge.json
 - concept_id in output must match concept.id from input exactly
 
-## OUTPUT FILE: role-map.json
+## OUTPUT FILES
+
+### role-map.json — lean machine index (~5-10KB, used by downstream directors)
 ```json
 {
   "book_id": "string",
@@ -82,13 +84,17 @@ For each concept in `unified-knowledge.json.concepts`:
       "concept_name": "string",
       "applicable_roles": ["developer"],
       "primary_role": "developer",
-      "justification": "string",
-      "application_ideas": [
-        "Використай {{concept}} щоб {{дія}} у {{контексті}}"
-      ],
       "complexity": "simple|medium|complex",
       "prerequisites": ["string"]
     }
   ]
 }
+```
+**Do NOT include `justification` or `application_ideas` in role-map.json** — these go in the markdown only.
+
+### role-map.md — human-readable full detail (used by users and Obsidian)
+Include per-role sections with:
+- Concept table with complexity and quick wins
+- `justification` for each concept
+- `application_ideas` (2–3 per concept) in the format: "Використай X щоб Y у Z"
 ```

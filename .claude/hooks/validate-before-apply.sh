@@ -14,9 +14,10 @@ ERRORS=0
 
 echo "[validate-before-apply] Checking prerequisites (Obsidian-first)..."
 
-# Check 1: book_id provided (only validate if we're actually applying something)
-if [ -z "$BOOK_ID" ]; then
-  echo "[validate-before-apply] Skipping validation (APPLY_BOOK_ID not set - not applying)"
+# Check 1: both APPLY_BOOK_ID and APPLY_ROLE must be set — a real apply always sets both.
+# Guarding on both prevents a stale APPLY_BOOK_ID in the shell env from causing false failures.
+if [ -z "$BOOK_ID" ] || [ -z "$ROLE" ]; then
+  echo "[validate-before-apply] Skipping validation (APPLY_BOOK_ID/APPLY_ROLE not set - not applying)"
   exit 0
 else
   # Check 2: unified-knowledge.json exists in session cache
